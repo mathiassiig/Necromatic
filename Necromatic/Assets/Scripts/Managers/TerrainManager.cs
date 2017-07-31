@@ -2,36 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerrainManager : MonoBehaviour
+namespace Necromatic.Managers
 {
-    [SerializeField] private Transform _groundRoot;
-    [SerializeField] private ObjectPool _groundTilePool;
-
-    private const int _chunkSizeX = 8;
-    private const int _chunkSizeZ = 8;
-    public void Awake()
+    [System.Serializable]
+    public class TerrainColors
     {
-        var chunk = GenerateChunk();
-        chunk.transform.SetParent(_groundRoot);
+        [Header("Tile Colors")]
+        public Color GrassColor;
+        public Color StoneColor;
+        public Color DirtColor;
+        public Color SandColor;
     }
 
-    public GameObject GenerateChunk()
+    public class TerrainManager : MonoBehaviour
     {
-        var chunk = new GameObject();
-        for (int x = 0; x < _chunkSizeX; x++)
+        [SerializeField] private Transform _groundRoot;
+        [SerializeField] private ObjectPool _groundTilePool;
+
+        private const int _chunkSizeX = 8;
+        private const int _chunkSizeZ = 8;
+
+        public TerrainColors Colors;
+
+
+        public void Awake()
         {
-            for (int z = 0; z < _chunkSizeZ; z++)
-            {
-                InitGround(x, z, chunk.transform);
-            }
+            var chunk = GenerateChunk();
+            chunk.transform.SetParent(_groundRoot);
         }
-        return chunk;
-    }
 
-    private void InitGround(float x, float z, Transform parent)
-    {
-        var ground = _groundTilePool.PoolObject();
-        ground.transform.SetParent(parent);
-        ground.transform.position = new Vector3(x, 0, z);
+        public GameObject GenerateChunk()
+        {
+            var chunk = new GameObject();
+            for (int x = 0; x < _chunkSizeX; x++)
+            {
+                for (int z = 0; z < _chunkSizeZ; z++)
+                {
+                    InitGround(x, z, chunk.transform);
+                }
+            }
+            return chunk;
+        }
+
+        private void InitGround(float x, float z, Transform parent)
+        {
+            var ground = _groundTilePool.PoolObject().GetComponent<Tile>();
+            ground.transform.SetParent(parent);
+            ground.transform.position = new Vector3(x, 0, z);
+            ground.Init(Colors.GrassColor);
+        }
     }
 }
