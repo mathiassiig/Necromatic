@@ -1,53 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
-public class ObjectPool : MonoBehaviour
+namespace Necromatic.Utility
 {
-    [SerializeField] private GameObject _prefab;
-    [Tooltip("Where to put the pooled objects. If this isn't set, the objects will be directly under this gameobject")]
-    [SerializeField] private Transform _activeCellContainer;
-    [SerializeField] private int _initialActiveCellsSize;
-    [SerializeField] private int _recycledCellsSize; // size of disabled objects
-
-    private Transform _recycledObjectRoot;
-    private Queue<GameObject> _recycledObjects = new Queue<GameObject>();
-    
-    void Awake()
+    public class ObjectPool : MonoBehaviour
     {
-        InitRecycleTransform();
-    }
+        [SerializeField]
+        private GameObject _prefab;
+        [Tooltip("Where to put the pooled objects. If this isn't set, the objects will be directly under this gameobject")]
+        [SerializeField]
+        private Transform _activeCellContainer;
+        [SerializeField]
+        private int _initialActiveCellsSize;
+        [SerializeField]
+        private int _recycledCellsSize; // size of disabled objects
 
-    void InitRecycleTransform()
-    {
-        var recycler = new GameObject();
-        recycler.transform.SetParent(transform);
-        _recycledObjectRoot = recycler.transform;
-    }
+        private Transform _recycledObjectRoot;
+        private Queue<GameObject> _recycledObjects = new Queue<GameObject>();
 
-    public void CacheObject(GameObject obj)
-    {
-        if (_recycledObjects.Count < _recycledCellsSize)
+        void Awake()
         {
-            _recycledObjects.Enqueue(obj);
-            obj.transform.SetParent(_recycledObjectRoot);
-            obj.SetActive(false);
+            InitRecycleTransform();
         }
-        else
-        {
-            Destroy(obj);
-        }
-    }
 
-    public GameObject PoolObject()
-    {
-        if(_recycledObjects.Count > 0)
+        void InitRecycleTransform()
         {
-            return _recycledObjects.Dequeue();
+            var recycler = new GameObject();
+            recycler.transform.SetParent(transform);
+            _recycledObjectRoot = recycler.transform;
         }
-        else
+
+        public void CacheObject(GameObject obj)
         {
-            return Instantiate(_prefab, _activeCellContainer ?? transform);
+            if (_recycledObjects.Count < _recycledCellsSize)
+            {
+                _recycledObjects.Enqueue(obj);
+                obj.transform.SetParent(_recycledObjectRoot);
+                obj.SetActive(false);
+            }
+            else
+            {
+                Destroy(obj);
+            }
+        }
+
+        public GameObject PoolObject()
+        {
+            if (_recycledObjects.Count > 0)
+            {
+                return _recycledObjects.Dequeue();
+            }
+            else
+            {
+                return Instantiate(_prefab, _activeCellContainer ?? transform);
+            }
         }
     }
 }
