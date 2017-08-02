@@ -22,13 +22,10 @@ namespace Necromatic.Character
         float m_MoveSpeedMultiplier = 1f;
         [SerializeField]
         float m_AnimSpeedMultiplier = 1f;
-        [SerializeField]
-        float m_GroundCheckDistance = 0.1f;
 
         Rigidbody m_Rigidbody;
         Animator m_Animator;
         bool m_IsGrounded;
-        float m_OrigGroundCheckDistance;
         const float k_Half = 0.5f;
         float m_TurnAmount;
         float m_ForwardAmount;
@@ -48,7 +45,6 @@ namespace Necromatic.Character
             m_CapsuleCenter = m_Capsule.center;
 
             m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-            m_OrigGroundCheckDistance = m_GroundCheckDistance;
         }
 
 
@@ -60,10 +56,10 @@ namespace Necromatic.Character
             // direction.
             if (move.magnitude > 1f) move.Normalize();
             move = transform.InverseTransformDirection(move);
-            CheckGroundStatus();
             move = Vector3.ProjectOnPlane(move, m_GroundNormal);
             m_TurnAmount = Mathf.Atan2(move.x, move.z);
             m_ForwardAmount = move.z;
+            Debug.Log(m_TurnAmount);
 
             ApplyExtraTurnRotation();
             // send input and other state parameters to the animator
@@ -76,21 +72,18 @@ namespace Necromatic.Character
             // update the animator parameters
             m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
             m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
-            m_Animator.SetBool("OnGround", m_IsGrounded);
+            m_Animator.SetBool("OnGround", true);
 
             // calculate which leg is behind, so as to leave that leg trailing in the jump animation
             // (This code is reliant on the specific run cycle offset in our animations,
             // and assumes one leg passes the other at the normalized clip times of 0.0 and 0.5)
-            float runCycle =Mathf.Repeat(m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
+            float runCycle = Mathf.Repeat(m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
             float jumpLeg = (runCycle < k_Half ? 1 : -1) * m_ForwardAmount;
-            if (m_IsGrounded)
-            {
-                m_Animator.SetFloat("JumpLeg", jumpLeg);
-            }
+            m_Animator.SetFloat("JumpLeg", jumpLeg);
 
             // the anim speed multiplier allows the overall speed of walking/running to be tweaked in the inspector,
             // which affects the movement speed because of the root motion.
-            if (m_IsGrounded && move.magnitude > 0)
+            if (move.magnitude > 0)
             {
                 m_Animator.speed = m_AnimSpeedMultiplier;
             }
@@ -113,36 +106,13 @@ namespace Necromatic.Character
         {
             // we implement this function to override the default root motion.
             // this allows us to modify the positional speed before it's applied.
-            if (m_IsGrounded && Time.deltaTime > 0)
+            if (Time.deltaTime > 0)
             {
                 Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
 
                 // we preserve the existing y part of the current velocity.
                 v.y = m_Rigidbody.velocity.y;
                 m_Rigidbody.velocity = v;
-            }
-        }
-
-
-        void CheckGroundStatus()
-        {
-            RaycastHit hitInfo;
-            // helper to visualise the ground check ray in the scene view
-            // Debug.DrawLine(transform.position + (Vector3.up * 0.1f), transform.position + (Vector3.up * 0.1f) + (Vector3.down * m_GroundCheckDistance));
-
-            // 0.1f is a small offset to start the ray from inside the character
-            // it is also good to note that the transform position in the sample assets is at the base of the character
-            if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, m_GroundCheckDistance))
-            {
-                m_GroundNormal = hitInfo.normal;
-                m_IsGrounded = true;
-                m_Animator.applyRootMotion = true;
-            }
-            else
-            {
-                m_IsGrounded = false;
-                m_GroundNormal = Vector3.up;
-                m_Animator.applyRootMotion = false;
             }
         }
     }
