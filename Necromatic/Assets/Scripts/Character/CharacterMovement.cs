@@ -7,15 +7,7 @@ namespace Necromatic.Character
     [RequireComponent(typeof(Animator))]
     public class CharacterMovement : MonoBehaviour
     {
-        [SerializeField]
-        float m_MovingTurnSpeed = 360;
-        [SerializeField]
-        float m_StationaryTurnSpeed = 180;
-        [SerializeField]
-        float m_JumpPower = 12f;
-        [Range(1f, 4f)]
-        [SerializeField]
-        float m_GravityMultiplier = 2f;
+
         [SerializeField]
         float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
         [SerializeField]
@@ -25,7 +17,6 @@ namespace Necromatic.Character
 
         Rigidbody m_Rigidbody;
         Animator m_Animator;
-        bool m_IsGrounded;
         const float k_Half = 0.5f;
         float m_TurnAmount;
         float m_ForwardAmount;
@@ -33,7 +24,6 @@ namespace Necromatic.Character
         float m_CapsuleHeight;
         Vector3 m_CapsuleCenter;
         CapsuleCollider m_Capsule;
-        bool m_Crouching;
 
 
         void Start()
@@ -54,14 +44,18 @@ namespace Necromatic.Character
             // convert the world relative moveInput vector into a local-relative
             // turn amount and forward amount required to head in the desired
             // direction.
+            var rawMove = move.normalized;
             if (move.magnitude > 1f) move.Normalize();
             move = transform.InverseTransformDirection(move);
             move = Vector3.ProjectOnPlane(move, m_GroundNormal);
+            
             m_TurnAmount = Mathf.Atan2(move.x, move.z);
             m_ForwardAmount = move.z;
-            Debug.Log(m_TurnAmount);
+            transform.rotation = Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0);
+            
+            //Debug.Log(move);
 
-            ApplyExtraTurnRotation();
+            //ApplyExtraTurnRotation();
             // send input and other state parameters to the animator
             UpdateAnimator(move);
         }
@@ -92,13 +86,6 @@ namespace Necromatic.Character
                 // don't use that while airborne
                 m_Animator.speed = 1;
             }
-        }
-
-        void ApplyExtraTurnRotation()
-        {
-            // help the character turn faster (this is in addition to root rotation in the animation)
-            float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
-            transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
         }
 
 
