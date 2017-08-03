@@ -1,20 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
+[System.Serializable]
 public class Stat
 {
-    public float Max;
-    public float Current;
-    public float Regen; // per second
+    public ReactiveProperty<float> Max = new ReactiveProperty<float>();
+    public ReactiveProperty<float> Current = new ReactiveProperty<float>();
 
-    public void SetToMax()
+    [SerializeField] private float _initial;
+
+
+
+    public void Init()
     {
-        Current = Max;
+        Max.Value = _initial;
+        Current.Value = _initial;
     }
 
     public void Add(float value)
     {
-        Current += value;
+        Current.Value += value;
     }
 }
