@@ -2,25 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-
-[System.Serializable]
-public class Stat
+namespace Necromatic.Character
 {
-    public ReactiveProperty<float> Max = new ReactiveProperty<float>();
-    public ReactiveProperty<float> Current = new ReactiveProperty<float>();
-
-    [SerializeField] private float _initial;
-
-
-
-    public void Init()
+    [System.Serializable]
+    public class Stat
     {
-        Max.Value = _initial;
-        Current.Value = _initial;
-    }
+        public ReactiveProperty<float> Max = new ReactiveProperty<float>();
+        public ReactiveProperty<float> Current = new ReactiveProperty<float>();
 
-    public void Add(float value)
-    {
-        Current.Value += value;
+        [SerializeField]
+        private float _initial;
+
+
+
+        public void Init()
+        {
+            Max.Value = _initial;
+            Current.Value = _initial;
+        }
+
+        public void Add(float value)
+        {
+            Current.Value += value;
+        }
     }
 }

@@ -10,7 +10,12 @@ namespace Necromatic.Character
 
         public ReactiveProperty<bool> IsDead = new ReactiveProperty<bool>();
 
-        private void Awake()
+        void Awake()
+        {
+            Init();
+        }
+
+        protected virtual void Init()
         {
             Health.Init();
             IsDead.Subscribe(x =>
@@ -21,11 +26,6 @@ namespace Necromatic.Character
             {
                 if (x <= 0) IsDead.Value = true;
             });
-        }
-
-        void Update()
-        {
-
         }
 
         protected virtual void HandleDeath()
