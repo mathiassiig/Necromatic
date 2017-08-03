@@ -25,7 +25,6 @@ namespace Necromatic.Character
         Vector3 m_CapsuleCenter;
         CapsuleCollider m_Capsule;
 
-
         void Start()
         {
             m_Animator = GetComponent<Animator>();
@@ -37,29 +36,29 @@ namespace Necromatic.Character
             m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         }
 
-
         public void Move(Vector3 move)
         {
 
             // convert the world relative moveInput vector into a local-relative
             // turn amount and forward amount required to head in the desired
             // direction.
-            var rawMove = move.normalized;
-            if (move.magnitude > 1f) move.Normalize();
+            var rawMove = move;
+            move.Normalize();
             move = transform.InverseTransformDirection(move);
             move = Vector3.ProjectOnPlane(move, m_GroundNormal);
-            
+
             m_TurnAmount = Mathf.Atan2(move.x, move.z);
             m_ForwardAmount = move.z;
-            transform.rotation = Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0);
-            
+            if (rawMove != Vector3.zero)
+            {
+                transform.rotation = Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0);
+            }
             //Debug.Log(move);
 
             //ApplyExtraTurnRotation();
             // send input and other state parameters to the animator
             UpdateAnimator(move);
         }
-
 
         void UpdateAnimator(Vector3 move)
         {
@@ -87,7 +86,6 @@ namespace Necromatic.Character
                 m_Animator.speed = 1;
             }
         }
-
 
         public void OnAnimatorMove()
         {
