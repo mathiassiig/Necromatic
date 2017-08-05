@@ -13,7 +13,7 @@ Also I'm going to try doing this in 3D because I will have an easier time implem
 
 I'll be updating the game with the goal of building a MVP version ASAP.
 
-### Iteration 1
+### Iteration 1 - DONE
 
 Moveable Necromancer. Killable humans.
 
