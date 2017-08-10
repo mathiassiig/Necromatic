@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Necromatic.Character
+namespace Necromatic.Character.Combat
 {
     public class CharacterCombatInput : MonoBehaviour
     {
