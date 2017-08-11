@@ -11,8 +11,8 @@ namespace Necromatic.Character
         [SerializeField] private Animator m_Animator;
         [SerializeField] private Rigidbody m_Rigidbody;
         [SerializeField] private CapsuleCollider m_Capsule;
+        [SerializeField] private float m_TurnSpeed = 10f;
         private const float k_Half = 0.5f;
-        private float m_TurnAmount;
         private float m_ForwardAmount;
         private Vector3 m_GroundNormal;
         private float m_CapsuleHeight;
@@ -28,25 +28,15 @@ namespace Necromatic.Character
 
         public void Move(Vector3 move)
         {
-
-            // convert the world relative moveInput vector into a local-relative
-            // turn amount and forward amount required to head in the desired
-            // direction.
             var rawMove = move;
             move.Normalize();
             move = transform.InverseTransformDirection(move);
             move = Vector3.ProjectOnPlane(move, m_GroundNormal);
-
-            m_TurnAmount = Mathf.Atan2(move.x, move.z);
             m_ForwardAmount = move.z;
             if (rawMove != Vector3.zero)
             {
-                transform.rotation = Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0), m_TurnSpeed * Time.deltaTime);
             }
-            //Debug.Log(move);
-
-            //ApplyExtraTurnRotation();
-            // send input and other state parameters to the animator
             UpdateAnimator(move);
         }
 
