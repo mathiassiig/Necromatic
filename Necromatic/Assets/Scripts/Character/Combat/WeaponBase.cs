@@ -16,7 +16,7 @@ namespace Necromatic.Character.Combat
         private Character _owner;
 
         [SerializeField] private float _range;
-        [SerializeField] private float _cooldown;
+        [SerializeField] private float _cooldown; // cooldown same as attack time?
         [SerializeField] private float _damage;
         [SerializeField] private ProjectileBase _projectile; // if null, melee
         [SerializeField] private Vector3 _projectileSpawnOffset;

@@ -1,3 +1,4 @@
+using Necromatic.Character.Combat;
 using UnityEngine;
 
 namespace Necromatic.Character
@@ -5,13 +6,22 @@ namespace Necromatic.Character
     public class CharacterMovement : MonoBehaviour
     {
 
-        [SerializeField] private float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
-        [SerializeField] private float m_MoveSpeedMultiplier = 1f;
-        [SerializeField] private float m_AnimSpeedMultiplier = 1f;
-        [SerializeField] private Animator m_Animator;
-        [SerializeField] private Rigidbody m_Rigidbody;
-        [SerializeField] private CapsuleCollider m_Capsule;
-        [SerializeField] private float m_TurnSpeed = 10f;
+        [SerializeField]
+        private float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
+        [SerializeField]
+        private float m_MoveSpeedMultiplier = 1f;
+        [SerializeField]
+        private float m_AnimSpeedMultiplier = 1f;
+        [SerializeField]
+        private Animator m_Animator;
+        [SerializeField]
+        private Rigidbody m_Rigidbody;
+        [SerializeField]
+        private CapsuleCollider m_Capsule;
+        [SerializeField]
+        private float m_TurnSpeed = 10f;
+        [SerializeField]
+        private CharacterCombat _combat;
         private const float k_Half = 0.5f;
         private float m_ForwardAmount;
         private Vector3 m_GroundNormal;
@@ -42,6 +52,12 @@ namespace Necromatic.Character
 
         private void UpdateAnimator(Vector3 move)
         {
+            if (_combat && _combat.Attacking)
+            {
+                m_Rigidbody.velocity = Vector3.zero;
+                m_Animator.SetFloat("Forward", 0);
+                return;
+            }
             m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
 
             float runCycle = Mathf.Repeat(m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
