@@ -4,28 +4,27 @@ namespace Necromatic.Character
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(CapsuleCollider))]
-    [RequireComponent(typeof(Animator))]
     public class CharacterMovement : MonoBehaviour
     {
 
         [SerializeField]
-        float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
+        private float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
         [SerializeField]
-        float m_MoveSpeedMultiplier = 1f;
+        private float m_MoveSpeedMultiplier = 1f;
         [SerializeField]
-        float m_AnimSpeedMultiplier = 1f;
+        private float m_AnimSpeedMultiplier = 1f;
 
-        Rigidbody m_Rigidbody;
-        Animator m_Animator;
-        const float k_Half = 0.5f;
-        float m_TurnAmount;
-        float m_ForwardAmount;
-        Vector3 m_GroundNormal;
-        float m_CapsuleHeight;
-        Vector3 m_CapsuleCenter;
-        CapsuleCollider m_Capsule;
+        private Rigidbody m_Rigidbody;
+        private Animator m_Animator;
+        private const float k_Half = 0.5f;
+        private float m_TurnAmount;
+        private float m_ForwardAmount;
+        private Vector3 m_GroundNormal;
+        private float m_CapsuleHeight;
+        private Vector3 m_CapsuleCenter;
+        private CapsuleCollider m_Capsule;
 
-        void Start()
+        private void Start()
         {
             m_Animator = GetComponent<Animator>();
             m_Rigidbody = GetComponent<Rigidbody>();
@@ -58,7 +57,7 @@ namespace Necromatic.Character
             UpdateAnimator(move);
         }
 
-        void UpdateAnimator(Vector3 move)
+        private void UpdateAnimator(Vector3 move)
         {
             // update the animator parameters
             m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
@@ -85,7 +84,7 @@ namespace Necromatic.Character
             }
         }
 
-        public void OnAnimatorMove()
+        private public void OnAnimatorMove()
         {
             // we implement this function to override the default root motion.
             // this allows us to modify the positional speed before it's applied.
