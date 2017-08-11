@@ -26,8 +26,10 @@ namespace Necromatic.UI
         {
             float t = Mathf.Clamp(current / max, 0, 1);
             float width = Mathf.Lerp(0, _barWidth, t);
-            Color c = Color.Lerp(_colorMin, _colorMax, t);
-            _foreground.color = c;
+            var colorMax = ColorConverter.ConvertColor(_colorMax);
+            var colorMin = ColorConverter.ConvertColor(_colorMin);
+            float hLerped = Mathf.Lerp(colorMin.H, colorMax.H, t);
+            _foreground.color = ColorConverter.ConvertRGBHSL(new RGBHSL(hLerped, colorMax.S, colorMax.L));
             _foreground.size = new Vector2(width, _foreground.size.y);
 
         }
