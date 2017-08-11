@@ -1,20 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
-
+using System;
 namespace Necromatic.Character.Combat
 {
     public class CharacterCombatInput : MonoBehaviour
     {
         [SerializeField] private CharacterCombat _combatModule;
 
-        public Character TEST_CHARACTER_TO_ATTACK;
+        public bool CanTryAttack = true;
 
         void Update()
         {
-            if(Input.GetMouseButton(0))
+            if(Input.GetMouseButton(0) && CanTryAttack)
             {
-                _combatModule.TryAttack(TEST_CHARACTER_TO_ATTACK);
+                _combatModule.TryAttack();
+                CanTryAttack = false;
+                Observable.Timer(TimeSpan.FromSeconds(0.1f)).First().Subscribe(_ => CanTryAttack = true);
             }
         }
     }

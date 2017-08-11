@@ -14,11 +14,12 @@ namespace Necromatic.Character.Combat
         // public float Damage { get { return _damage; } }
         public readonly ReactiveProperty<bool> CanAttack = new ReactiveProperty<bool>();
         private Character _owner;
+        public bool IsMelee { get { return _projectile == null; } }
 
         [SerializeField] private float _range;
         [SerializeField] private float _cooldown; // cooldown same as attack time?
         [SerializeField] private float _damage;
-        [SerializeField] private ProjectileBase _projectile; // if null, melee
+        [SerializeField] private ProjectileBase _projectile; 
         [SerializeField] private Vector3 _projectileSpawnOffset;
         void Awake()
         {
@@ -31,7 +32,14 @@ namespace Necromatic.Character.Combat
             if (CanAttack.Value)
             {
                 CanAttack.Value = false;
-                ThrowProjectile(c);
+                if (_projectile != null)
+                {
+                    ThrowProjectile(c);
+                }
+                else
+                {
+                    c.Health.Add(-_damage);
+                }
                 Observable.Timer(TimeSpan.FromSeconds(_cooldown)).First().Subscribe(_ => CanAttack.Value = true);
             }
         }
