@@ -2,8 +2,6 @@ using UnityEngine;
 
 namespace Necromatic.Character
 {
-    [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(CapsuleCollider))]
     public class CharacterMovement : MonoBehaviour
     {
 
@@ -11,14 +9,14 @@ namespace Necromatic.Character
         [SerializeField] private float m_MoveSpeedMultiplier = 1f;
         [SerializeField] private float m_AnimSpeedMultiplier = 1f;
         [SerializeField] private Animator m_Animator;
-        private Rigidbody m_Rigidbody;
+        [SerializeField] private Rigidbody m_Rigidbody;
+        [SerializeField] private CapsuleCollider m_Capsule;
         private const float k_Half = 0.5f;
         private float m_TurnAmount;
         private float m_ForwardAmount;
         private Vector3 m_GroundNormal;
         private float m_CapsuleHeight;
         private Vector3 m_CapsuleCenter;
-        private CapsuleCollider m_Capsule;
 
         private void Start()
         {
@@ -66,20 +64,9 @@ namespace Necromatic.Character
             {
                 m_Animator.speed = 1;
             }
+            var velocity = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * move;
+            m_Rigidbody.velocity = m_MoveSpeedMultiplier * velocity / Time.deltaTime;
         }
 
-        public void OnAnimatorMove()
-        {
-            // we implement this function to override the default root motion.
-            // this allows us to modify the positional speed before it's applied.
-            if (Time.deltaTime > 0)
-            {
-                Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
-
-                // we preserve the existing y part of the current velocity.
-                v.y = m_Rigidbody.velocity.y;
-                m_Rigidbody.velocity = v;
-            }
-        }
     }
 }
