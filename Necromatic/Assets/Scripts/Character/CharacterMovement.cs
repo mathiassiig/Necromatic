@@ -50,12 +50,25 @@ namespace Necromatic.Character
             UpdateAnimator(move);
         }
 
+
+        private void TurnTowards(Transform t)
+        {
+            var currentRotation = transform.rotation;
+            transform.LookAt(t);
+            var newRotation = transform.rotation;
+            transform.rotation = Quaternion.Lerp(currentRotation, newRotation, m_TurnSpeed * Time.deltaTime);
+        }
+
         private void UpdateAnimator(Vector3 move)
         {
             if (_combat && _combat.Attacking)
             {
                 m_Rigidbody.velocity = Vector3.zero;
                 m_Animator.SetFloat("Forward", 0);
+                if (_combat.CurrentTarget != null)
+                {
+                    TurnTowards(_combat.CurrentTarget.gameObject.transform);
+                }
                 return;
             }
             m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);

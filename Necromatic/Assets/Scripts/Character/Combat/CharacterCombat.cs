@@ -17,6 +17,7 @@ namespace Necromatic.Character.Combat
         [SerializeField] private WeaponBase _weapon;
         [SerializeField] private float _timeBeforeHit = 0.4f;
         [SerializeField] private Animator _animator;
+        public Character CurrentTarget { get; private set; }
         public Faction _characterFaction;
         public bool Attacking { get; private set; }
 
@@ -52,14 +53,15 @@ namespace Necromatic.Character.Combat
 
         public void TryAttack()
         {
-            if(_weapon.CanAttack.Value)
+            if (_weapon.CanAttack.Value)
             {
                 Character enemy = GetEnemy();
                 if (enemy != null)
                 {
                     _animator.SetBool("Attack", true);
                     Attacking = true;
-                    if(_weapon.IsMelee)
+                    CurrentTarget = enemy;
+                    if (_weapon.IsMelee)
                     {
                         Observable.Timer(TimeSpan.FromSeconds(_timeBeforeHit)).First().Subscribe(_ =>
                         {
@@ -73,6 +75,7 @@ namespace Necromatic.Character.Combat
                     Observable.Timer(TimeSpan.FromSeconds(_weapon.Cooldown)).First().Subscribe(_ =>
                     {
                         Attacking = false;
+                        CurrentTarget = null;
                         _animator.SetBool("Attack", false);
                     });
                 }
