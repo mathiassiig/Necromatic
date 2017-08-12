@@ -10,40 +10,26 @@ namespace Necromatic
         NPCHumanInfantry
     }
 
-    public enum CorpseType
-    {
-        CorpseHumanInfantry
-    }
-
     public class MasterPoolManager : Singleton<MasterPoolManager>
     {
         protected MasterPoolManager() { }
 
         private const string _prefabLocation = "Prefabs/";
 
-        public Dictionary<CorpseType, string> Corpses = new Dictionary<CorpseType, string>
+        public Dictionary<CharacterType, string> Corpses = new Dictionary<CharacterType, string>
         {
-            { CorpseType.CorpseHumanInfantry,   $"{_prefabLocation}/Corpses/Human/Corpse_Human_Infantry" }
+            { CharacterType.NPCHumanInfantry,   $"{_prefabLocation}Corpses/Human/Corpse_Human_Infantry" }
         };
 
         public Dictionary<CharacterType, string> Characters = new Dictionary<CharacterType, string>
         {
-            { CharacterType.NPCHumanInfantry,   $"{_prefabLocation}/Characters/Human/NPC_Human_Infantry" },
-            { CharacterType.NPCUndeadInfantry,  $"{_prefabLocation}/Characters/Undead/NPC_Undead_Infantry" }
+            { CharacterType.NPCHumanInfantry,   $"{_prefabLocation}Characters/Human/NPC_Human_Infantry" },
+            { CharacterType.NPCUndeadInfantry,  $"{_prefabLocation}Characters/Undead/NPC_Undead_Infantry" }
         };
 
         // todo: pooling
 
-        public GameObject GetCorpse(CorpseType c)
-        {
-            return null;
-        }
-
-        public GameObject GetCharacter(CharacterType c)
-        {
-            var location = Characters[c];
-            var prefab = Resources.Load(location);
-            return Instantiate(prefab) as GameObject;
-        }
+        public GameObject GetCorpse(CharacterType c)    =>      Instantiate(Resources.Load(Corpses[c]))     as GameObject;
+        public GameObject GetCharacter(CharacterType c) =>      Instantiate(Resources.Load(Characters[c]))  as GameObject;
     }
 }

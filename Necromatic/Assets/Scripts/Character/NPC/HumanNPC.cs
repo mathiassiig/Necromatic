@@ -7,6 +7,8 @@ namespace Necromatic.Character.NPC
     {
         protected override void HandleDeath()
         {
+            var corpse = MasterPoolManager.Instance.GetCorpse(CharacterType.NPCHumanInfantry);
+            corpse.transform.position = transform.position;
             base.HandleDeath();
         }
     }
