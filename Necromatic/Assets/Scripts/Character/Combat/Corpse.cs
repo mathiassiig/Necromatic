@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System;
-namespace Necromatic.Character.Combat
+namespace Necromatic.Char.Combat
 {
     public class Corpse : MonoBehaviour
     {
@@ -41,7 +41,7 @@ namespace Necromatic.Character.Combat
             var undeadType = UndeathConverter.LivingToDead[_originalCharacter.Type];
             var undeadInstance = MasterPoolManager.Instance.GetCharacter(undeadType);
             undeadInstance.transform.rotation = _originalCharacter.transform.rotation;
-            undeadInstance.gameObject.transform.position = transform.position;
+            undeadInstance.gameObject.transform.position = _gibber.transform.position;
             Destroy(_originalCharacter.gameObject); // todo: pooling
             Destroy(_animator.gameObject);
             Observable.Timer(TimeSpan.FromSeconds(_autoDeleteTime)).First().Subscribe(_ =>

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Necromatic.Character;
+using Necromatic.Char;
 public class ProjectileBase : MonoBehaviour
 {
     [SerializeField] private float _velocity = 1f; // unity metres per second

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-namespace Necromatic.Character
+namespace Necromatic.Char.User
 {
     public class CharacterMovementInput : MonoBehaviour
     {

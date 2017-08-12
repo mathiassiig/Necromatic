@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using Necromatic.UI;
-using Necromatic.Character.Combat;
-namespace Necromatic.Character
+using Necromatic.Char.Combat;
+namespace Necromatic.Char
 {
     public class Character : MonoBehaviour
     {

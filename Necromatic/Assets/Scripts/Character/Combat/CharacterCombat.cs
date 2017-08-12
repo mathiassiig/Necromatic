@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UniRx;
 using System;
-namespace Necromatic.Character.Combat
+namespace Necromatic.Char.Combat
 {
     public enum Faction
     {
@@ -77,7 +77,10 @@ namespace Necromatic.Character.Combat
                 {
                     Attacking = false;
                     CurrentTarget = null;
-                    _animator.SetBool("Attack", false);
+                    if (gameObject.activeInHierarchy)
+                    {
+                        _animator.SetBool("Attack", false);
+                    }
                 });
             }
         }

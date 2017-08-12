@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Necromatic.Character;
+using Necromatic.Char;
 using UniRx;
 using System;
 
-namespace Necromatic.Character.Combat
+namespace Necromatic.Char.Combat
 {
     public class WeaponBase : MonoBehaviour
     {

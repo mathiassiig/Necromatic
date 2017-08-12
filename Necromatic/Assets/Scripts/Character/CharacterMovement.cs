@@ -1,7 +1,7 @@
-using Necromatic.Character.Combat;
+using Necromatic.Char.Combat;
 using UnityEngine;
 
-namespace Necromatic.Character
+namespace Necromatic.Char
 {
     public class CharacterMovement : MonoBehaviour
     {
@@ -72,11 +72,9 @@ namespace Necromatic.Character
                 }
                 return;
             }
-
             if (rawMove != Vector3.zero)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation,
-                    Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0),
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0),
                     m_TurnSpeed * Time.deltaTime);
             }
             m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);

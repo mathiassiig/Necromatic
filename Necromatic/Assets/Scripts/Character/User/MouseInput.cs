@@ -1,19 +1,29 @@
-﻿using Necromatic.Character.Combat;
+﻿using Necromatic.Char.Combat;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-namespace Necromatic
+using Necromatic.Managers;
+namespace Necromatic.Char.User
 {
     public class MouseInput : MonoBehaviour
     {
         [SerializeField] private CharacterCombat _combatModule;
         [SerializeField] private SquareSelect _selector;
 
+        private MicroManager _microManager = new MicroManager();
+
         private bool _canTryAttack = true;
 
-        // Update is called once per frame
+        void Awake()
+        {
+            _selector.SelectedUnits.Subscribe(x =>
+            {
+                _microManager.UpdatedSelectedUnits(x);
+            });
+        }
+
         void Update()
         {
             CheckLeftClick();
@@ -54,6 +64,11 @@ namespace Necromatic
         private void HandleRaycastResult(RaycastHit hit)
         {
             var go = hit.collider.gameObject;
+            if(_microManager.SelectedUnits != null && _microManager.SelectedUnits.Count > 0)
+            {
+                _microManager.HandleUserHit(hit);
+                return;
+            }
             switch (hit.collider.tag)
             {
                 case "Untagged": // if there is nothing, the user probably wants to attack the nearest enemy...?
@@ -73,7 +88,7 @@ namespace Necromatic
                 //    }
                 //    break;
                 case "Corpse":
-                    var corpse = go.GetComponent<Necromatic.Character.Combat.Corpse>();
+                    var corpse = go.GetComponent<Necromatic.Char.Combat.Corpse>();
                     corpse.Resurrect();
                     break;
             }

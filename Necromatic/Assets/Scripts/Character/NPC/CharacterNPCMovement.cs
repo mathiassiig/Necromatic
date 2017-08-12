@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Necromatic.Character;
-namespace Necromatic.Character.NPC
+using Necromatic.Char;
+namespace Necromatic.Char.NPC
 {
     public class CharacterNPCMovement : MonoBehaviour
     {
@@ -12,9 +12,9 @@ namespace Necromatic.Character.NPC
             _movement = movement;
         }
 
-        public void NavigateTo(Transform t)
+        public void NavigateTo(Vector3 p)
         {
-            var direction = (t.position - transform.position).normalized;
+            var direction = (p - transform.position).normalized;
             _movement.Move(direction);
         }
 

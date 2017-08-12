@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Necromatic.Character.Combat;
-namespace Necromatic.Character.NPC
+using Necromatic.Char.Combat;
+namespace Necromatic.Char.NPC
 {
     public class CharacterNPCCombat : MonoBehaviour
     {

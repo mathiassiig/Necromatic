@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-namespace Necromatic.Character
+namespace Necromatic.Char
 {
     [System.Serializable]
     public class Stat

@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
+using System.Linq;
+using Necromatic.Char;
+using Necromatic.Char.Combat;
+using Necromatic.Char.NPC;
+
 namespace Necromatic
 {
     public class SquareSelect : MonoBehaviour
@@ -14,9 +20,11 @@ namespace Necromatic
         private Vector2 _selectionEndPosition;
 
         private Bounds _selectionBounds = new Bounds();
-        private Vector3 _selectionOffset = new Vector3(0.75f, 0.75f, 0.75f);
+        private Vector3 _selectionOffset = new Vector3(0.2f, 0.2f, 0.2f);
         private Vector3 _worldSelectionStart;
         private Vector3 _worldSelectionEnd;
+
+        public ReactiveProperty<List<CharacterNPC>> SelectedUnits = new ReactiveProperty<List<CharacterNPC>>();
 
         public void Select(Vector2 mouseInput)
         {
@@ -58,6 +66,13 @@ namespace Necromatic
             _selectionBounds.max = _worldSelectionEnd + Vector3.up * 5f;
             RescaleBox();
             var characters = Physics.OverlapBox(_selectionBounds.center, _selectionBounds.size/2, Quaternion.identity, _characterLayer);
+            if (characters != null)
+            {
+                SelectedUnits.Value = characters
+                    .Select(x => x.GetComponent<CharacterNPC>())
+                    .Where(x => x.Character.Combat._characterFaction == Faction.Undead)
+                    .ToList();
+            }
         }
 
         private void RescaleBox()
@@ -74,7 +89,6 @@ namespace Necromatic
 
         private void OnDrawGizmos()
         {
-            
             Gizmos.DrawWireCube(_selectionBounds.center, _selectionBounds.size);
         }
 
