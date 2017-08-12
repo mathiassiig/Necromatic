@@ -8,8 +8,11 @@ namespace Necromatic.Character.Combat
     public class Corpse : MonoBehaviour
     {
         private Character _originalCharacter;
+        [SerializeField] private Animator _animator;
         public void Init(Character originalCharacter)
         {
+            transform.rotation = originalCharacter.transform.rotation;
+            _animator.SetTrigger("Death");
             _originalCharacter = originalCharacter;
             _originalCharacter.gameObject.SetActive(false);
             Observable.Timer(TimeSpan.FromSeconds(3)).First().Subscribe(_ =>
@@ -23,6 +26,7 @@ namespace Necromatic.Character.Combat
         {
             var undeadType = UndeathConverter.LivingToDead[_originalCharacter.Type];
             var undeadInstance = MasterPoolManager.Instance.GetCharacter(undeadType);
+            undeadInstance.transform.rotation = _originalCharacter.transform.rotation;
             undeadInstance.gameObject.transform.position = transform.position;
             Destroy(_originalCharacter.gameObject); // todo: pooling
             Destroy(gameObject); // todo: pooling
