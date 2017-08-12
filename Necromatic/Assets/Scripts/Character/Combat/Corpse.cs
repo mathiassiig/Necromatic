@@ -7,8 +7,10 @@ namespace Necromatic.Character.Combat
 {
     public class Corpse : MonoBehaviour
     {
+        private const float _autoDeleteTime = 10f;
         private Character _originalCharacter;
         [SerializeField] private Animator _animator;
+        [SerializeField] private Gibber _gibber;
         public void Init(Character originalCharacter)
         {
             transform.rotation = originalCharacter.transform.rotation;
@@ -24,12 +26,20 @@ namespace Necromatic.Character.Combat
         // Character is turned undead
         public void Resurrect()
         {
+            if(_gibber)
+            {
+                _gibber.Gib();
+            }
             var undeadType = UndeathConverter.LivingToDead[_originalCharacter.Type];
             var undeadInstance = MasterPoolManager.Instance.GetCharacter(undeadType);
             undeadInstance.transform.rotation = _originalCharacter.transform.rotation;
             undeadInstance.gameObject.transform.position = transform.position;
             Destroy(_originalCharacter.gameObject); // todo: pooling
-            Destroy(gameObject); // todo: pooling
+            Destroy(_animator.gameObject);
+            Observable.Timer(TimeSpan.FromSeconds(_autoDeleteTime)).First().Subscribe(_ =>
+            {
+                Destroy(gameObject);
+            });
         }
 
         // Character comes back as whatever it was
