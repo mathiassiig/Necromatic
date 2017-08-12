@@ -8,6 +8,7 @@ namespace Necromatic.Character.Combat
     public class Corpse : MonoBehaviour
     {
         private const float _autoDeleteTime = 10f;
+        private const float _timeToEnableRessurection = 0.8f;
         private Character _originalCharacter;
         [SerializeField] private Animator _animator;
         [SerializeField] private Gibber _gibber;
@@ -17,9 +18,10 @@ namespace Necromatic.Character.Combat
             _animator.SetTrigger("Death");
             _originalCharacter = originalCharacter;
             _originalCharacter.gameObject.SetActive(false);
-            Observable.Timer(TimeSpan.FromSeconds(3)).First().Subscribe(_ =>
+            gameObject.tag = "Untagged";
+            Observable.Timer(TimeSpan.FromSeconds(_timeToEnableRessurection)).First().Subscribe(_ =>
             {
-                Resurrect();
+                gameObject.tag = "Corpse";
             });
         }
 

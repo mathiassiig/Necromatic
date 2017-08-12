@@ -21,10 +21,29 @@ namespace Necromatic
                 if (Physics.Raycast(ray, out hit))
                 {
                     // Debug.DrawLine(ray.origin, hit.point);
-                    // if there is nothing, the user probably wants to attack the nearest enemy?
-                    // if there is an enemy, attack it
-                    // if there is something else, figure out what to do with it
+                    HandleRaycastResult(hit);
                 }
+            }
+        }
+
+        private void HandleRaycastResult(RaycastHit hit)
+        {
+            var go = hit.collider.gameObject;
+            switch (hit.collider.tag)
+            {
+                case "Untagged": // if there is nothing, the user probably wants to attack the nearest enemy...?
+                    break;
+                case "Character":
+                    var character = go.GetComponent<Necromatic.Character.Character>();
+                    if(character.Type != CharacterType.NPCUndeadInfantry)
+                    {
+                        // attack
+                    }
+                    break;
+                case "Corpse":
+                    var corpse = go.GetComponent<Necromatic.Character.Combat.Corpse>();
+                    corpse.Resurrect();
+                    break;
             }
         }
     }
