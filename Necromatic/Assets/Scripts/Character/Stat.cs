@@ -10,8 +10,10 @@ namespace Necromatic.Character
         public ReactiveProperty<float> Max = new ReactiveProperty<float>();
         public ReactiveProperty<float> Current = new ReactiveProperty<float>();
 
-        [SerializeField]
-        private float _initial;
+        [SerializeField] private float _initial;
+        [SerializeField] private float _regen; // per second
+        
+
 
 
 
@@ -19,11 +21,16 @@ namespace Necromatic.Character
         {
             Max.Value = _initial;
             Current.Value = _initial;
+            Observable.EveryUpdate().Subscribe(_ =>
+            {
+                Add(_regen * Time.deltaTime);
+            });
         }
 
         public void Add(float value)
         {
             Current.Value += value;
+            Current.Value = Mathf.Clamp(Current.Value, 0, Max.Value);
         }
     }
 }
