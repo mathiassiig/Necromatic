@@ -48,7 +48,7 @@ namespace Necromatic.Char.User
 
         void CheckRightClick()
         {
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButtonDown(1))
             {
                 // create a ray cast and set it to the mouses cursor position in game
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
