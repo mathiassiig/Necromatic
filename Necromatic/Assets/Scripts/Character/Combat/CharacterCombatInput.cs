@@ -9,15 +9,15 @@ namespace Necromatic.Character.Combat
     {
         [SerializeField] private CharacterCombat _combatModule;
 
-        public bool CanTryAttack = true;
+        private bool _canTryAttack = true;
 
         void Update()
         {
-            if(Input.GetMouseButton(0) && CanTryAttack)
+            if(Input.GetMouseButton(0) && _canTryAttack)
             {
                 _combatModule.TryAttack();
-                CanTryAttack = false;
-                Observable.Timer(TimeSpan.FromSeconds(0.1f)).First().Subscribe(_ => CanTryAttack = true);
+                _canTryAttack = false;
+                Observable.Timer(TimeSpan.FromSeconds(0.1f)).First().Subscribe(_ => _canTryAttack = true);
             }
         }
     }
