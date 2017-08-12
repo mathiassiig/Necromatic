@@ -27,7 +27,7 @@ namespace Necromatic.Character.Combat
             var enemies = new List<Character>();
             foreach (var collider in colliders)
             {
-                var combatScript = collider.gameObject.GetComponent<CharacterCombat>();
+                var combatScript = collider.gameObject.GetComponentInChildren<CharacterCombat>();
                 if(combatScript != null && combatScript._characterFaction != _characterFaction)
                 {
                     enemies.Add(collider.gameObject.GetComponent<Character>());

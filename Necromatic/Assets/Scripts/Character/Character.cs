@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using Necromatic.UI;
+using Necromatic.Character.Combat;
 namespace Necromatic.Character
 {
     public class Character : MonoBehaviour
     {
+        [Header("Stats")]
         public Stat Health;
         [SerializeField] private Vector3 _healthBarOffset = new Vector3(0, 2, 0);
-
         private StatBar _healthBar;
-
         public ReactiveProperty<bool> IsDead = new ReactiveProperty<bool>();
+
+        [Header("Submodules")]
+        [SerializeField] private CharacterMovement _movement;
+        [SerializeField] private CharacterCombat _combat;
+
+        // public get-accessors
+        public CharacterMovement Movement => _movement;
+        public CharacterCombat Combat => _combat;
 
         void Awake()
         {
