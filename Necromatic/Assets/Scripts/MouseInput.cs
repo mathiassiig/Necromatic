@@ -1,14 +1,33 @@
-﻿using System.Collections;
+﻿using Necromatic.Character.Combat;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 namespace Necromatic
 {
     public class MouseInput : MonoBehaviour
     {
+        [SerializeField] private CharacterCombat _combatModule;
+
+        private bool _canTryAttack = true;
+
         // Update is called once per frame
         void FixedUpdate()
         {
+            CheckLeftClick();
             CheckRightClick();
+            
+        }
+
+        private void CheckLeftClick()
+        {
+            if (Input.GetMouseButton(0) && _canTryAttack)
+            {
+                _combatModule.TryAttack();
+                _canTryAttack = false;
+                Observable.Timer(TimeSpan.FromSeconds(0.1f)).First().Subscribe(_ => _canTryAttack = true);
+            }
         }
 
         void CheckRightClick()

@@ -108,7 +108,6 @@
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCMovement.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\HumanNPC.cs" />
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
-    <Compile Include="Assets\Scripts\Character\User\CharacterCombatInput.cs" />
     <Compile Include="Assets\Scripts\Character\User\CharacterMovementInput.cs" />
     <Compile Include="Assets\Scripts\Managers\MasterPoolManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TerrainManager.cs" />
