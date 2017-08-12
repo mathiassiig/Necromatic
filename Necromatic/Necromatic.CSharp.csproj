@@ -89,7 +89,9 @@
     <Compile Include="Assets\Scripts\Character\Combat\CharacterCombat.cs" />
     <Compile Include="Assets\Scripts\Character\Combat\ProjectileBase.cs" />
     <Compile Include="Assets\Scripts\Character\Combat\WeaponBase.cs" />
-    <Compile Include="Assets\Scripts\Character\NPC\CharacterIntelligenceBase.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\CharacterNPC.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCCombat.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCMovement.cs" />
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\User\CharacterCombatInput.cs" />
     <Compile Include="Assets\Scripts\Character\User\CharacterMovementInput.cs" />

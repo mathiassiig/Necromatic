@@ -14,12 +14,16 @@ namespace Necromatic.Character.Combat
 
     public class CharacterCombat : MonoBehaviour
     {
-        [SerializeField] private WeaponBase _weapon;
-        [SerializeField] private float _timeBeforeHit = 0.4f;
-        [SerializeField] private Animator _animator;
+        [SerializeField]
+        private WeaponBase _weapon;
+        [SerializeField]
+        private float _timeBeforeHit = 0.4f;
+        [SerializeField]
+        private Animator _animator;
         public Character CurrentTarget { get; private set; }
         public Faction _characterFaction;
         public bool Attacking { get; private set; }
+        public WeaponBase Weapon => _weapon;
 
         public Character GetEnemy()
         {
@@ -28,19 +32,19 @@ namespace Necromatic.Character.Combat
             foreach (var collider in colliders)
             {
                 var combatScript = collider.gameObject.GetComponentInChildren<CharacterCombat>();
-                if(combatScript != null && combatScript._characterFaction != _characterFaction)
+                if (combatScript != null && combatScript._characterFaction != _characterFaction)
                 {
                     enemies.Add(collider.gameObject.GetComponent<Character>());
                 }
             }
-            if(enemies.Count > 0)
+            if (enemies.Count > 0)
             {
                 var minDistance = float.MaxValue;
                 Character toReturn = null;
                 foreach (var enemy in enemies)
                 {
                     var dis = (enemy.transform.position - transform.position).magnitude;
-                    if(dis < minDistance)
+                    if (dis < minDistance)
                     {
                         minDistance = dis;
                         toReturn = enemy;
@@ -51,34 +55,39 @@ namespace Necromatic.Character.Combat
             return null;
         }
 
-        public void TryAttack()
+        public void Attack(Character enemy) // for npcs
         {
             if (_weapon.CanAttack.Value)
             {
-                Character enemy = GetEnemy();
-                if (enemy != null)
+                _animator.SetBool("Attack", true);
+                Attacking = true;
+                CurrentTarget = enemy;
+                if (_weapon.IsMelee)
                 {
-                    _animator.SetBool("Attack", true);
-                    Attacking = true;
-                    CurrentTarget = enemy;
-                    if (_weapon.IsMelee)
-                    {
-                        Observable.Timer(TimeSpan.FromSeconds(_timeBeforeHit)).First().Subscribe(_ =>
-                        {
-                            _weapon.Attack(enemy);
-                        });
-                    }
-                    else
+                    Observable.Timer(TimeSpan.FromSeconds(_timeBeforeHit)).First().Subscribe(_ =>
                     {
                         _weapon.Attack(enemy);
-                    }
-                    Observable.Timer(TimeSpan.FromSeconds(_weapon.Cooldown)).First().Subscribe(_ =>
-                    {
-                        Attacking = false;
-                        CurrentTarget = null;
-                        _animator.SetBool("Attack", false);
                     });
                 }
+                else
+                {
+                    _weapon.Attack(enemy);
+                }
+                Observable.Timer(TimeSpan.FromSeconds(_weapon.Cooldown)).First().Subscribe(_ =>
+                {
+                    Attacking = false;
+                    CurrentTarget = null;
+                    _animator.SetBool("Attack", false);
+                });
+            }
+        }
+
+        public void TryAttack() // for user
+        {
+            Character enemy = CurrentTarget ?? GetEnemy(); // already have a target? otherwise fetch another
+            if (enemy != null)
+            {
+                Attack(enemy);
             }
         }
     }
