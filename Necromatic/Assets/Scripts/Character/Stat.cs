@@ -23,6 +23,11 @@ namespace Necromatic.Character
             });
         }
 
+        public void Set(float value)
+        {
+            Current.Value = value;
+        }
+
         public void Add(float value)
         {
             Current.Value += value;

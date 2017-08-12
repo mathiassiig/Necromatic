@@ -20,7 +20,11 @@ namespace Necromatic.Character.NPC
         public void ThinkCombat()
         {
             // look for enemies
-            var enemy = CurrentTarget != null ? CurrentTarget : _combat.GetEnemy(_detectionRange);
+            var enemy = CurrentTarget;
+            if (enemy == null || enemy.IsDead.Value)
+            {
+                enemy = _combat.GetEnemy(_detectionRange);
+            }
 
             if (enemy != null && _engageEnemy)
             {

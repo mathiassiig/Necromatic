@@ -42,7 +42,7 @@ namespace Necromatic.Character
         {
             InitBar();
             Health.Init();
-            IsDead.Subscribe(x =>
+            IsDead.TakeUntilDestroy(this).Subscribe(x =>
             {
                 if (x) HandleDeath();
             });
