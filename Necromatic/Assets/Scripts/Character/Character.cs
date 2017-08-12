@@ -13,6 +13,7 @@ namespace Necromatic.Character
         [SerializeField] private Vector3 _healthBarOffset = new Vector3(0, 2, 0);
         private StatBar _healthBar;
         public ReactiveProperty<bool> IsDead = new ReactiveProperty<bool>();
+        public CharacterType Type;
 
         [Header("Submodules")]
         [SerializeField] private CharacterMovement _movement;

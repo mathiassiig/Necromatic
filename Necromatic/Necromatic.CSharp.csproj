@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\Character\User\CharacterMovementInput.cs" />
     <Compile Include="Assets\Scripts\Managers\MasterPoolManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TerrainManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\UndeathConverterManager.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
     <Compile Include="Assets\Scripts\UI\StatBar.cs" />
     <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />

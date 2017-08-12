@@ -12,18 +12,29 @@ namespace Necromatic.Character.Combat
         {
             _originalCharacter = originalCharacter;
             _originalCharacter.gameObject.SetActive(false);
-            Observable.Timer(TimeSpan.FromSeconds(5)).First().Subscribe(_ =>
+            Observable.Timer(TimeSpan.FromSeconds(3)).First().Subscribe(_ =>
             {
                 Resurrect();
             });
         }
 
+        // Character is turned undead
         public void Resurrect()
+        {
+            var undeadType = UndeathConverter.LivingToDead[_originalCharacter.Type];
+            var undeadInstance = MasterPoolManager.Instance.GetCharacter(undeadType);
+            undeadInstance.gameObject.transform.position = transform.position;
+            Destroy(_originalCharacter.gameObject); // todo: pooling
+            Destroy(gameObject); // todo: pooling
+        }
+
+        // Character comes back as whatever it was
+        public void Revive()
         {
             _originalCharacter.gameObject.SetActive(true);
             _originalCharacter.Health.Set(_originalCharacter.Health.Max.Value);
             _originalCharacter.IsDead.Value = false;
-            Destroy(gameObject);
+            Destroy(gameObject); // todo: pooling
         }
     }
 }
