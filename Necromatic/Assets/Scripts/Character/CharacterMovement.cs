@@ -34,6 +34,7 @@ namespace Necromatic.Character
             m_Capsule = GetComponent<CapsuleCollider>();
             m_CapsuleHeight = m_Capsule.height;
             m_CapsuleCenter = m_Capsule.center;
+            m_Animator.SetFloat("WalkSpeed", m_AnimSpeedMultiplier);
         }
 
         public void Move(Vector3 move)
@@ -43,13 +44,7 @@ namespace Necromatic.Character
             move = transform.InverseTransformDirection(move);
             move = Vector3.ProjectOnPlane(move, m_GroundNormal);
             m_ForwardAmount = move.z;
-            if (rawMove != Vector3.zero)
-            {
-                transform.rotation = Quaternion.Lerp(transform.rotation, 
-                    Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0), 
-                    m_TurnSpeed * Time.deltaTime);
-            }
-            UpdateAnimator(move);
+            UpdateAnimator(move, rawMove);
         }
 
 
@@ -61,7 +56,7 @@ namespace Necromatic.Character
             transform.rotation = Quaternion.Lerp(currentRotation, newRotation, m_TurnSpeed * Time.deltaTime);
         }
 
-        private void UpdateAnimator(Vector3 move)
+        private void UpdateAnimator(Vector3 move, Vector3 rawMove)
         {
             if (_combat && _combat.Attacking)
             {
@@ -73,18 +68,16 @@ namespace Necromatic.Character
                 }
                 return;
             }
+
+            if (rawMove != Vector3.zero)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                    Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0),
+                    m_TurnSpeed * Time.deltaTime);
+            }
             m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
 
             float runCycle = Mathf.Repeat(m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
-
-            if (move.magnitude > 0)
-            {
-                m_Animator.speed = m_AnimSpeedMultiplier;
-            }
-            else
-            {
-                m_Animator.speed = 1;
-            }
             var velocity = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * move;
             m_Rigidbody.velocity = m_MoveSpeedMultiplier * velocity / Time.deltaTime;
         }
