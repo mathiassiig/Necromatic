@@ -96,10 +96,12 @@
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\User\CharacterCombatInput.cs" />
     <Compile Include="Assets\Scripts\Character\User\CharacterMovementInput.cs" />
+    <Compile Include="Assets\Scripts\Managers\MasterPoolManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TerrainManager.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
     <Compile Include="Assets\Scripts\UI\StatBar.cs" />
     <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />
+    <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
