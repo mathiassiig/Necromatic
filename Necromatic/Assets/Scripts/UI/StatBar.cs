@@ -10,6 +10,7 @@ namespace Necromatic.UI
     {
         [SerializeField] private SpriteRenderer _foreground;
         [SerializeField] private float _barWidth = 10;
+        [SerializeField] private GameObject _graphicsObject;
         private Color _colorMax;
         private Color _colorMin;
 
@@ -31,6 +32,8 @@ namespace Necromatic.UI
             float hLerped = Mathf.Lerp(colorMin.H, colorMax.H, t);
             _foreground.color = ColorConverter.ConvertRGBHSL(new RGBHSL(hLerped, colorMax.S, colorMax.L));
             _foreground.size = new Vector2(width, _foreground.size.y);
+            bool maxOrZero = current == max || current == 0;
+            _graphicsObject.SetActive(!maxOrZero);
 
         }
     }
