@@ -13,10 +13,6 @@ namespace Necromatic.Character
         [SerializeField] private float _initial;
         [SerializeField] private float _regen; // per second
         
-
-
-
-
         public void Init()
         {
             Max.Value = _initial;
