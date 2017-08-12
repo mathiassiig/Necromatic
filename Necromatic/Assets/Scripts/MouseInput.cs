@@ -14,9 +14,13 @@ namespace Necromatic
         private bool _canTryAttack = true;
 
         // Update is called once per frame
-        void FixedUpdate()
+        void Update()
         {
             CheckLeftClick();
+        }
+
+        void FixedUpdate()
+        {
             CheckRightClick();
         }
 
