@@ -17,7 +17,7 @@ namespace Necromatic.Character.NPC
         void Awake()
         {
             Observable.Timer(TimeSpan.FromSeconds(0), _thinkRefresh)
-                .TakeUntilDisable(this)
+                .TakeUntilDestroy(this)
                 .Subscribe(_ => Think());
             _npcCombat.Init(_characterScript.Combat);
             _npcMovement.Init(_characterScript.Movement);
@@ -25,7 +25,10 @@ namespace Necromatic.Character.NPC
 
         private void Think()
         {
-            _npcCombat.ThinkCombat();
+            if (gameObject.activeInHierarchy)
+            {
+                _npcCombat.ThinkCombat();
+            }
         }
 
         void FixedUpdate()

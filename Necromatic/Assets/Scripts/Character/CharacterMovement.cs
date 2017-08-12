@@ -34,6 +34,10 @@ namespace Necromatic.Character
             m_Capsule = GetComponent<CapsuleCollider>();
             m_CapsuleHeight = m_Capsule.height;
             m_CapsuleCenter = m_Capsule.center;
+        }
+
+        private void OnEnable()
+        {
             m_Animator.SetFloat("WalkSpeed", m_AnimSpeedMultiplier);
         }
 
