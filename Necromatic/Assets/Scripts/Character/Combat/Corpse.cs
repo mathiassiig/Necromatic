@@ -12,6 +12,7 @@ namespace Necromatic.Character.Combat
         private Character _originalCharacter;
         [SerializeField] private Animator _animator;
         [SerializeField] private Gibber _gibber;
+        private bool _used = false;
         public void Init(Character originalCharacter)
         {
             transform.rotation = originalCharacter.transform.rotation;
@@ -28,7 +29,12 @@ namespace Necromatic.Character.Combat
         // Character is turned undead
         public void Resurrect()
         {
-            if(_gibber)
+            if(_used)
+            {
+                return;
+            }
+            _used = true;
+            if (_gibber)
             {
                 _gibber.Gib();
             }
@@ -47,6 +53,11 @@ namespace Necromatic.Character.Combat
         // Character comes back as whatever it was
         public void Revive()
         {
+            if (_used)
+            {
+                return;
+            }
+            _used = true;
             _originalCharacter.gameObject.SetActive(true);
             _originalCharacter.Health.Set(_originalCharacter.Health.Max.Value);
             _originalCharacter.IsDead.Value = false;

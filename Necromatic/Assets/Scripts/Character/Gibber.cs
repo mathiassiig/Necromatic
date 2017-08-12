@@ -9,6 +9,7 @@ public class Gibber : MonoBehaviour
     [SerializeField] private Sprite[] _bloodSprites;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private List<ParticleSystem> _particles;
+    private const float _autoDeleteTime = 120f;
 
     void Awake()
     {
@@ -27,7 +28,7 @@ public class Gibber : MonoBehaviour
         {
             ps.Play();
         }
-        Observable.Timer(TimeSpan.FromSeconds(5)).First().Subscribe(_ =>
+        Observable.Timer(TimeSpan.FromSeconds(_autoDeleteTime)).First().Subscribe(_ =>
         {
             _spriteRenderer.DOFade(0, 2f).OnComplete(() => Destroy(gameObject));
         });
