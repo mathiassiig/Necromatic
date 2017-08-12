@@ -46,7 +46,7 @@ namespace Necromatic.Character
             {
                 if (x) HandleDeath();
             });
-            Health.Current.Subscribe(x =>
+            Health.Current.TakeUntilDestroy(this).Subscribe(x =>
             {
                 if (x <= 0) IsDead.Value = true;
                 _healthBar.UpdateStatbar(Health.Max.Value, Health.Current.Value);

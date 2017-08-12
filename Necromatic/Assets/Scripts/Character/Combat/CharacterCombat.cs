@@ -25,9 +25,9 @@ namespace Necromatic.Character.Combat
         public bool Attacking { get; private set; }
         public WeaponBase Weapon => _weapon;
 
-        public Character GetEnemy()
+        public Character GetEnemy(float range)
         {
-            var colliders = Physics.OverlapSphere(transform.position, _weapon.Range);
+            var colliders = Physics.OverlapSphere(transform.position, range);
             var enemies = new List<Character>();
             foreach (var collider in colliders)
             {
@@ -84,7 +84,7 @@ namespace Necromatic.Character.Combat
 
         public void TryAttack() // for user
         {
-            Character enemy = CurrentTarget ?? GetEnemy(); // already have a target? otherwise fetch another
+            Character enemy = CurrentTarget ?? GetEnemy(_weapon.Range); // already have a target? otherwise fetch another
             if (enemy != null)
             {
                 Attack(enemy);

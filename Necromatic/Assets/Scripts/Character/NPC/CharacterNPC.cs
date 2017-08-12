@@ -9,7 +9,6 @@ namespace Necromatic.Character.NPC
     // no equivalent for player, because players have actual brains, hopefully
     public class CharacterNPC : MonoBehaviour
     {
-        [SerializeField] private float _detectionRange = 10f;
         [SerializeField] private Character _characterScript;
         [SerializeField] private CharacterNPCMovement _npcMovement;
         [SerializeField] private CharacterNPCCombat _npcCombat;

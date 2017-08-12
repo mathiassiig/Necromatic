@@ -10,6 +10,7 @@ namespace Necromatic.Character.NPC
         public bool TargetOutOfRange { get; private set; }
         private CharacterCombat _combat;
         private bool _engageEnemy = true;
+        [SerializeField] private float _detectionRange = 10f;
 
         public void Init(CharacterCombat combat)
         {
@@ -19,7 +20,7 @@ namespace Necromatic.Character.NPC
         public void ThinkCombat()
         {
             // look for enemies
-            var enemy = CurrentTarget ?? _combat.GetEnemy();
+            var enemy = CurrentTarget ?? _combat.GetEnemy(_detectionRange);
 
             if (enemy != null && _engageEnemy)
             {
