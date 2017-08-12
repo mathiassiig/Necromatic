@@ -23,7 +23,6 @@ namespace Necromatic.Managers
             }
         }
 
-
         private Vector3 _userClickedDestination = Vector3.zero;
 
         private void SortUnits()
@@ -48,15 +47,20 @@ namespace Necromatic.Managers
         {
             var pos = hit.point;
             _userClickedDestination = pos;
-
+            if(SelectedUnits.Count == 1)
+            {
+                SelectedUnits[0].SetDestination(pos);
+                return;
+            }
             int diagonal = Mathf.CeilToInt(Mathf.Sqrt(_selectedUnits.Count)); // width/height
             int unitIterator = 0;
             SortUnits();
-            for (int z = 0; z < diagonal && unitIterator < SelectedUnits.Count; z++)
+            for (int z = -diagonal / 2; z < Mathf.Round(diagonal / 2f) && unitIterator < SelectedUnits.Count; z++)
             {
-                for (int x = 0; x < diagonal && unitIterator < SelectedUnits.Count; x++)
+                for (int x = -diagonal / 2; x < Mathf.Round(diagonal / 2f) && unitIterator < SelectedUnits.Count; x++)
                 {
-                    var unitPos = new Vector3(pos.x + x * _spaceForEachUnit, pos.y, pos.z + z * _spaceForEachUnit);
+                    var extraOffset = diagonal % 2 == 0 ? 0.5f * _spaceForEachUnit : 0;
+                    var unitPos = new Vector3(pos.x + x * _spaceForEachUnit + extraOffset, pos.y, pos.z + z * _spaceForEachUnit + extraOffset);
                     SelectedUnits[unitIterator].SetDestination(unitPos);
                     unitIterator++;
                 }
