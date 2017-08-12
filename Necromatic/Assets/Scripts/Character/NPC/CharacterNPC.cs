@@ -10,17 +10,22 @@ namespace Necromatic.Char.NPC
     // no equivalent for player, because players have actual brains, hopefully
     public class CharacterNPC : MonoBehaviour
     {
-        [SerializeField] private Character _characterScript;
-        [SerializeField] private CharacterNPCMovement _npcMovement;
-        [SerializeField] private CharacterNPCCombat _npcCombat;
-        [SerializeField] private SpriteRenderer _selectionCircle;
 
-        public Character Character => _characterScript;
+        [SerializeField]
+        private Character _characterScript;
+        [SerializeField]
+        private CharacterNPCMovement _npcMovement;
+        [SerializeField]
+        private CharacterNPCCombat _npcCombat;
+        [SerializeField]
+        private SpriteRenderer _selectionCircle;
+
+        public Character CharacterScript => _characterScript;
 
         private Vector3 _destination = Vector3.zero;
         private bool _hasDestination = false;
 
-        private const float _destinationMinDis = 0.05f;
+        private const float _destinationMinDis = 0.1f;
 
         public void ToggleSelectionCircle(bool activated)
         {
@@ -53,23 +58,21 @@ namespace Necromatic.Char.NPC
 
         void FixedUpdate()
         {
-            if (_hasDestination && Vector3Utils.DistanceGreater(transform.position, _destination, _destinationMinDis))
+            if (_hasDestination && Vector3Utils.XZDistanceGreater(transform.position, _destination, _destinationMinDis))
             {
                 _npcMovement.NavigateTo(_destination);
+                return;
             }
-            else if(_hasDestination) // reached target
+            else if (_hasDestination) // reached target
             {
                 _hasDestination = false;
-                _npcMovement.StopMoving();
             }
-            else if (_npcCombat.CurrentTarget != null && _npcCombat.TargetOutOfRange) // combat ai found target, not close enough to attack
+            else if (Character.Killable(_npcCombat.CurrentTarget) && _npcCombat.TargetOutOfRange) // combat ai found target, not close enough to attack
             {
                 _npcMovement.NavigateTo(_npcCombat.CurrentTarget.transform.position);
+                return;
             }
-            else if(_npcCombat.CurrentTarget != null && !_npcCombat.TargetOutOfRange) // has target, stop moving
-            {
-                _npcMovement.StopMoving();
-            }
+            _npcMovement.StopMoving();
         }
     }
 }

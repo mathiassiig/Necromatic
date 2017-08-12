@@ -14,6 +14,7 @@ namespace Necromatic.Char.NPC
 
         public void NavigateTo(Vector3 p)
         {
+            p = new Vector3(p.x, 0, p.z);
             var direction = (p - transform.position).normalized;
             _movement.Move(direction);
         }

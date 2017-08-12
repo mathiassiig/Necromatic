@@ -59,5 +59,10 @@ namespace Necromatic.Char
             Destroy(_healthBar.gameObject);
             Destroy(gameObject);
         }
+
+        public static bool Killable(Character c)
+        {
+            return c != null && c.gameObject.activeInHierarchy && !c.IsDead.Value;
+        }
     }
 }
