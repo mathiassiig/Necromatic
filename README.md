@@ -11,3 +11,8 @@ In the beginning you will be killing your first victims manually. As time moves 
 
 Anyway that's the plan, let's see how far I get before this dies or Unity kills me first.
 Also I'm going to try doing this in 3D because I will have an easier time implementing that than sprite-stuff and I want to be better at Blender.
+
+## Features
+
+- Basic NPC intelligence
+- Unit selection
