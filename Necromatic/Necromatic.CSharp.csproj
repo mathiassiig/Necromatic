@@ -109,11 +109,13 @@
     <Compile Include="Assets\Scripts\Character\NPC\HumanNPC.cs" />
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\User\CharacterMovementInput.cs" />
+    <Compile Include="Assets\Scripts\Character\User\Player.cs" />
     <Compile Include="Assets\Scripts\Managers\MasterPoolManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TerrainManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UndeathConverterManager.cs" />
     <Compile Include="Assets\Scripts\MouseInput.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
+    <Compile Include="Assets\Scripts\UI\SquareSelect.cs" />
     <Compile Include="Assets\Scripts\UI\StatBar.cs" />
     <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />

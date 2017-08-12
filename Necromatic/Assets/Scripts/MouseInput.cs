@@ -9,6 +9,7 @@ namespace Necromatic
     public class MouseInput : MonoBehaviour
     {
         [SerializeField] private CharacterCombat _combatModule;
+        [SerializeField] private SquareSelect _selector;
 
         private bool _canTryAttack = true;
 
@@ -17,16 +18,17 @@ namespace Necromatic
         {
             CheckLeftClick();
             CheckRightClick();
-            
         }
 
         private void CheckLeftClick()
         {
-            if (Input.GetMouseButton(0) && _canTryAttack)
+            if (Input.GetMouseButton(0))
             {
-                _combatModule.TryAttack();
-                _canTryAttack = false;
-                Observable.Timer(TimeSpan.FromSeconds(0.1f)).First().Subscribe(_ => _canTryAttack = true);
+                _selector.Select(Input.mousePosition);
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                _selector.SelectionDone();
             }
         }
 
@@ -51,14 +53,21 @@ namespace Necromatic
             switch (hit.collider.tag)
             {
                 case "Untagged": // if there is nothing, the user probably wants to attack the nearest enemy...?
-                    break;
                 case "Character":
-                    var character = go.GetComponent<Necromatic.Character.Character>();
-                    if(character.Type != CharacterType.NPCUndeadInfantry)
+                    if (_canTryAttack)
                     {
-                        // attack
+                        _combatModule.TryAttack();
+                        _canTryAttack = false;
+                        Observable.Timer(TimeSpan.FromSeconds(0.1f)).First().Subscribe(_ => _canTryAttack = true);
                     }
                     break;
+                //case "Character":
+                //    var character = go.GetComponent<Necromatic.Character.Character>();
+                //    if(character.Type != CharacterType.NPCUndeadInfantry)
+                //    {
+                //        // attack
+                //    }
+                //    break;
                 case "Corpse":
                     var corpse = go.GetComponent<Necromatic.Character.Combat.Corpse>();
                     corpse.Resurrect();
