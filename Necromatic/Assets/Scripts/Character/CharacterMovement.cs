@@ -45,7 +45,9 @@ namespace Necromatic.Character
             m_ForwardAmount = move.z;
             if (rawMove != Vector3.zero)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0), m_TurnSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, 
+                    Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0), 
+                    m_TurnSpeed * Time.deltaTime);
             }
             UpdateAnimator(move);
         }
