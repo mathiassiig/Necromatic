@@ -73,7 +73,7 @@ namespace Necromatic.Character.Combat
                 {
                     _weapon.Attack(enemy);
                 }
-                Observable.Timer(TimeSpan.FromSeconds(_weapon.Cooldown)).First().Subscribe(_ =>
+                Observable.Timer(TimeSpan.FromSeconds(_weapon.Cooldown)).First().TakeUntilDestroy(this).Subscribe(_ =>
                 {
                     Attacking = false;
                     CurrentTarget = null;
