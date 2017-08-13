@@ -40,8 +40,7 @@ namespace Necromatic.Char
             {
                 return;
             }
-            Current.Value += value;
-            Current.Value = Mathf.Clamp(Current.Value, 0, Max.Value);
+            Current.Value = Mathf.Clamp(Current.Value+value, 0, Max.Value);
         }
 
         public void Add(float value, Character sender)
