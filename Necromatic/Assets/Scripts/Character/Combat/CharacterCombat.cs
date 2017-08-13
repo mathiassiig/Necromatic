@@ -83,12 +83,12 @@ namespace Necromatic.Char.Combat
                 {
                     Observable.Timer(TimeSpan.FromSeconds(_timeBeforeHit)).First().Subscribe(_ =>
                     {
-                        _weapon.Attack(enemy, _characterScript);
+                        _weapon.Attack(enemy, CharacterScript);
                     });
                 }
                 else
                 {
-                    _weapon.Attack(enemy, _characterScript);
+                    _weapon.Attack(enemy, CharacterScript);
                 }
                 Observable.Timer(TimeSpan.FromSeconds(_weapon.Cooldown)).First().TakeUntilDestroy(this).Subscribe(_ =>
                 {

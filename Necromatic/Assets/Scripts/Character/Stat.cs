@@ -22,7 +22,10 @@ namespace Necromatic.Char
             Current.Value = _initial;
             Observable.EveryUpdate().Subscribe(_ =>
             {
-                Add(_regen * Time.deltaTime);
+                if (Current.Value < Max.Value)
+                {
+                    Add(_regen * Time.deltaTime);
+                }
             });
         }
 
@@ -33,6 +36,10 @@ namespace Necromatic.Char
 
         public void Add(float value)
         {
+            if(value > 0 && Current.Value == Max.Value)
+            {
+                return;
+            }
             Current.Value += value;
             Current.Value = Mathf.Clamp(Current.Value, 0, Max.Value);
         }
