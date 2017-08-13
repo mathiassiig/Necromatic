@@ -9,6 +9,7 @@ namespace Necromatic.Char.NPC
     public class CharacterNPCMovement : AIPath
     {
         private CharacterMovement _movement;
+        private bool _move = false;
         public void Init(CharacterMovement movement)
         {
             _movement = movement;
@@ -16,21 +17,27 @@ namespace Necromatic.Char.NPC
 
         public void NavigateTo(Vector3 p)
         {
+            _move = true;
             destination = p;
         }
 
         protected override void FixedUpdate()
         {
-			Vector3 nextPosition;
-			Quaternion nextRotation;
-			MovementUpdate(Time.fixedDeltaTime, out nextPosition, out nextRotation);
-            var direction = (nextPosition - transform.position).normalized;
-            _movement.Move(direction);
+            if (_move)
+            {
+                Vector3 nextPosition;
+                Quaternion nextRotation;
+                MovementUpdate(Time.fixedDeltaTime, out nextPosition, out nextRotation);
+                var direction = (nextPosition - transform.position).normalized;
+                _movement.Move(direction);
+            }
         }
 
         public void StopMoving()
         {
             _movement.Move(Vector3.zero);
+            _move = false;
+
         }
     }
 }
