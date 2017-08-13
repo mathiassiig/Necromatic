@@ -5,12 +5,17 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using Necromatic.Managers;
+using System.Linq;
 namespace Necromatic.Char.User
 {
     public class MouseInput : MonoBehaviour
     {
-        [SerializeField] private CharacterCombat _combatModule;
-        [SerializeField] private SquareSelect _selector;
+        [SerializeField]
+        private CharacterCombat _combatModule;
+        [SerializeField]
+        private SquareSelect _selector;
+        [SerializeField]
+        private Material _highlightMaterial;
 
         private MicroManager _microManager = new MicroManager();
 
@@ -24,14 +29,23 @@ namespace Necromatic.Char.User
             });
         }
 
+        #region UpdateMethods
         void Update()
         {
+            HighlightClickables();
             CheckLeftClick();
         }
 
         void FixedUpdate()
         {
             CheckRightClick();
+        }
+        #endregion
+
+        #region InputMethods
+        void HighlightClickables()
+        {
+            RaycastFromMouse(HighlightClickable);
         }
 
         private void CheckLeftClick()
@@ -50,21 +64,51 @@ namespace Necromatic.Char.User
         {
             if (Input.GetMouseButtonDown(1))
             {
-                // create a ray cast and set it to the mouses cursor position in game
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
+                RaycastFromMouse(HandleRaycastResult);
+            }
+        }
+        #endregion
+
+
+        private void RaycastFromMouse(Action<RaycastHit> methodToCall)
+        {
+            // create a ray cast and set it to the mouses cursor position in game
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                methodToCall(hit);
+            }
+        }
+
+        #region ActionMethods
+        private Renderer _highlightedRenderer;
+        private void HighlightClickable(RaycastHit hit)
+        {
+            if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Ground"))
+            {
+                var renderer = hit.collider.gameObject.GetComponentInChildren<Renderer>();
+                if (renderer == _highlightedRenderer)
                 {
-                    // Debug.DrawLine(ray.origin, hit.point);
-                    HandleRaycastResult(hit);
+                    return;
                 }
+                if (_highlightedRenderer != null)
+                {
+                    var mats = _highlightedRenderer.materials.ToList();
+                    mats.Remove(mats.FirstOrDefault(m => m.name.Equals($"{_highlightMaterial.name} (Instance)")));
+                    _highlightedRenderer.materials = mats.ToArray();
+                }
+                _highlightedRenderer = renderer;
+                List<Material> materials = renderer.materials.ToList();
+                materials.Add(_highlightMaterial);
+                renderer.materials = materials.ToArray();
             }
         }
 
         private void HandleRaycastResult(RaycastHit hit)
         {
             var go = hit.collider.gameObject;
-            if(_microManager.SelectedUnits != null && _microManager.SelectedUnits.Count > 0)
+            if (_microManager.SelectedUnits != null && _microManager.SelectedUnits.Count > 0)
             {
                 _microManager.HandleUserHit(hit);
                 return;
@@ -93,5 +137,6 @@ namespace Necromatic.Char.User
                     break;
             }
         }
+        #endregion
     }
 }
