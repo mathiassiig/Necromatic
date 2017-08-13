@@ -20,7 +20,7 @@ namespace Necromatic.Char.NPC
         [SerializeField]
         private SpriteRenderer _selectionCircle;
 
-        private bool _hasPriorityDestination; // not the same value as the pathfinding destination
+        public bool HasPriorityDestination { get; private set; } // not the same value as the pathfinding destination
 
         public Character CharacterScript => _characterScript;
 
@@ -38,7 +38,7 @@ namespace Necromatic.Char.NPC
         public void SetDestination(Vector3 destination)
         {
             _priorityDestination = destination;
-            _hasPriorityDestination = true;
+            HasPriorityDestination = true;
         }
 
         private TimeSpan _thinkRefresh = TimeSpan.FromSeconds(0.5f);
@@ -54,7 +54,7 @@ namespace Necromatic.Char.NPC
 
         private void Think()
         {
-            if (gameObject.activeInHierarchy)
+            if (gameObject.activeInHierarchy && !HasPriorityDestination)
             {
                 _npcCombat.ThinkCombat();
             }
@@ -62,14 +62,14 @@ namespace Necromatic.Char.NPC
 
         void FixedUpdate()
         {
-            if (_hasPriorityDestination && Vector3Utils.XZDistanceGreater(transform.position, _priorityDestination, _destinationMinDis))
+            if (HasPriorityDestination && Vector3Utils.XZDistanceGreater(transform.position, _priorityDestination, _destinationMinDis))
             {
                 _npcMovement.NavigateTo(_priorityDestination);
                 return;
             }
-            else if (_hasPriorityDestination)
+            else if (HasPriorityDestination)
             {
-                _hasPriorityDestination = false;
+                HasPriorityDestination = false;
             }
             else if (Character.Killable(_npcCombat.CurrentTarget) && _npcCombat.TargetOutOfRange) // combat ai found target, not close enough to attack
             {
