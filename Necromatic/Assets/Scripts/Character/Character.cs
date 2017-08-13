@@ -11,7 +11,7 @@ namespace Necromatic.Char
         [Header("Stats")]
         public Stat Health;
         [SerializeField] private Vector3 _healthBarOffset = new Vector3(0, 2, 0);
-        private StatBar _healthBar;
+        protected StatBar _healthBar;
         public ReactiveProperty<bool> IsDead = new ReactiveProperty<bool>();
         public CharacterType Type;
 
