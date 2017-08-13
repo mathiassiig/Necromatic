@@ -7,7 +7,8 @@ namespace Necromatic
     public enum CharacterType
     {
         NPCUndeadInfantry,
-        NPCHumanInfantry
+        NPCHumanInfantry,
+        Player
     }
 
     public class MasterPoolManager : Singleton<MasterPoolManager>

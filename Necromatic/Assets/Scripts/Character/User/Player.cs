@@ -5,6 +5,10 @@ namespace Necromatic.Char.User
 {
     public class Player : Character
     {
-
+        protected override void Init()
+        {
+            base.Init();
+            _healthBar.gameObject.SetActive(false);
+        }
     }
 }

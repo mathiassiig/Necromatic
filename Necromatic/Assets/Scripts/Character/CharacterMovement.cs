@@ -28,6 +28,7 @@ namespace Necromatic.Char
         private float m_CapsuleHeight;
         private Vector3 m_CapsuleCenter;
 
+
         private void Start()
         {
             m_Rigidbody = GetComponent<Rigidbody>();

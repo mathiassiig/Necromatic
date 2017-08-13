@@ -12,6 +12,9 @@ namespace Necromatic.Char
 
         [SerializeField] private float _initial;
         [SerializeField] private float _regen; // per second
+
+        public Character LastSender { get; private set; }
+        public bool LastSenderAdded { get; private set; }
         
         public void Init()
         {
@@ -19,7 +22,10 @@ namespace Necromatic.Char
             Current.Value = _initial;
             Observable.EveryUpdate().Subscribe(_ =>
             {
-                Add(_regen * Time.deltaTime);
+                if (Current.Value < Max.Value)
+                {
+                    Add(_regen * Time.deltaTime);
+                }
             });
         }
 
@@ -30,8 +36,19 @@ namespace Necromatic.Char
 
         public void Add(float value)
         {
+            if(value > 0 && Current.Value == Max.Value)
+            {
+                return;
+            }
             Current.Value += value;
             Current.Value = Mathf.Clamp(Current.Value, 0, Max.Value);
+        }
+
+        public void Add(float value, Character sender)
+        {
+            LastSender = sender;
+            LastSenderAdded = value > 0;
+            Add(value);
         }
     }
 }

@@ -20,10 +20,27 @@ namespace Necromatic.Char.Combat
         private float _timeBeforeHit = 0.4f;
         [SerializeField]
         private Animator _animator;
+
+        public Character CharacterScript
+        {
+            get
+            {
+                if(_characterScript == null)
+                {
+                    _characterScript = GetComponentInParent<Character>();
+                }
+                return _characterScript;
+            }
+        }
+
+        private Character _characterScript;
+
         public Character CurrentTarget { get; private set; }
         public Faction _characterFaction;
+
         public bool Attacking { get; private set; }
         public WeaponBase Weapon => _weapon;
+
 
         public Character GetEnemy(float range)
         {
@@ -66,12 +83,12 @@ namespace Necromatic.Char.Combat
                 {
                     Observable.Timer(TimeSpan.FromSeconds(_timeBeforeHit)).First().Subscribe(_ =>
                     {
-                        _weapon.Attack(enemy);
+                        _weapon.Attack(enemy, CharacterScript);
                     });
                 }
                 else
                 {
-                    _weapon.Attack(enemy);
+                    _weapon.Attack(enemy, CharacterScript);
                 }
                 Observable.Timer(TimeSpan.FromSeconds(_weapon.Cooldown)).First().TakeUntilDestroy(this).Subscribe(_ =>
                 {
