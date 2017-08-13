@@ -23,7 +23,6 @@ namespace Necromatic.Char.NPC
         public Character CharacterScript => _characterScript;
 
         private Vector3 _destination = Vector3.zero;
-        private bool _hasDestination = false;
 
         private const float _destinationMinDis = 0.1f;
 
@@ -35,7 +34,6 @@ namespace Necromatic.Char.NPC
         public void SetDestination(Vector3 destination)
         {
             _destination = destination;
-            _hasDestination = true;
         }
 
         private TimeSpan _thinkRefresh = TimeSpan.FromSeconds(0.5f);
@@ -58,14 +56,10 @@ namespace Necromatic.Char.NPC
 
         void FixedUpdate()
         {
-            if (_hasDestination && Vector3Utils.XZDistanceGreater(transform.position, _destination, _destinationMinDis))
+            if (_npcMovement.hasPath && Vector3Utils.XZDistanceGreater(transform.position, _destination, _destinationMinDis))
             {
                 _npcMovement.NavigateTo(_destination);
                 return;
-            }
-            else if (_hasDestination) // reached target
-            {
-                _hasDestination = false;
             }
             else if (Character.Killable(_npcCombat.CurrentTarget) && _npcCombat.TargetOutOfRange) // combat ai found target, not close enough to attack
             {
