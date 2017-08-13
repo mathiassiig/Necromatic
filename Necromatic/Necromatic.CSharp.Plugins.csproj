@@ -497,6 +497,7 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityWinRTBridge\ThreadPoolScheduler_UnityWinRT.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Materials\Shaders\Mask.shader" />
     <None Include="Assets\Plugins\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh.cginc" />
     <None Include="Assets\Plugins\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh.shader" />
     <None Include="Assets\Plugins\AstarPathfindingProject\Editor\EditorAssets\Materials\NavmeshOutline.shader" />

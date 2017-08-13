@@ -119,6 +119,7 @@
     <Compile Include="Assets\Scripts\Managers\TerrainManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UndeathConverterManager.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
+    <Compile Include="Assets\Scripts\UI\RoundBar.cs" />
     <Compile Include="Assets\Scripts\UI\SquareSelect.cs" />
     <Compile Include="Assets\Scripts\UI\StatBar.cs" />
     <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Assets\Scripts\Utility\Vector3Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Materials\Shaders\Mask.shader" />
     <None Include="Assets\Plugins\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh.cginc" />
     <None Include="Assets\Plugins\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh.shader" />
     <None Include="Assets\Plugins\AstarPathfindingProject\Editor\EditorAssets\Materials\NavmeshOutline.shader" />
