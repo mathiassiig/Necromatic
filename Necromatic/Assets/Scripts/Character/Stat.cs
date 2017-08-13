@@ -12,6 +12,9 @@ namespace Necromatic.Char
 
         [SerializeField] private float _initial;
         [SerializeField] private float _regen; // per second
+
+        public Character LastSender { get; private set; }
+        public bool LastSenderAdded { get; private set; }
         
         public void Init()
         {
@@ -32,6 +35,13 @@ namespace Necromatic.Char
         {
             Current.Value += value;
             Current.Value = Mathf.Clamp(Current.Value, 0, Max.Value);
+        }
+
+        public void Add(float value, Character sender)
+        {
+            LastSender = sender;
+            LastSenderAdded = value > 0;
+            Add(value);
         }
     }
 }

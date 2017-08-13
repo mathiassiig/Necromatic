@@ -27,30 +27,30 @@ namespace Necromatic.Char.Combat
             _owner = GetComponentInParent<Character>();
         }
 
-        public void Attack(Character c)
+        public void Attack(Character c, Character sender)
         {
             if (CanAttack.Value)
             {
                 CanAttack.Value = false;
                 if (_projectile != null)
                 {
-                    ThrowProjectile(c);
+                    ThrowProjectile(c, sender);
                 }
                 else
                 {
-                    c.Health.Add(-_damage);
+                    c.Health.Add(-_damage, sender);
                 }
                 Observable.Timer(TimeSpan.FromSeconds(_cooldown)).First().Subscribe(_ => CanAttack.Value = true);
             }
         }
 
-        private void ThrowProjectile(Character c)
+        private void ThrowProjectile(Character c, Character sender)
         {
             var projectile = Instantiate(_projectile);
             var offset = Quaternion.AngleAxis(_owner.transform.rotation.eulerAngles.y, Vector3.up) * _projectileSpawnOffset;
             projectile.transform.position = _owner.transform.position + offset;
             projectile.transform.rotation = _owner.transform.rotation;
-            projectile.Init(c, _damage);
+            projectile.Init(c, _damage, () => c.Health.Add(-_damage, sender));
         }
     }
 }

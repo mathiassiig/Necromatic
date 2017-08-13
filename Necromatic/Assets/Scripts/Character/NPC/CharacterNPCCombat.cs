@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Necromatic.Char.Combat;
+using UniRx;
 namespace Necromatic.Char.NPC
 {
     public class CharacterNPCCombat : MonoBehaviour
@@ -10,7 +11,20 @@ namespace Necromatic.Char.NPC
         public bool TargetOutOfRange { get; private set; }
         private CharacterCombat _combat;
         private bool _engageEnemy = true;
-        [SerializeField] private float _detectionRange = 10f;
+		private bool _retaliate = true; // when true, switches target to who attacked
+		[SerializeField] private float _detectionRange = 10f;
+
+		private void Awake()
+		{
+			if (_retaliate)
+			{
+                var character = GetComponent<Character>();
+                character.Health.Current.Subscribe(_ =>
+                {
+                    //if (character.Health.LastSender != null && character.Health.LastSender)
+                });
+			}
+		}
 
         public void Init(CharacterCombat combat)
         {

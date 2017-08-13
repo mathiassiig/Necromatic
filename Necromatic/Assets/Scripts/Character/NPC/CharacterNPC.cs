@@ -28,6 +28,8 @@ namespace Necromatic.Char.NPC
 
         private const float _destinationMinDis = 0.1f;
 
+
+
         public void ToggleSelectionCircle(bool activated)
         {
             _selectionCircle.gameObject.SetActive(activated);
@@ -42,6 +44,7 @@ namespace Necromatic.Char.NPC
         private TimeSpan _thinkRefresh = TimeSpan.FromSeconds(0.5f);
         void Awake()
         {
+
             Observable.Timer(TimeSpan.FromSeconds(0), _thinkRefresh)
                 .TakeUntilDestroy(this)
                 .Subscribe(_ => Think());
