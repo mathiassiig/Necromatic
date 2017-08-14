@@ -6,7 +6,7 @@ DISCLAIMER: This cannot be fully open sourced as it has the following paid asset
 - https://www.assetstore.unity3d.com/en/#!/content/92553
 
 ## Current state
-![Unit selection, Resurrection](http://imgur.com/6fYiIWI.gif)
+![Unit selection, Resurrection](http://i.imgur.com/OroTUqM.gifv)
 
 ## Gameplay
 You will play as a necromancer whose ultimate goal is to conquer the realm (and beyond?).
