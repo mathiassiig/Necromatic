@@ -17,6 +17,8 @@ namespace Necromatic.Char.User
         [SerializeField]
         private Material _highlightMaterial;
 
+        private Player _player;
+
         private MicroManager _microManager = new MicroManager();
 
         private bool _canTryAttack = true;
@@ -27,6 +29,7 @@ namespace Necromatic.Char.User
             {
                 _microManager.UpdatedSelectedUnits(x);
             });
+            _player = FindObjectOfType<Player>();
         }
 
         #region UpdateMethods
@@ -134,8 +137,11 @@ namespace Necromatic.Char.User
                 //    }
                 //    break;
                 case "Corpse":
-                    var corpse = go.GetComponent<Necromatic.Char.Combat.Corpse>();
-                    corpse.Resurrect();
+                    _player.Cast(() =>
+                    {
+                        var corpse = go.GetComponent<Necromatic.Char.Combat.Corpse>();
+                        corpse.Resurrect();
+                    }, "Cast B");
                     break;
             }
         }

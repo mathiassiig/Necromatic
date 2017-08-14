@@ -1,5 +1,7 @@
 using Necromatic.Char.Combat;
 using UnityEngine;
+using UniRx;
+using System;
 
 namespace Necromatic.Char
 {
@@ -25,13 +27,37 @@ namespace Necromatic.Char
         private float m_ForwardAmount;
 
         public Animator M_Animator => m_Animator;
-        
 
+        private bool _shouldMove = true;
+
+        private System.IDisposable _turningSubscription;
 
         private void Start()
         {
             m_Rigidbody = GetComponent<Rigidbody>();
+            TurnTowardsTargetIfTrue(_combat.Attacking);
         }
+
+        private void TurnTowardsTargetIfTrue(ReactiveProperty<bool> property)
+        {
+            property.TakeUntilDestroy(this).Subscribe(isTrue =>
+            {
+                _shouldMove = !isTrue;
+                if (_turningSubscription != null)
+                {
+                    _turningSubscription.Dispose();
+                }
+                if (isTrue)
+                {
+                    StopMovement();
+                    _turningSubscription = Observable.EveryUpdate().Subscribe(_ =>
+                    {
+                        TurnTowards(_combat.CurrentTarget.gameObject.transform);
+                    });
+                }
+            });
+        }
+
 
         private void OnEnable()
         {
@@ -48,6 +74,12 @@ namespace Necromatic.Char
             UpdateAnimator(move, rawMove);
         }
 
+        private void StopMovement()
+        {
+            Move(Vector3.zero);
+            m_Rigidbody.velocity = Vector3.zero;
+        }
+
 
         private void TurnTowards(Transform t)
         {
@@ -59,26 +91,19 @@ namespace Necromatic.Char
 
         private void UpdateAnimator(Vector3 move, Vector3 rawMove)
         {
-            if (_combat && _combat.Attacking)
+            if (_shouldMove)
             {
-                m_Rigidbody.velocity = Vector3.zero;
-                m_Animator.SetFloat("Forward", 0);
-                if (_combat.CurrentTarget != null)
+                if (rawMove != Vector3.zero)
                 {
-                    TurnTowards(_combat.CurrentTarget.gameObject.transform);
+                    _transformToRotate.rotation = Quaternion.Lerp(_transformToRotate.rotation, Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0),
+                        m_TurnSpeed * Time.deltaTime);
                 }
-                return;
-            }
-            if (rawMove != Vector3.zero)
-            {
-                _transformToRotate.rotation = Quaternion.Lerp(_transformToRotate.rotation, Quaternion.Euler(0, Mathf.Atan2(rawMove.x, rawMove.z) * Mathf.Rad2Deg, 0),
-                    m_TurnSpeed * Time.deltaTime);
-            }
-            m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
+                m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
 
-            float runCycle = Mathf.Repeat(m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
-            var velocity = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * move;
-            m_Rigidbody.velocity = m_MoveSpeedMultiplier * velocity / Time.deltaTime;
+                float runCycle = Mathf.Repeat(m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
+                var velocity = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * move;
+                m_Rigidbody.velocity = m_MoveSpeedMultiplier * velocity / Time.deltaTime;
+            }
         }
 
     }

@@ -38,9 +38,13 @@ namespace Necromatic.Char.Combat
         public Character CurrentTarget { get; private set; }
         public Faction _characterFaction;
 
-        public bool Attacking { get; private set; }
+        public ReactiveProperty<bool> Attacking = new ReactiveProperty<bool>();
         public WeaponBase Weapon => _weapon;
 
+        public Character GetCurrentTarget()
+        {
+            return CurrentTarget;
+        }
 
         public Character GetEnemy(float range)
         {
@@ -80,8 +84,8 @@ namespace Necromatic.Char.Combat
             if (_weapon.CanAttack.Value)
             {
                 _animator.SetBool("Attack", true);
-                Attacking = true;
                 CurrentTarget = enemy;
+                Attacking.Value = true;
                 if (_weapon.IsMelee)
                 {
                     Observable.Timer(TimeSpan.FromSeconds(_timeBeforeHit)).First().Subscribe(_ =>
@@ -95,7 +99,7 @@ namespace Necromatic.Char.Combat
                 }
                 Observable.Timer(TimeSpan.FromSeconds(_weapon.Cooldown)).First().TakeUntilDestroy(this).Subscribe(_ =>
                 {
-                    Attacking = false;
+                    Attacking.Value = false;
                     CurrentTarget = null;
                     if (gameObject.activeInHierarchy)
                     {
