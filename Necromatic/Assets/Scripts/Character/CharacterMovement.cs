@@ -28,7 +28,8 @@ namespace Necromatic.Char
 
         public Animator M_Animator => m_Animator;
 
-        private bool _shouldMove = true;
+        [HideInInspector]
+        public bool ShouldMove = true;
 
         private System.IDisposable _turningSubscription;
 
@@ -42,7 +43,7 @@ namespace Necromatic.Char
         {
             property.TakeUntilDestroy(this).Subscribe(isTrue =>
             {
-                _shouldMove = !isTrue;
+                ShouldMove = !isTrue;
                 if (_turningSubscription != null)
                 {
                     _turningSubscription.Dispose();
@@ -52,7 +53,7 @@ namespace Necromatic.Char
                     StopMovement();
                     _turningSubscription = Observable.EveryUpdate().Subscribe(_ =>
                     {
-                        TurnTowards(_combat.CurrentTarget.gameObject.transform);
+                        TurnTowards(_combat.CurrentTarget.gameObject.transform.position);
                     });
                 }
             });
@@ -74,24 +75,25 @@ namespace Necromatic.Char
             UpdateAnimator(move, rawMove);
         }
 
-        private void StopMovement()
+        public void StopMovement()
         {
             Move(Vector3.zero);
             m_Rigidbody.velocity = Vector3.zero;
         }
 
 
-        private void TurnTowards(Transform t)
+        public void TurnTowards(Vector3 p, bool instant = false)
         {
             var currentRotation = _transformToRotate.rotation;
-            _transformToRotate.LookAt(t);
+            _transformToRotate.LookAt(p);
+            if (instant) return;
             var newRotation = _transformToRotate.rotation;
             _transformToRotate.rotation = Quaternion.Lerp(currentRotation, newRotation, m_TurnSpeed * Time.deltaTime);
         }
 
         private void UpdateAnimator(Vector3 move, Vector3 rawMove)
         {
-            if (_shouldMove)
+            if (ShouldMove)
             {
                 if (rawMove != Vector3.zero)
                 {

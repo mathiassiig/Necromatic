@@ -41,11 +41,6 @@ namespace Necromatic.Char.Combat
         public ReactiveProperty<bool> Attacking = new ReactiveProperty<bool>();
         public WeaponBase Weapon => _weapon;
 
-        public Character GetCurrentTarget()
-        {
-            return CurrentTarget;
-        }
-
         public Character GetEnemy(float range)
         {
             var colliders = Physics.OverlapSphere(transform.position, range);

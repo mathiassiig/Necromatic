@@ -14,13 +14,20 @@ namespace Necromatic.Char.User
             _healthBar.gameObject.SetActive(false);
         }
 
-        public void Cast(Action spell, string animation)
+        public void Cast(Action spell, string animBool, string animationName, Vector3 lookAt, float speed = 1)
         {
-            Movement.M_Animator.SetBool(animation, true);
-            var animClip = Movement.M_Animator.runtimeAnimatorController.animationClips.FirstOrDefault(x => x.Equals(animation)); // animation has to have the same name as the trigger
-            var length = animClip.length * Movement.M_Animator.speed * Time.timeScale;
+            Movement.M_Animator.SetBool(animBool, true);
+            Movement.M_Animator.SetFloat($"{animBool}_speed", speed);
+            Movement.ShouldMove = false;
+            var animClip = Movement.M_Animator.runtimeAnimatorController.animationClips.FirstOrDefault(x => x.name.Equals(animationName));
+            var length = (animClip.length / speed) * Time.timeScale;
             spell();
-
+            Movement.TurnTowards(lookAt, true);
+            Movement.StopMovement();
+            Observable.Timer(TimeSpan.FromSeconds(length)).First().Subscribe(_ =>
+            {
+                Movement.ShouldMove = true;
+            });
         }
     }
 }

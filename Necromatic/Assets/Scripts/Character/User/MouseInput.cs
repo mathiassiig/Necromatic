@@ -137,11 +137,15 @@ namespace Necromatic.Char.User
                 //    }
                 //    break;
                 case "Corpse":
+                    var corpse = go.GetComponent<Corpse>();
                     _player.Cast(() =>
                     {
-                        var corpse = go.GetComponent<Necromatic.Char.Combat.Corpse>();
                         corpse.Resurrect();
-                    }, "Cast B");
+                    }, 
+                    "Cast B",
+                    "UD_mage_11_cast_B",
+                    corpse.transform.position,
+                    1.5f);
                     break;
             }
         }
