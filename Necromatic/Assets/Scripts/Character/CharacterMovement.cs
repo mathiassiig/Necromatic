@@ -23,6 +23,8 @@ namespace Necromatic.Char
         [SerializeField]
         private Transform _transformToRotate;
         private float m_ForwardAmount;
+
+        public Animator M_Animator => m_Animator;
         
 
 

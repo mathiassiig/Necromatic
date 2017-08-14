@@ -85,6 +85,7 @@ namespace Necromatic.Char.User
         private Renderer _highlightedRenderer;
         private void HighlightClickable(RaycastHit hit)
         {
+            /*
             if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Ground"))
             {
                 var renderer = hit.collider.gameObject.GetComponentInChildren<Renderer>();
@@ -103,6 +104,7 @@ namespace Necromatic.Char.User
                 materials.Add(_highlightMaterial);
                 renderer.materials = materials.ToArray();
             }
+            */
         }
 
         private void HandleRaycastResult(RaycastHit hit)

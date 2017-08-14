@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCCombat.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCMovement.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\HumanNPC.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\UndeadNPC.cs" />
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\User\CharacterMovementInput.cs" />
     <Compile Include="Assets\Scripts\Character\User\MouseInput.cs" />

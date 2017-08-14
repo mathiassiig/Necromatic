@@ -8,21 +8,16 @@ using System;
 namespace Necromatic.Char.NPC
 {
     // no equivalent for player, because players have actual brains, hopefully
-    public class CharacterNPC : MonoBehaviour
+    public class CharacterNPC : Character
     {
-
         [SerializeField]
-        private Character _characterScript;
+        protected CharacterNPCMovement _npcMovement;
         [SerializeField]
-        private CharacterNPCMovement _npcMovement;
+        protected CharacterNPCCombat _npcCombat;
         [SerializeField]
-        private CharacterNPCCombat _npcCombat;
-        [SerializeField]
-        private SpriteRenderer _selectionCircle;
+        protected SpriteRenderer _selectionCircle;
 
         public bool HasPriorityDestination { get; private set; } // not the same value as the pathfinding destination
-
-        public Character CharacterScript => _characterScript;
 
         private Vector3 _priorityDestination = Vector3.zero;
 
@@ -42,19 +37,25 @@ namespace Necromatic.Char.NPC
         }
 
         private TimeSpan _thinkRefresh = TimeSpan.FromSeconds(0.5f);
+
         void Awake()
         {
+            Init();
+        }
 
+        protected override void Init()
+        {
+            base.Init();
             Observable.Timer(TimeSpan.FromSeconds(0), _thinkRefresh)
                 .TakeUntilDestroy(this)
                 .Subscribe(_ => Think());
-            _npcCombat.Init(_characterScript.Combat);
-            _npcMovement.Init(_characterScript.Movement);
+            _npcCombat.Init(Combat);
+            _npcMovement.Init(Movement);
         }
 
         private void Think()
         {
-            if (gameObject.activeInHierarchy && !HasPriorityDestination)
+            if (gameObject.activeInHierarchy && !HasPriorityDestination && !IsDead.Value)
             {
                 _npcCombat.ThinkCombat();
             }
@@ -62,6 +63,10 @@ namespace Necromatic.Char.NPC
 
         void FixedUpdate()
         {
+            if(IsDead.Value)
+            {
+                return;
+            }
             if (HasPriorityDestination && Vector3Utils.XZDistanceGreater(transform.position, _priorityDestination, _destinationMinDis))
             {
                 _npcMovement.NavigateTo(_priorityDestination);
@@ -71,7 +76,7 @@ namespace Necromatic.Char.NPC
             {
                 HasPriorityDestination = false;
             }
-            else if (Character.Killable(_npcCombat.CurrentTarget) && _npcCombat.TargetOutOfRange) // combat ai found target, not close enough to attack
+            else if (Killable(_npcCombat.CurrentTarget) && _npcCombat.TargetOutOfRange) // combat ai found target, not close enough to attack
             {
                 _npcMovement.NavigateTo(_npcCombat.CurrentTarget.transform.position);
                 return;

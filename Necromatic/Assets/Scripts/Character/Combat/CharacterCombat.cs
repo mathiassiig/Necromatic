@@ -60,11 +60,14 @@ namespace Necromatic.Char.Combat
                 Character toReturn = null;
                 foreach (var enemy in enemies)
                 {
-                    var dis = (enemy.transform.position - transform.position).magnitude;
-                    if (dis < minDistance)
+                    if (!enemy.IsDead.Value)
                     {
-                        minDistance = dis;
-                        toReturn = enemy;
+                        var dis = (enemy.transform.position - transform.position).magnitude;
+                        if (dis < minDistance)
+                        {
+                            minDistance = dis;
+                            toReturn = enemy;
+                        }
                     }
                 }
                 return toReturn;

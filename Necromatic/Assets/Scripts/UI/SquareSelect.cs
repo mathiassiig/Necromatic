@@ -70,7 +70,7 @@ namespace Necromatic
             {
                 SelectedUnits.Value = characters
                     .Select(x => x.GetComponent<CharacterNPC>())
-                    .Where(x => x.CharacterScript.Combat._characterFaction == Faction.Undead)
+                    .Where(x => x.Combat._characterFaction == Faction.Undead)
                     .ToList();
             }
         }
