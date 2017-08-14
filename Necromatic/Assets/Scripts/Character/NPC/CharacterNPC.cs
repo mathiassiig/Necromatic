@@ -22,12 +22,21 @@ namespace Necromatic.Char.NPC
         private Vector3 _priorityDestination = Vector3.zero;
 
         private const float _destinationMinDis = 0.1f;
+        private bool _circleEnabled = true;
+        // if disabled, user cannot select anymore
 
-
-
-        public void ToggleSelectionCircle(bool activated)
+        protected void EnableCircleBehaviour(bool enabled)
         {
-            _selectionCircle.gameObject.SetActive(activated);
+            ActivateCircle(enabled);
+            _circleEnabled = enabled;
+        }
+
+        public void ActivateCircle(bool activated)
+        {
+            if (_circleEnabled)
+            {
+                _selectionCircle.gameObject.SetActive(activated);
+            }
         }
 
         public void SetDestination(Vector3 destination)

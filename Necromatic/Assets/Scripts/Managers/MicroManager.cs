@@ -17,9 +17,9 @@ namespace Necromatic.Managers
         {
             if (units != null)
             {
-                _selectedUnits.ForEach(x => x.ToggleSelectionCircle(false));
+                _selectedUnits.ForEach(x => x.ActivateCircle(false));
                 _selectedUnits = units;
-                _selectedUnits.ForEach(x => x.ToggleSelectionCircle(true));
+                _selectedUnits.ForEach(x => x.ActivateCircle(true));
             }
         }
 

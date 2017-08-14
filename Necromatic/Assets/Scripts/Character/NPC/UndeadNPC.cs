@@ -22,6 +22,9 @@ namespace Necromatic.Char.NPC
             enabled = false;
             Movement.M_Animator.SetTrigger("Death");
             Movement.M_Animator.SetBool("Dead", true);
+            _npcMovement.StopMoving();
+            gameObject.layer = LayerMask.NameToLayer("Corpse");
+            EnableCircleBehaviour(false);
             Observable.Timer(TimeSpan.FromSeconds(_timeUntilDisappear * Time.timeScale))
                 .Subscribe(_ =>
                 {
