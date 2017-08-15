@@ -2,7 +2,7 @@ using Necromatic.Char.Combat;
 using UnityEngine;
 using UniRx;
 using System;
-
+using Necromatic.Managers;
 namespace Necromatic.Char
 {
     public class CharacterMovement : MonoBehaviour
@@ -25,8 +25,11 @@ namespace Necromatic.Char
         [SerializeField]
         private Transform _transformToRotate;
         private float m_ForwardAmount;
+        [SerializeField]
+        private AudioSource _footStepAudio;
 
         public Animator M_Animator => m_Animator;
+
 
         [HideInInspector]
         public bool ShouldMove = true;
@@ -35,8 +38,17 @@ namespace Necromatic.Char
 
         private void Start()
         {
-            m_Rigidbody = GetComponent<Rigidbody>();
             TurnTowardsTargetIfTrue(_combat.Attacking);
+        }
+
+        public void StepA()
+        {
+            _footStepAudio.PlayOneShot(SoundManager.Instance.GetClip(SoundEffect.StepGrassA));
+        }
+
+        public void StepB()
+        {
+            _footStepAudio.PlayOneShot(SoundManager.Instance.GetClip(SoundEffect.StepGrassB));
         }
 
         private void TurnTowardsTargetIfTrue(ReactiveProperty<bool> property)

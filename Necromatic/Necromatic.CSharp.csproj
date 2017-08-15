@@ -117,6 +117,7 @@
     <Compile Include="Assets\Scripts\Character\User\Player.cs" />
     <Compile Include="Assets\Scripts\Managers\MasterPoolManager.cs" />
     <Compile Include="Assets\Scripts\Managers\MicroManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TerrainManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UndeathConverterManager.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
