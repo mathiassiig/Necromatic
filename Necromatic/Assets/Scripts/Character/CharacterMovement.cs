@@ -41,14 +41,9 @@ namespace Necromatic.Char
             TurnTowardsTargetIfTrue(_combat.Attacking);
         }
 
-        public void StepA()
+        public void PlayStep(SoundEffect sound)
         {
-            _footStepAudio.PlayOneShot(SoundManager.Instance.GetClip(SoundEffect.StepGrassA));
-        }
-
-        public void StepB()
-        {
-            _footStepAudio.PlayOneShot(SoundManager.Instance.GetClip(SoundEffect.StepGrassB));
+            _footStepAudio.PlayOneShot(SoundManager.Instance.GetClip(sound));
         }
 
         private void TurnTowardsTargetIfTrue(ReactiveProperty<bool> property)

@@ -4,18 +4,21 @@ using UnityEngine;
 using Necromatic.Char;
 using UniRx;
 using System;
-
+using Necromatic.Managers;
 namespace Necromatic.Char.Combat
 {
     public class WeaponBase : MonoBehaviour
     {
-        public float Range { get { return _range; } }
-        public float Cooldown { get { return _cooldown; } }
+        public float Range => _range; 
+        public float Cooldown => _cooldown;
         // public float Damage { get { return _damage; } }
         public readonly ReactiveProperty<bool> CanAttack = new ReactiveProperty<bool>();
+        public bool IsMelee => _projectile == null;
         private Character _owner;
-        public bool IsMelee { get { return _projectile == null; } }
+        private int _currentAttackSoundIndex = 0;
 
+        [SerializeField] private List<SoundEffect> _attackSounds;
+        [SerializeField] private AudioSource _attackAudio;
         [SerializeField] private float _range;
         [SerializeField] private float _cooldown; // cooldown same as attack time?
         [SerializeField] private float _damage;
@@ -25,6 +28,13 @@ namespace Necromatic.Char.Combat
         {
             CanAttack.Value = true;
             _owner = GetComponentInParent<Character>();
+        }
+
+        public void PlaySound()
+        {
+            var clip = SoundManager.Instance.GetClip(_attackSounds[_currentAttackSoundIndex]);
+            _currentAttackSoundIndex = (int)Mathf.Repeat(_currentAttackSoundIndex + 1, _attackSounds.Count - 1);
+            _attackAudio.PlayOneShot(clip);
         }
 
         public void Attack(Character c, Character sender)

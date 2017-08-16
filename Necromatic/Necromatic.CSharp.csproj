@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Character\Character.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterMovement.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterSound.cs" />
     <Compile Include="Assets\Scripts\Character\Combat\CharacterCombat.cs" />
     <Compile Include="Assets\Scripts\Character\Combat\Corpse.cs" />
     <Compile Include="Assets\Scripts\Character\Combat\ProjectileBase.cs" />
