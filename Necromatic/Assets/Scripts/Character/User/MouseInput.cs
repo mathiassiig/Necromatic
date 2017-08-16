@@ -146,7 +146,7 @@ namespace Necromatic.Char.User
                     "UD_mage_11_cast_B",
                     corpse.transform.position,
                     1.5f, 
-                    0.75f);
+                    0.25f);
                     break;
             }
         }
