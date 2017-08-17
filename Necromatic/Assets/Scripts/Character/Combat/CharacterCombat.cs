@@ -41,6 +41,21 @@ namespace Necromatic.Char.Combat
         public ReactiveProperty<bool> Attacking = new ReactiveProperty<bool>();
         public WeaponBase Weapon => _weapon;
 
+        public UniRx.IObservable<long> AttackAnimation(float time)
+        {
+            // attack animation is 24 frames, fetch it automagically later
+            var baseTime = 0.24f;
+            var multiplier = baseTime / time;
+            _animator.SetFloat("AttackSpeed", multiplier);
+            _animator.SetBool("Attack", true);
+            var obs = Observable.Timer(TimeSpan.FromSeconds(time)).TakeUntilDestroy(this);
+            obs.Subscribe(_ =>
+            {
+                _animator.SetBool("Attack", false);
+            });
+            return obs;
+        }
+
         public Character GetEnemy(float range)
         {
             var colliders = Physics.OverlapSphere(transform.position, range);
@@ -77,7 +92,7 @@ namespace Necromatic.Char.Combat
         public void Attack(Character enemy) // for npcs
         {
             if (_weapon.CanAttack.Value)
-            {
+            { // todo: use observable attack function here
                 _animator.SetBool("Attack", true);
                 CurrentTarget = enemy;
                 Attacking.Value = true;

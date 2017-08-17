@@ -18,6 +18,7 @@ namespace Necromatic.Char
         [Header("Submodules")]
         [SerializeField] private CharacterMovement _movement;
         [SerializeField] private CharacterCombat _combat;
+        [SerializeField] protected Animator _animator;
 
         // public get-accessors
         public CharacterMovement Movement => _movement;

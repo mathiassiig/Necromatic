@@ -13,6 +13,7 @@ namespace Necromatic.Char.NPC
         [SerializeField] private GameObject _resourceWood;
         [SerializeField] private GameObject _resourceBag;
         [SerializeField] private LayerMask _trees;
+        [SerializeField] private CharacterAnimationEvents _animEvents;
 
         #region Tree
         private float _treeSearchRadius = 10;
@@ -20,12 +21,21 @@ namespace Necromatic.Char.NPC
         private ResourceTree _currentTree;
         private float _treeHitDamage = 50;
         private ReactiveProperty<bool> CanCutTree = new ReactiveProperty<bool>(true);
-        private TimeSpan _treeCutDelay = TimeSpan.FromSeconds(0.5f);
+        private float _treeCutDelay = 0.5f;
         #endregion
+
+
 
         void Awake()
         {
             Init();
+            _animEvents.Attacking.Subscribe(value =>
+            {
+                if (value)
+                {
+                    CutTree();
+                }
+            });
         }
 
         protected override void Think()
@@ -49,7 +59,7 @@ namespace Necromatic.Char.NPC
                 _npcMovement.StopMoving();
                 if (_npcMovement.IsLookingTowards(_currentTree.transform))
                 {
-                    CutTree();
+                    StartCutTree();
                 }
                 else
                 {
@@ -62,22 +72,27 @@ namespace Necromatic.Char.NPC
             }
         }
 
-        private void CutTree()
+        private void StartCutTree()
         {
             if (CanCutTree.Value)
             {
+                Combat.AttackAnimation(_treeCutDelay);
                 CanCutTree.Value = false;
-                _currentTree.Health.Add(-_treeHitDamage, this);
-                if (_currentTree.Health.Current.Value <= 0)
-                {
-                    var force = (_currentTree.transform.position - transform.position).normalized;
-                    _currentTree.Timber(force);
-                    _currentTree = null;
-                }
-                Observable.Timer(_treeCutDelay).TakeUntilDisable(this).Subscribe(_ =>
+                Observable.Timer(TimeSpan.FromSeconds(_treeCutDelay)).TakeUntilDisable(this).Subscribe(_ =>
                 {
                     CanCutTree.Value = true;
                 });
+            }
+        }
+
+        private void CutTree()
+        {
+            _currentTree.Health.Add(-_treeHitDamage, this);
+            if (_currentTree.Health.Current.Value <= 0)
+            {
+                var force = (_currentTree.transform.position - transform.position).normalized;
+                _currentTree.Timber(force);
+                _currentTree = null;
             }
         }
 
