@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Necromatic.Utility;
 using System.Linq;
+using UniRx;
+using System;
+
 namespace Necromatic.Char.NPC
 {
     public class UndeadWorkerNPC : UndeadNPC
@@ -11,9 +14,14 @@ namespace Necromatic.Char.NPC
         [SerializeField] private GameObject _resourceBag;
         [SerializeField] private LayerMask _trees;
 
+        #region Tree
         private float _treeSearchRadius = 10;
         private bool _hasTree => _currentTree != null;
         private ResourceTree _currentTree;
+        private float _treeHitDamage = 50;
+        private ReactiveProperty<bool> CanCutTree = new ReactiveProperty<bool>(true);
+        private TimeSpan _treeCutDelay = TimeSpan.FromSeconds(0.5f);
+        #endregion
 
         void Awake()
         {
@@ -32,12 +40,13 @@ namespace Necromatic.Char.NPC
 
         protected override void NPCUpdate()
         {
-            if (_hasTree && Vector3Utils.XZDistanceGreater(transform.position, _currentTree.transform.position, 1f))
+            if (_hasTree && Vector3Utils.XZDistanceGreater(transform.position, _currentTree.transform.position, 1.5f))
             {
                 _npcMovement.NavigateTo(_currentTree.transform.position);
             }
             else if(_hasTree)
             {
+                _npcMovement.StopMoving();
                 CutTree();
             }
             else
@@ -48,9 +57,23 @@ namespace Necromatic.Char.NPC
 
         private void CutTree()
         {
-            var force = (_currentTree.transform.position - transform.position).normalized;
-            _currentTree.Timber(force);
-            _currentTree = null;
+            if (CanCutTree.Value)
+            {
+                Debug.Log("Hello");
+                CanCutTree.Value = false;
+                _currentTree.Health.Add(-_treeHitDamage, this);
+                if (_currentTree.Health.Current.Value <= 0)
+                {
+                    var force = (_currentTree.transform.position - transform.position).normalized;
+                    Debug.Log(force);
+                    _currentTree.Timber(force);
+                    _currentTree = null;
+                }
+                Observable.Timer(_treeCutDelay).TakeUntilDisable(this).Subscribe(_ =>
+                {
+                    CanCutTree.Value = true;
+                });
+            }
         }
 
         private void FindTree()
