@@ -88,14 +88,18 @@ namespace Necromatic.Char
             m_Rigidbody.velocity = Vector3.zero;
         }
 
+        public void TurnTowards(Transform t)
+        {
+            TurnTowards(t.position);
+        }
 
         public void TurnTowards(Vector3 p, bool instant = false)
         {
             var currentRotation = _transformToRotate.rotation;
             _transformToRotate.LookAt(p);
-            if (instant) return;
-            var newRotation = _transformToRotate.rotation;
-            _transformToRotate.rotation = Quaternion.Lerp(currentRotation, newRotation, m_TurnSpeed * Time.deltaTime);
+            var newRotationEuler = _transformToRotate.rotation.eulerAngles;
+            var newRotation = Quaternion.Euler(0, newRotationEuler.y, 0);
+            _transformToRotate.rotation = Quaternion.Lerp(currentRotation, newRotation, instant? 1 :  m_TurnSpeed * Time.deltaTime);
         }
 
         private void UpdateAnimator(Vector3 move, Vector3 rawMove)

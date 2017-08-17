@@ -47,7 +47,14 @@ namespace Necromatic.Char.NPC
             else if(_hasTree)
             {
                 _npcMovement.StopMoving();
-                CutTree();
+                if (_npcMovement.IsLookingTowards(_currentTree.transform))
+                {
+                    CutTree();
+                }
+                else
+                {
+                    _npcMovement.TurnTowardsObservable(_currentTree.transform);
+                }
             }
             else
             {
@@ -59,13 +66,11 @@ namespace Necromatic.Char.NPC
         {
             if (CanCutTree.Value)
             {
-                Debug.Log("Hello");
                 CanCutTree.Value = false;
                 _currentTree.Health.Add(-_treeHitDamage, this);
                 if (_currentTree.Health.Current.Value <= 0)
                 {
                     var force = (_currentTree.transform.position - transform.position).normalized;
-                    Debug.Log(force);
                     _currentTree.Timber(force);
                     _currentTree = null;
                 }

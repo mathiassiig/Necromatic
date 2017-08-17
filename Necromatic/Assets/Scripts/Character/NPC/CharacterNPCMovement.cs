@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Necromatic.Char;
 using Pathfinding;
+using UniRx;
+using Necromatic.Utility;
+using System;
+
 namespace Necromatic.Char.NPC
 {
     [RequireComponent(typeof(Seeker))]
@@ -31,6 +35,33 @@ namespace Necromatic.Char.NPC
                 var direction = (nextPosition - transform.position).normalized;
                 _movement.Move(direction);
             }
+        }
+
+        public bool IsLookingTowards(Transform t)
+        {
+            return Vector3Utils.PointingTowards(transform, t, 10f);
+        }
+
+        private UniRx.IObservable<long> _turningObservable;
+
+        public UniRx.IObservable<long> TurnTowardsObservable(Transform t)
+        {
+            if(_turningObservable != null)
+            {
+                return _turningObservable;
+            }
+            Func<long, bool> f = (x) => !Vector3Utils.PointingTowards(transform, t, 2f);
+            var obs = Observable.EveryUpdate().TakeWhile(f);
+            obs.Subscribe(_ =>
+            {
+                _movement.TurnTowards(t);
+            },
+            onCompleted => 
+            {
+                _turningObservable = null;
+            });
+            _turningObservable = obs;
+            return obs;
         }
 
         public void StopMoving()
