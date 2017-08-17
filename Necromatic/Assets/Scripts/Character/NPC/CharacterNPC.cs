@@ -19,9 +19,8 @@ namespace Necromatic.Char.NPC
 
         public bool HasPriorityDestination { get; private set; } // not the same value as the pathfinding destination
 
-        private Vector3 _priorityDestination = Vector3.zero;
-
-        private const float _destinationMinDis = 0.1f;
+        protected Vector3 _priorityDestination = Vector3.zero;
+        protected const float _destinationMinDis = 0.1f;
         private bool _circleEnabled = true;
         // if disabled, user cannot select anymore
 
@@ -62,7 +61,7 @@ namespace Necromatic.Char.NPC
             _npcMovement.Init(Movement);
         }
 
-        private void Think()
+        protected virtual void Think()
         {
             if (gameObject.activeInHierarchy && !HasPriorityDestination && !IsDead.Value)
             {
@@ -72,7 +71,12 @@ namespace Necromatic.Char.NPC
 
         void FixedUpdate()
         {
-            if(IsDead.Value)
+            NPCUpdate();
+        }
+
+        protected virtual void NPCUpdate()
+        {
+            if (IsDead.Value)
             {
                 return;
             }

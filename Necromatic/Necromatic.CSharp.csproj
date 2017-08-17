@@ -112,6 +112,7 @@
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCMovement.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\HumanNPC.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\UndeadNPC.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\UndeadWorkerNPC.cs" />
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\User\CharacterMovementInput.cs" />
     <Compile Include="Assets\Scripts\Character\User\MouseInput.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Assets\Scripts\UI\RoundBar.cs" />
     <Compile Include="Assets\Scripts\UI\SquareSelect.cs" />
     <Compile Include="Assets\Scripts\UI\StatBar.cs" />
+    <Compile Include="Assets\Scripts\Utility\IClickable.cs" />
     <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utility\Vector3Utils.cs" />
