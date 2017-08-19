@@ -23,8 +23,6 @@ namespace Necromatic.Managers
             }
         }
 
-        private Vector3 _userClickedDestination = Vector3.zero;
-
         private void SortUnits()
         {
             //Debug.Log("Before: ");
@@ -46,7 +44,6 @@ namespace Necromatic.Managers
         public void HandleUserHit(RaycastHit hit)
         {
             var pos = hit.point;
-            _userClickedDestination = pos;
             if(SelectedUnits.Count == 1)
             {
                 SelectedUnits[0].SetDestination(pos);

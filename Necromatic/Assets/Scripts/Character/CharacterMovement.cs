@@ -9,8 +9,6 @@ namespace Necromatic.Char
     {
 
         [SerializeField]
-        private float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
-        [SerializeField]
         private float m_MoveSpeedMultiplier = 1f;
         [SerializeField]
         private float m_AnimSpeedMultiplier = 1f;
@@ -113,7 +111,6 @@ namespace Necromatic.Char
                 }
                 m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
 
-                float runCycle = Mathf.Repeat(m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
                 var velocity = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector3.up) * move;
                 m_Rigidbody.velocity = m_MoveSpeedMultiplier * velocity / Time.deltaTime;
             }

@@ -10,15 +10,12 @@ public class ProjectileBase : MonoBehaviour
     [SerializeField] private bool _lookTowards; // have projectile face target
     [SerializeField] private float _impactDistance = 0.1f; // distance from target before 'hitting'
 
-    private float _damage;
     private Character _target;
 
     public void Init(Character target, float damage, Action impactAction)
     {
         _target = target;
-        _damage = damage;
-
-        var observable = Observable.EveryUpdate().TakeUntilDestroy(this).Subscribe(x =>
+        Observable.EveryUpdate().TakeUntilDestroy(this).Subscribe(x =>
         {
 			if (_lookTowards)
 			{
