@@ -5,16 +5,14 @@ using UnityEngine;
 using Necromatic.Char;
 namespace Necromatic
 {
-    public class ResourceTree : MonoBehaviour, IClickable
+    public class ResourceTree : Hurtable, IClickable
     {
         [SerializeField] private Rigidbody _log;
-        [SerializeField] private Stat _health;
-        public Stat Health => _health;
         public bool Cut { get; private set; }
 
         private void Awake()
         {
-            _health.Init();
+            Health.Init();
         }
 
         public void Timber(Vector3 forceDirection)

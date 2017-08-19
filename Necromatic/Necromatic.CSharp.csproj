@@ -118,6 +118,7 @@
     <Compile Include="Assets\Scripts\Character\User\CharacterMovementInput.cs" />
     <Compile Include="Assets\Scripts\Character\User\MouseInput.cs" />
     <Compile Include="Assets\Scripts\Character\User\Player.cs" />
+    <Compile Include="Assets\Scripts\Hurtable.cs" />
     <Compile Include="Assets\Scripts\Managers\MasterPoolManager.cs" />
     <Compile Include="Assets\Scripts\Managers\MicroManager.cs" />
     <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />

@@ -6,10 +6,9 @@ using Necromatic.UI;
 using Necromatic.Char.Combat;
 namespace Necromatic.Char
 {
-    public class Character : MonoBehaviour
+    public class Character : Hurtable
     {
         [Header("Stats")]
-        public Stat Health;
         [SerializeField] private Vector3 _healthBarOffset = new Vector3(0, 2, 0);
         protected StatBar _healthBar;
         public ReactiveProperty<bool> IsDead = new ReactiveProperty<bool>();
