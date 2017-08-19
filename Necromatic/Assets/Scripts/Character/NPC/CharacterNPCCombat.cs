@@ -70,7 +70,7 @@ namespace Necromatic.Char.NPC
                 else
                 {
                     TargetOutOfRange = false;
-                    _combat.Attack(enemy);
+                    _combat.InitAttack(enemy);
                 }
             }
         }

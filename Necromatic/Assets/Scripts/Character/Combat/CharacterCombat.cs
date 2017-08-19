@@ -25,7 +25,7 @@ namespace Necromatic.Char.Combat
         {
             get
             {
-                if(_characterScript == null)
+                if (_characterScript == null)
                 {
                     _characterScript = GetComponentInParent<Character>();
                 }
@@ -40,21 +40,6 @@ namespace Necromatic.Char.Combat
 
         public ReactiveProperty<bool> Attacking = new ReactiveProperty<bool>();
         public WeaponBase Weapon => _weapon;
-
-        public UniRx.IObservable<long> AttackAnimation(float time)
-        {
-            // attack animation is 24 frames, fetch it automagically later
-            var baseTime = 0.24f;
-            var multiplier = baseTime / time;
-            _animator.SetFloat("AttackSpeed", multiplier);
-            _animator.SetBool("Attack", true);
-            var obs = Observable.Timer(TimeSpan.FromSeconds(time)).TakeUntilDestroy(this);
-            obs.Subscribe(_ =>
-            {
-                _animator.SetBool("Attack", false);
-            });
-            return obs;
-        }
 
         public Character GetEnemy(float range)
         {
@@ -89,42 +74,54 @@ namespace Necromatic.Char.Combat
             return null;
         }
 
-        public void Attack(Character enemy) // for npcs
+        // here's where we transfer the damage for melee or shoot the projectile for ranged
+        public void DoAttack()
         {
-            if (_weapon.CanAttack.Value)
-            { // todo: use observable attack function here
-                _animator.SetBool("Attack", true);
-                CurrentTarget = enemy;
-                Attacking.Value = true;
-                if (_weapon.IsMelee)
+            if (_weapon.IsMelee)
+            {
+                Observable.Timer(TimeSpan.FromSeconds(_timeBeforeHit)).First().Subscribe(_ =>
                 {
-                    Observable.Timer(TimeSpan.FromSeconds(_timeBeforeHit)).First().Subscribe(_ =>
-                    {
-                        _weapon.Attack(enemy, CharacterScript);
-                    });
-                }
-                else
-                {
-                    _weapon.Attack(enemy, CharacterScript);
-                }
-                Observable.Timer(TimeSpan.FromSeconds(_weapon.Cooldown)).First().TakeUntilDestroy(this).Subscribe(_ =>
-                {
-                    Attacking.Value = false;
-                    CurrentTarget = null;
-                    if (gameObject.activeInHierarchy)
-                    {
-                        _animator.SetBool("Attack", false);
-                    }
+                    _weapon.Attack(CurrentTarget, CharacterScript);
                 });
+            }
+            else
+            {
+                _weapon.Attack(CurrentTarget, CharacterScript);
             }
         }
 
+        public UniRx.IObservable<long> AttackAnimation(float time)
+        {
+            // attack animation is 24 frames, fetch it automagically later
+            Attacking.Value = true;
+            var baseTime = 0.24f;
+            var multiplier = baseTime / time;
+            _animator.SetFloat("AttackSpeed", multiplier);
+            _animator.SetBool("Attack", true);
+            var obs = Observable.Timer(TimeSpan.FromSeconds(time)).TakeUntilDestroy(this);
+            obs.Subscribe(_ =>
+            {
+                Attacking.Value = false;
+                CurrentTarget = null;
+                _animator.SetBool("Attack", false);
+            });
+            return obs;
+        }
+
+        // start the attacking, triggering the animator
+        public void InitAttack(Character enemy)
+        {
+            CurrentTarget = enemy;
+            AttackAnimation(_weapon.Cooldown);
+        }
+
+        // can we attack, then initialize the attack
         public void TryAttack() // for user
         {
             Character enemy = CurrentTarget ?? GetEnemy(_weapon.Range); // already have a target? otherwise fetch another
-            if (enemy != null)
+            if (enemy != null && _weapon.CanAttack.Value)
             {
-                Attack(enemy);
+                InitAttack(enemy);
             }
         }
     }
