@@ -66,7 +66,7 @@ namespace Necromatic
             _selectionBounds.max = _worldSelectionEnd + Vector3.up * 5f;
             RescaleBox();
             var characters = Physics.OverlapBox(_selectionBounds.center, _selectionBounds.size/2, Quaternion.identity, _characterLayer);
-            if (characters != null)
+            if (characters != null && characters.Length > 0)
             {
                 SelectedUnits.Value = characters
                     .Select(x => x.GetComponent<CharacterNPC>())

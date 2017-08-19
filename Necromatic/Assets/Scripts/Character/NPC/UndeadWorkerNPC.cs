@@ -67,7 +67,7 @@ namespace Necromatic.Char.NPC
 
         protected override void NPCUpdate()
         {
-            if (_hasTree && Vector3Utils.XZDistanceGreater(transform.position, _currentTree.transform.position, 1.5f) && !_currentTree.Cut)
+            if (_hasTree && Vector3Utils.XZDistanceGreater(transform.position, _currentTree.transform.position, 2f) && !_currentTree.Cut)
             {
                 _npcMovement.NavigateTo(_currentTree.transform.position);
             }
@@ -119,12 +119,12 @@ namespace Necromatic.Char.NPC
 
         private void HandleLog()
         {
-            Observable.Timer(TimeSpan.FromSeconds(2f)).TakeUntilDestroy(this).Subscribe(_ =>
+            Observable.Timer(TimeSpan.FromSeconds(3.4f)).TakeUntilDestroy(this).Subscribe(_ =>
             {
                 var obs = FollowTarget(_currentTree.WorkerPosition);
                 obs.TakeWhile((x) => gameObject.activeInHierarchy && _currentTree.gameObject != null && _pullingLog == false).Subscribe(x =>
                 {
-                    if (!Vector3Utils.XZDistanceGreater(_currentTree.WorkerPosition.position, transform.position, 1.5f))
+                    if (!Vector3Utils.XZDistanceGreater(_currentTree.WorkerPosition.position, transform.position, 3f))
                     {
                         _pullingLog = true;
                         Destroy(_currentTree.gameObject);
