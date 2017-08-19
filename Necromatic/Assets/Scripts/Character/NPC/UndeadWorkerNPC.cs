@@ -22,8 +22,6 @@ namespace Necromatic.Char.NPC
         private ReactiveProperty<bool> CanCutTree = new ReactiveProperty<bool>(true);
         #endregion
 
-
-
         void Awake()
         {
             Init();
@@ -31,7 +29,6 @@ namespace Necromatic.Char.NPC
             {
                 if (value)
                 {
-                    Combat.DoAttack();
                     CutTree();
                 }
             });

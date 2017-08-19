@@ -17,9 +17,9 @@ namespace Necromatic.Char.Combat
         [SerializeField]
         private WeaponBase _weapon;
         [SerializeField]
-        private float _timeBeforeHit = 0.4f;
-        [SerializeField]
         private Animator _animator;
+        [SerializeField]
+        private CharacterAnimationEvents _animEvents;
 
         public Character CharacterScript
         {
@@ -31,6 +31,17 @@ namespace Necromatic.Char.Combat
                 }
                 return _characterScript;
             }
+        }
+
+        private void Awake()
+        {
+            _animEvents.Attacking.Subscribe(value =>
+            {
+                if (value)
+                {
+                    DoAttack();
+                }
+            });
         }
 
         private Character _characterScript;
@@ -81,9 +92,8 @@ namespace Necromatic.Char.Combat
 
         public UniRx.IObservable<long> AttackAnimation(float time)
         {
-            // attack animation is 24 frames, fetch it automagically later
             Attacking.Value = true;
-            var baseTime = 0.24f;
+            var baseTime = 0.24f; // TODO: attack animation is 24 frames, fetch it automagically later
             var multiplier = baseTime / time;
             _animator.SetFloat("AttackSpeed", multiplier);
             _animator.SetBool("Attack", true);
@@ -91,7 +101,10 @@ namespace Necromatic.Char.Combat
             obs.Subscribe(_ =>
             {
                 Attacking.Value = false;
-                _animator.SetBool("Attack", false);
+                if (_animator.isActiveAndEnabled)
+                {
+                    _animator.SetBool("Attack", false);
+                }
             });
             return obs;
         }
@@ -100,7 +113,7 @@ namespace Necromatic.Char.Combat
         public void InitAttack(Hurtable target)
         {
             CurrentTarget = target;
-            AttackAnimation(_weapon.Cooldown);
+            AttackAnimation(_weapon.Speed);
         }
 
         // can we attack, then initialize the attack

@@ -10,7 +10,7 @@ namespace Necromatic.Char.Combat
     public class WeaponBase : MonoBehaviour
     {
         public float Range => _range; 
-        public float Cooldown => _cooldown;
+        public float Speed => _speed;
         // public float Damage { get { return _damage; } }
         public readonly ReactiveProperty<bool> CanAttack = new ReactiveProperty<bool>();
         public bool IsMelee => _projectile == null;
@@ -19,9 +19,9 @@ namespace Necromatic.Char.Combat
 
         [SerializeField] private List<SoundEffect> _attackSounds;
         [SerializeField] private AudioSource _attackAudio;
-        [SerializeField] private float _range;
-        [SerializeField] private float _cooldown; // cooldown same as attack time?
-        [SerializeField] private float _damage;
+        [SerializeField] private float _range = 2f;
+        [SerializeField] private float _speed = 0.24f;
+        [SerializeField] private float _damage = 0f;
         [SerializeField] private ProjectileBase _projectile; 
         [SerializeField] private Vector3 _projectileSpawnOffset;
         void Awake()
@@ -50,7 +50,7 @@ namespace Necromatic.Char.Combat
                 {
                     c.Health.Add(-_damage, sender);
                 }
-                Observable.Timer(TimeSpan.FromSeconds(_cooldown)).First().Subscribe(_ => CanAttack.Value = true);
+                Observable.Timer(TimeSpan.FromSeconds(_speed)).First().Subscribe(_ => CanAttack.Value = true);
             }
         }
 
