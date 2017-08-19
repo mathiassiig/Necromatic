@@ -19,9 +19,7 @@ namespace Necromatic.Char.NPC
         private float _treeSearchRadius = 10;
         private bool _hasTree => _currentTree != null;
         private ResourceTree _currentTree;
-        private float _treeHitDamage = 50;
         private ReactiveProperty<bool> CanCutTree = new ReactiveProperty<bool>(true);
-        private float _treeCutDelay = 0.5f;
         #endregion
 
 
@@ -33,6 +31,7 @@ namespace Necromatic.Char.NPC
             {
                 if (value)
                 {
+                    Combat.DoAttack();
                     CutTree();
                 }
             });
@@ -59,7 +58,7 @@ namespace Necromatic.Char.NPC
                 _npcMovement.StopMoving();
                 if (_npcMovement.IsLookingTowards(_currentTree.transform))
                 {
-                    StartCutTree();
+                    Combat.InitAttack(_currentTree);
                 }
                 else
                 {
@@ -72,22 +71,8 @@ namespace Necromatic.Char.NPC
             }
         }
 
-        private void StartCutTree()
-        {
-            if (CanCutTree.Value)
-            {
-                Combat.AttackAnimation(_treeCutDelay);
-                CanCutTree.Value = false;
-                Observable.Timer(TimeSpan.FromSeconds(_treeCutDelay)).TakeUntilDisable(this).Subscribe(_ =>
-                {
-                    CanCutTree.Value = true;
-                });
-            }
-        }
-
         private void CutTree()
         {
-            _currentTree.Health.Add(-_treeHitDamage, this);
             if (_currentTree.Health.Current.Value <= 0)
             {
                 var force = (_currentTree.transform.position - transform.position).normalized;

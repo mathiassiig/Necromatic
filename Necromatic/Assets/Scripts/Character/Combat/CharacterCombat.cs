@@ -74,20 +74,9 @@ namespace Necromatic.Char.Combat
             return null;
         }
 
-        // here's where we transfer the damage for melee or shoot the projectile for ranged
         public void DoAttack()
         {
-            if (_weapon.IsMelee)
-            {
-                Observable.Timer(TimeSpan.FromSeconds(_timeBeforeHit)).First().Subscribe(_ =>
-                {
-                    _weapon.Attack(CurrentTarget, CharacterScript);
-                });
-            }
-            else
-            {
-                _weapon.Attack(CurrentTarget, CharacterScript);
-            }
+            _weapon.Attack(CurrentTarget, CharacterScript);
         }
 
         public UniRx.IObservable<long> AttackAnimation(float time)
@@ -102,7 +91,6 @@ namespace Necromatic.Char.Combat
             obs.Subscribe(_ =>
             {
                 Attacking.Value = false;
-                CurrentTarget = null;
                 _animator.SetBool("Attack", false);
             });
             return obs;
