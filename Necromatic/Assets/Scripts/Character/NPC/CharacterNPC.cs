@@ -38,6 +38,16 @@ namespace Necromatic.Char.NPC
             }
         }
 
+        public UniRx.IObservable<long> FollowTarget(Transform target)
+        {
+            var obs = Observable.EveryUpdate().TakeUntilDestroy(target.gameObject);
+            obs.Subscribe(_ =>
+            {
+                SetDestination(target.position);
+            });
+            return obs;
+        }
+
         public void SetDestination(Vector3 destination)
         {
             _priorityDestination = destination;

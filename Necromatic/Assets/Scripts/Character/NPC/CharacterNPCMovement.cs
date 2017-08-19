@@ -47,7 +47,7 @@ namespace Necromatic.Char.NPC
         public IDisposable TurnTowardsObservable(Transform t)
         {
             Func<long, bool> f = (x) => !Vector3Utils.PointingTowards(transform, t, 2f);
-            var obs = Observable.EveryUpdate().TakeWhile(f);
+            var obs = Observable.EveryUpdate().TakeUntilDestroy(t).TakeWhile(f);
             var sub =  obs.Subscribe(_ =>
             {
                 _movement.TurnTowards(t);

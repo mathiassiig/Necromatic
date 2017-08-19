@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using Necromatic.UI;
 using Necromatic.Char.Combat;
+using Necromatic.Items;
 namespace Necromatic.Char
 {
     public class Character : Hurtable
@@ -18,6 +19,8 @@ namespace Necromatic.Char
         [SerializeField] private CharacterMovement _movement;
         [SerializeField] private CharacterCombat _combat;
         [SerializeField] protected Animator _animator;
+
+        protected Inventory _inventory = new Inventory();
 
         // public get-accessors
         public CharacterMovement Movement => _movement;

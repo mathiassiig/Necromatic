@@ -119,6 +119,9 @@
     <Compile Include="Assets\Scripts\Character\User\MouseInput.cs" />
     <Compile Include="Assets\Scripts\Character\User\Player.cs" />
     <Compile Include="Assets\Scripts\Hurtable.cs" />
+    <Compile Include="Assets\Scripts\Items\Catalogue.cs" />
+    <Compile Include="Assets\Scripts\Items\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Managers\MasterPoolManager.cs" />
     <Compile Include="Assets\Scripts\Managers\MicroManager.cs" />
     <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
