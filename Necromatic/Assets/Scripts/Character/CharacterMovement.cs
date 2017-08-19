@@ -56,10 +56,13 @@ namespace Necromatic.Char
                 if (isTrue)
                 {
                     StopMovement();
-                    _turningSubscription = Observable.EveryUpdate().Subscribe(_ =>
-                    {
-                        TurnTowards(_combat.CurrentTarget.gameObject.transform.position);
-                    });
+                    _turningSubscription = Observable
+                        .EveryUpdate()
+                        .TakeWhile((x) => _combat.CurrentTarget != null)
+                        .Subscribe(_ =>
+                        {
+                            TurnTowards(_combat.CurrentTarget.gameObject.transform.position);
+                        });
                 }
             });
         }
