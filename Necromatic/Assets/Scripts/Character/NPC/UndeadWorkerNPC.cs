@@ -20,6 +20,7 @@ namespace Necromatic.Char.NPC
         private bool _hasTree => _currentTree != null;
         private ResourceTree _currentTree;
         private ReactiveProperty<bool> CanCutTree = new ReactiveProperty<bool>(true);
+        private IDisposable _turningSubscription;
         #endregion
 
         void Awake()
@@ -56,10 +57,15 @@ namespace Necromatic.Char.NPC
                 if (_npcMovement.IsLookingTowards(_currentTree.transform))
                 {
                     Combat.InitAttack(_currentTree);
+                    if (_turningSubscription != null)
+                    {
+                        _turningSubscription.Dispose();
+                        _turningSubscription = null;
+                    }
                 }
                 else
                 {
-                    _npcMovement.TurnTowardsObservable(_currentTree.transform);
+                    _turningSubscription = _npcMovement.TurnTowardsObservable(_currentTree.transform);
                 }
             }
             else

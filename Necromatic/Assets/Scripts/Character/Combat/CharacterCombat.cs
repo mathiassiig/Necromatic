@@ -113,14 +113,17 @@ namespace Necromatic.Char.Combat
         public void InitAttack(Hurtable target)
         {
             CurrentTarget = target;
-            AttackAnimation(_weapon.Speed);
+            if(_weapon.CanAttack.Value)
+            {
+                AttackAnimation(_weapon.Speed);
+            }
         }
 
         // can we attack, then initialize the attack
         public void TryAttack() // for user
         {
             var enemy = CurrentTarget ?? GetEnemy(_weapon.Range); // already have a target? otherwise fetch another
-            if (enemy != null && _weapon.CanAttack.Value)
+            if (enemy != null)
             {
                 InitAttack(enemy);
             }

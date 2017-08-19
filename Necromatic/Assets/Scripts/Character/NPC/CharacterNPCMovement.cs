@@ -42,26 +42,18 @@ namespace Necromatic.Char.NPC
             return Vector3Utils.PointingTowards(transform, t, 10f);
         }
 
-        private UniRx.IObservable<long> _turningObservable;
+        private IDisposable _turningSubscription;
 
-        public UniRx.IObservable<long> TurnTowardsObservable(Transform t)
+        public IDisposable TurnTowardsObservable(Transform t)
         {
-            if(_turningObservable != null)
-            {
-                return _turningObservable;
-            }
             Func<long, bool> f = (x) => !Vector3Utils.PointingTowards(transform, t, 2f);
             var obs = Observable.EveryUpdate().TakeWhile(f);
-            obs.Subscribe(_ =>
+            var sub =  obs.Subscribe(_ =>
             {
                 _movement.TurnTowards(t);
-            },
-            onCompleted => 
-            {
-                _turningObservable = null;
             });
-            _turningObservable = obs;
-            return obs;
+            _turningSubscription = sub;
+            return sub;
         }
 
         public void StopMoving()
