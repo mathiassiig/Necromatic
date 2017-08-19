@@ -37,7 +37,7 @@ namespace Necromatic.Char.Combat
             _attackAudio.PlayOneShot(clip);
         }
 
-        public void Attack(Character c, Character sender)
+        public void Attack(Hurtable c, Character sender)
         {
             if (CanAttack.Value)
             {
@@ -54,7 +54,7 @@ namespace Necromatic.Char.Combat
             }
         }
 
-        private void ThrowProjectile(Character c, Character sender)
+        private void ThrowProjectile(Hurtable c, Character sender)
         {
             var projectile = Instantiate(_projectile);
             var offset = Quaternion.AngleAxis(_owner.transform.rotation.eulerAngles.y, Vector3.up) * _projectileSpawnOffset;

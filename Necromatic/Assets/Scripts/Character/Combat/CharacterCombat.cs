@@ -35,7 +35,7 @@ namespace Necromatic.Char.Combat
 
         private Character _characterScript;
 
-        public Character CurrentTarget { get; private set; }
+        public Hurtable CurrentTarget { get; private set; }
         public Faction _characterFaction;
 
         public ReactiveProperty<bool> Attacking = new ReactiveProperty<bool>();
@@ -109,16 +109,16 @@ namespace Necromatic.Char.Combat
         }
 
         // start the attacking, triggering the animator
-        public void InitAttack(Character enemy)
+        public void InitAttack(Hurtable target)
         {
-            CurrentTarget = enemy;
+            CurrentTarget = target;
             AttackAnimation(_weapon.Cooldown);
         }
 
         // can we attack, then initialize the attack
         public void TryAttack() // for user
         {
-            Character enemy = CurrentTarget ?? GetEnemy(_weapon.Range); // already have a target? otherwise fetch another
+            var enemy = CurrentTarget ?? GetEnemy(_weapon.Range); // already have a target? otherwise fetch another
             if (enemy != null && _weapon.CanAttack.Value)
             {
                 InitAttack(enemy);
