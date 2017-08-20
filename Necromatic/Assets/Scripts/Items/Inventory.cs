@@ -11,8 +11,7 @@ namespace Necromatic.Items
     {
         private List<Item> Items = new List<Item>();
         public readonly ReactiveProperty<bool> ItemAdded = new ReactiveProperty<bool>();
-        [SerializeField]
-        private int _maxItems = 1;
+        private int _maxItems = 100;
 
 
         public bool AddItem(ItemId id, int quantity = 1)
@@ -20,6 +19,24 @@ namespace Necromatic.Items
             var item = Catalogue.GetItem(id);
             item.Quantity = quantity;
             return AddItem(item);
+        }
+
+        public int AmountOf(ItemId id)
+        {
+            var existingItem = Items.FirstOrDefault(x => x.Id == id);
+            return existingItem == null ? 0 : existingItem.Quantity;
+        }
+
+        public Item Pop(ItemId id)
+        {
+            var existingItem = Items.FirstOrDefault(x => x.Id == id);
+            if(existingItem == null)
+            {
+                return null;
+            }
+            Items.Remove(existingItem);
+            ItemAdded.Value = !ItemAdded.Value;
+            return existingItem;
         }
 
         public bool AddItem(Item i)

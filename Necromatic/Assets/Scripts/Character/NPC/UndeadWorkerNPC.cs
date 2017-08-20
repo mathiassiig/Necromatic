@@ -16,67 +16,54 @@ namespace Necromatic.Char.NPC
         [SerializeField]
         private GameObject _resourceBag;
         [SerializeField]
-        private LayerMask _trees;
-        [SerializeField]
         private CharacterAnimationEvents _animEvents;
+        [SerializeField]
+        private LumberjackAI _lumberAI;
 
-        #region Tree
-        private float _treeSearchRadius = 10;
-        private bool _hasTree => _currentTree != null;
-        private ResourceTree _currentTree;
-        private ReactiveProperty<bool> CanCutTree = new ReactiveProperty<bool>(true);
         private IDisposable _turningSubscription;
-        #endregion
+
+        private Transform _resourceNavigationTarget;
+        private Hurtable _resourceHurtable;
 
         void Awake()
         {
             Init();
-            _animEvents.Attacking.Subscribe(value =>
-            {
-                if (value && _currentTree != null)
-                {
-                    CutTree();
-                }
-            });
+            _lumberAI.Init(_inventory, _animEvents);
             _inventory.ItemAdded.Subscribe(value =>
             {
-                if (_inventory.Contains(ItemId.Wood))
-                {
-                    _animator.SetLayerWeight(0, 0);
-                    _animator.SetLayerWeight(1, 1);
-                    _resourceWood.SetActive(true);
-                }
-                else
-                {
-                    _animator.SetLayerWeight(1, 0);
-                    _animator.SetLayerWeight(0, 1);
-                    _resourceWood.SetActive(false);
-                }
+                var hasWood = _inventory.Contains(ItemId.Wood);
+                _animator.SetLayerWeight(0, hasWood ? 0 : 1);
+                _animator.SetLayerWeight(1, hasWood ? 1 : 0);
+                _resourceWood.SetActive(hasWood);
             });
         }
 
         protected override void Think()
         {
-            if (!_hasTree)
+            if (_lumberAI.ShouldFindNewTree)
             {
-                FindTree(); // look for trees
-                base.Think(); // and enemies
+                _resourceNavigationTarget = _lumberAI.FindTree();
+                _resourceHurtable = _lumberAI.CurrentTree;
             }
-            // if you have a tree, just focus on that until told otherwise
+            else if(_lumberAI.MaxWoodReached)
+            {
+                _resourceNavigationTarget = _lumberAI.FindLumberStash();
+            }
+            base.Think();
         }
 
         protected override void NPCUpdate()
         {
-            if (_hasTree && Vector3Utils.XZDistanceGreater(transform.position, _currentTree.transform.position, 2f) && !_currentTree.Cut)
+            if (_lumberAI.ShouldNavigateToTree || _lumberAI.MaxWoodReached)
             {
-                _npcMovement.NavigateTo(_currentTree.transform.position);
+                _npcMovement.NavigateTo(_resourceNavigationTarget.position);
             }
-            else if (_hasTree && !_currentTree.Cut)
+            else if (_lumberAI.ShouldTurnTowardsTree)
             {
                 _npcMovement.StopMoving();
-                LookAndDo(_currentTree.transform, () =>
+                LookAndDo(_resourceNavigationTarget, () =>
                 {
-                    Combat.InitAttack(_currentTree);
+                    Combat.InitAttack(_lumberAI.CurrentTree);
                     if (_turningSubscription != null)
                     {
                         _turningSubscription.Dispose();
@@ -87,69 +74,6 @@ namespace Necromatic.Char.NPC
             else
             {
                 base.NPCUpdate();
-            }
-        }
-
-        private void CutTree()
-        {
-            _inventory.AddItem(ItemId.Wood);
-            if (_currentTree.Health.Current.Value <= 0 && !_currentTree.Cut)
-            {
-                var force = (_currentTree.transform.position - transform.position).normalized;
-                _currentTree.Timber(force);
-                _currentTree = null;
-                //HandleLog();
-            }
-        }
-
-        private void FindTree()
-        {
-            var transforms = Physics.OverlapSphere(transform.position, _treeSearchRadius, _trees).Select(x => x.transform).ToArray();
-            if (transforms == null || transforms.Length == 0)
-            {
-                return;
-            }
-            var closestTransform = Vector3Utils.GetClosestTransform(transforms, transform);
-            var closestTree = transforms.FirstOrDefault(x => x == closestTransform).GetComponent<ResourceTree>();
-            if (closestTree != null)
-            {
-                _currentTree = closestTree;
-            }
-        }
-
-        //private bool _pullingLog = false;
-        
-        /*
-        private void HandleLog()
-        {
-            _pullingLog = false;
-            Observable.Timer(TimeSpan.FromSeconds(3.4f)).TakeUntilDestroy(this).Subscribe(_ =>
-            {
-                var obs = FollowTarget(_currentTree.WorkerPosition);
-                obs.TakeWhile((x) => gameObject.activeInHierarchy && _currentTree.gameObject != null && _pullingLog == false).Subscribe(x =>
-                {
-                    Debug.Log(Vector3Utils.XZDistance(_currentTree.WorkerPosition.position, transform.position));
-                    if (!Vector3Utils.XZDistanceGreater(_currentTree.WorkerPosition.position, transform.position, 3f))
-                    {
-                        _pullingLog = true;
-                        Destroy(_currentTree.gameObject);
-                        _currentTree = null;
-                        StopFollowTarget();
-                        _inventory.AddItem(ItemId.Wood);
-                    }
-                });
-            });
-        }*/
-
-        public void LookAndDo(Transform target, Action a)
-        {
-            if (_npcMovement.IsLookingTowards(target))
-            {
-                a();
-            }
-            else
-            {
-                Movement.TurnTowards(target);
             }
         }
     }

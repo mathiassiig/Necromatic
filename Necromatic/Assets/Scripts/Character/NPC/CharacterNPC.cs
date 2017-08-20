@@ -115,5 +115,17 @@ namespace Necromatic.Char.NPC
             }
             _npcMovement.StopMoving();
         }
+
+        public void LookAndDo(Transform target, Action a)
+        {
+            if (_npcMovement.IsLookingTowards(target))
+            {
+                a();
+            }
+            else
+            {
+                Movement.TurnTowards(target);
+            }
+        }
     }
 }

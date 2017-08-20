@@ -112,6 +112,7 @@
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCCombat.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCMovement.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\HumanNPC.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\LumberjackAI.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\UndeadNPC.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\UndeadWorkerNPC.cs" />
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Assets\Scripts\Items\Catalogue.cs" />
     <Compile Include="Assets\Scripts\Items\Inventory.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
+    <Compile Include="Assets\Scripts\Items\Stash.cs" />
     <Compile Include="Assets\Scripts\Managers\MasterPoolManager.cs" />
     <Compile Include="Assets\Scripts\Managers\MicroManager.cs" />
     <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
