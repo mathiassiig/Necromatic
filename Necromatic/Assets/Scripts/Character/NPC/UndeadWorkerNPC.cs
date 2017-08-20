@@ -92,7 +92,7 @@ namespace Necromatic.Char.NPC
 
         private void CutTree()
         {
-            if (_currentTree.Health.Current.Value <= 0)
+            if (_currentTree.Health.Current.Value <= 0 && !_currentTree.Cut)
             {
                 var force = (_currentTree.transform.position - transform.position).normalized;
                 _currentTree.Timber(force);
@@ -119,16 +119,19 @@ namespace Necromatic.Char.NPC
 
         private void HandleLog()
         {
+            _pullingLog = false;
             Observable.Timer(TimeSpan.FromSeconds(3.4f)).TakeUntilDestroy(this).Subscribe(_ =>
             {
                 var obs = FollowTarget(_currentTree.WorkerPosition);
                 obs.TakeWhile((x) => gameObject.activeInHierarchy && _currentTree.gameObject != null && _pullingLog == false).Subscribe(x =>
                 {
+                    Debug.Log(Vector3Utils.XZDistance(_currentTree.WorkerPosition.position, transform.position));
                     if (!Vector3Utils.XZDistanceGreater(_currentTree.WorkerPosition.position, transform.position, 3f))
                     {
                         _pullingLog = true;
                         Destroy(_currentTree.gameObject);
                         _currentTree = null;
+                        StopFollowTarget();
                         _inventory.AddItem(ItemId.Wood);
                     }
                 });
@@ -143,7 +146,7 @@ namespace Necromatic.Char.NPC
             }
             else
             {
-                _turningSubscription = _npcMovement.TurnTowardsObservable(target);
+                Movement.TurnTowards(target);
             }
         }
     }

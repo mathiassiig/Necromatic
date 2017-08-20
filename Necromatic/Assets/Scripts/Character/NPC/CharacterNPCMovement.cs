@@ -44,6 +44,7 @@ namespace Necromatic.Char.NPC
 
         private IDisposable _turningSubscription;
 
+
         public IDisposable TurnTowardsObservable(Transform t)
         {
             Func<long, bool> f = (x) => !Vector3Utils.PointingTowards(transform, t, 2f);

@@ -18,6 +18,8 @@ namespace Necromatic.Char.NPC
         protected SpriteRenderer _selectionCircle;
 
         public bool HasPriorityDestination { get; private set; } // not the same value as the pathfinding destination
+        private Transform _target;
+        private IDisposable _followingSubscription;
 
         protected Vector3 _priorityDestination = Vector3.zero;
         protected const float _destinationMinDis = 0.1f;
@@ -40,12 +42,19 @@ namespace Necromatic.Char.NPC
 
         public UniRx.IObservable<long> FollowTarget(Transform target)
         {
-            var obs = Observable.EveryUpdate().TakeUntilDestroy(target.gameObject);
-            obs.Subscribe(_ =>
+            _target = target;
+            var obs = Observable.EveryUpdate().TakeWhile((x) => _target != null);
+            _followingSubscription = obs.Subscribe(_ =>
             {
                 SetDestination(target.position);
             });
             return obs;
+        }
+
+        public void StopFollowTarget()
+        {
+            _target = null;
+            _followingSubscription.Dispose();
         }
 
         public void SetDestination(Vector3 destination)
