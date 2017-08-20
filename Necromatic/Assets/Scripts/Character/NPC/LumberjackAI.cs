@@ -58,7 +58,8 @@ namespace Necromatic.Char.NPC
 
         public Transform FindLumberStash()
         {
-            if(_currentStash != null)
+            CurrentTree = null;
+            if (_currentStash != null)
             {
                 return _currentStash.transform;
             }

@@ -129,6 +129,8 @@
     <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TerrainManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UndeathConverterManager.cs" />
+    <Compile Include="Assets\Scripts\Testing\CircleRenderer.cs" />
+    <Compile Include="Assets\Scripts\Testing\ClosestPointRenderer.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
     <Compile Include="Assets\Scripts\UI\RoundBar.cs" />
     <Compile Include="Assets\Scripts\UI\SquareSelect.cs" />
