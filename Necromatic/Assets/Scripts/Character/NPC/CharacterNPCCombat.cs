@@ -9,7 +9,7 @@ namespace Necromatic.Char.NPC
     public class CharacterNPCCombat : MonoBehaviour
     {
         public Character CurrentTarget { get; private set; }
-        public bool TargetOutOfRange { get; private set; }
+        public bool TargetOutOfRange => (CurrentTarget.transform.position - transform.position).magnitude > _combat.Weapon.Range;
         private CharacterCombat _combat;
         private bool _engageEnemy = true;
 		private bool _retaliate = true; // when true, switches target to who attacked
@@ -63,13 +63,8 @@ namespace Necromatic.Char.NPC
             {
                 CurrentTarget = enemy;
                 var dis = (enemy.transform.position - transform.position).magnitude;
-                if (dis > _combat.Weapon.Range)
+                if (!TargetOutOfRange)
                 {
-                    TargetOutOfRange = true;
-                }
-                else
-                {
-                    TargetOutOfRange = false;
                     _combat.InitAttack(enemy);
                 }
             }

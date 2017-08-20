@@ -67,7 +67,7 @@ namespace Necromatic.Char.NPC
                 _currentStash = stashScript;
                 Observable.EveryUpdate().TakeUntilDestroy(this).TakeWhile((x) => _currentStash != null).Subscribe(_ =>
                 {
-                    if(!Vector3Utils.XZDistanceGreater(transform.position, _currentStash.transform.position, 3f))
+                    if(!Vector3Utils.XZDistanceGreater(transform.position, _currentStash.transform.position, 2f))
                     {
                         StashWood();
                         _currentStash = null;
