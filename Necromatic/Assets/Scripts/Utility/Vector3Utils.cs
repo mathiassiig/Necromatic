@@ -24,6 +24,7 @@ namespace Necromatic.Utility
 
         public static bool XZDistanceGreater(Vector3 a, Vector3 b, float threshold) => XZDistance(a, b) > threshold;
 
+        // todo: in XZ plane
         public static Transform GetClosestTransform(Transform[] targets, Transform root)
         {
             Transform bestTarget = null;

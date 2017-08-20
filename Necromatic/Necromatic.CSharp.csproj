@@ -135,6 +135,7 @@
     <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utility\Vector3Utils.cs" />
+    <Compile Include="Assets\Scripts\World\AutoFade.cs" />
     <Compile Include="Assets\Scripts\World\ResourceTree.cs" />
   </ItemGroup>
   <ItemGroup>

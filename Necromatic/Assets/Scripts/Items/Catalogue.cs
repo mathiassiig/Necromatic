@@ -13,7 +13,7 @@ namespace Necromatic.Items
     {
         private static Dictionary<ItemId, Item> _items = new Dictionary<ItemId, Item>
         {
-            { ItemId.Wood, new Item { Name = nameof(ItemId.Wood), Type = ItemId.Wood } }
+            { ItemId.Wood, new Item { Name = nameof(ItemId.Wood), Id = ItemId.Wood } }
         };
 
         public static Item GetItem(ItemId iType)

@@ -33,7 +33,7 @@ namespace Necromatic.Char.NPC
             Init();
             _animEvents.Attacking.Subscribe(value =>
             {
-                if (value)
+                if (value && _currentTree != null)
                 {
                     CutTree();
                 }
@@ -92,11 +92,13 @@ namespace Necromatic.Char.NPC
 
         private void CutTree()
         {
+            _inventory.AddItem(ItemId.Wood);
             if (_currentTree.Health.Current.Value <= 0 && !_currentTree.Cut)
             {
                 var force = (_currentTree.transform.position - transform.position).normalized;
                 _currentTree.Timber(force);
-                HandleLog();
+                _currentTree = null;
+                //HandleLog();
             }
         }
 
@@ -115,8 +117,9 @@ namespace Necromatic.Char.NPC
             }
         }
 
-        private bool _pullingLog = false;
-
+        //private bool _pullingLog = false;
+        
+        /*
         private void HandleLog()
         {
             _pullingLog = false;
@@ -136,7 +139,7 @@ namespace Necromatic.Char.NPC
                     }
                 });
             });
-        }
+        }*/
 
         public void LookAndDo(Transform target, Action a)
         {

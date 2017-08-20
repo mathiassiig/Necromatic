@@ -23,6 +23,7 @@ namespace Necromatic
         public void Timber(Vector3 forceDirection)
         {
             var log = gameObject.GetComponent<Rigidbody>();
+            var originalDir = forceDirection;
             var parent = transform.parent;
             _root.transform.SetParent(parent);
             _joint.connectedBody = null;
@@ -33,12 +34,15 @@ namespace Necromatic
             Observable.Timer(TimeSpan.FromSeconds(3f)).TakeUntilDestroy(this).Subscribe(_ =>
             {
                 gameObject.layer = LayerMask.NameToLayer("NoCharCollision");
+                Destroy(gameObject); // todo
+                //GetComponent<AutoFade>().Fade();
             });
             log.velocity = Vector3.zero;
-            forceDirection *= log.mass * 3f;
+            forceDirection *= log.mass * 1.5f;
             forceDirection = forceDirection + Vector3.up * log.mass * 0.5f;
             log.constraints = RigidbodyConstraints.None;
             log.AddForce(forceDirection, ForceMode.Impulse);
+            log.AddTorque(originalDir * 10000 * log.mass, ForceMode.Impulse);
         }
 
         public void OnClick()
