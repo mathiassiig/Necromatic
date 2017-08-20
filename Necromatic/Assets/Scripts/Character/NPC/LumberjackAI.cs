@@ -3,7 +3,7 @@ using Necromatic.Items;
 using Necromatic.Utility;
 using UniRx;
 using System.Linq;
-
+using Necromatic.Char.Combat;
 namespace Necromatic.Char.NPC
 {
     public class LumberjackAI : MonoBehaviour
@@ -22,13 +22,15 @@ namespace Necromatic.Char.NPC
         private Stash _currentStash;
         public bool ShouldFindNewTree =>  !_hasTree && _currentWood < _maxWood;
         public bool MaxWoodReached => _currentWood >= _maxWood;
-        public bool ShouldNavigateToTree => _hasTree && Vector3Utils.XZDistanceGreater(transform.position, CurrentTree.transform.position, 2f) && !CurrentTree.Cut;
+        public bool ShouldNavigateToTree => _hasTree && Vector3Utils.XZDistanceGreater(transform.position, CurrentTree.transform.position, _axe.Range) && !CurrentTree.Cut;
         public bool ShouldTurnTowardsTree => _hasTree && !CurrentTree.Cut;
+        private WeaponBase _axe;
 
-        public void Init(Inventory inventory, CharacterAnimationEvents animEvents)
+        public void Init(Inventory inventory, CharacterAnimationEvents animEvents, WeaponBase axe)
         {
             _inventory = inventory;
             //_npcMovement = npcMovement;
+            _axe = axe;
             animEvents.Attacking.Subscribe(value =>
             {
                 if (value && CurrentTree != null && _currentWood < _maxWood)

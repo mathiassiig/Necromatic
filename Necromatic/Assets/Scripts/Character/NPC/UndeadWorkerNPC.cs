@@ -28,7 +28,7 @@ namespace Necromatic.Char.NPC
         void Awake()
         {
             Init();
-            _lumberAI.Init(_inventory, _animEvents);
+            _lumberAI.Init(_inventory, _animEvents, Combat.Weapon);
             _inventory.ItemAdded.Subscribe(value =>
             {
                 var hasWood = _inventory.Contains(ItemId.Wood);
@@ -40,20 +40,20 @@ namespace Necromatic.Char.NPC
 
         protected override void Think()
         {
-            if (_lumberAI.ShouldFindNewTree)
-            {
-                _resourceNavigationTarget = _lumberAI.FindTree();
-                _resourceHurtable = _lumberAI.CurrentTree;
-            }
-            else if(_lumberAI.MaxWoodReached)
-            {
-                _resourceNavigationTarget = _lumberAI.FindLumberStash();
-            }
             base.Think();
         }
 
         protected override void NPCUpdate()
         {
+            if (_lumberAI.ShouldFindNewTree)
+            {
+                _resourceNavigationTarget = _lumberAI.FindTree();
+                _resourceHurtable = _lumberAI.CurrentTree;
+            }
+            else if (_lumberAI.MaxWoodReached)
+            {
+                _resourceNavigationTarget = _lumberAI.FindLumberStash();
+            }
             if (_lumberAI.ShouldNavigateToTree || _lumberAI.MaxWoodReached)
             {
                 _npcMovement.NavigateTo(_resourceNavigationTarget.position);

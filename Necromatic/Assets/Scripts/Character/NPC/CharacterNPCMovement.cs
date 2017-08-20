@@ -25,6 +25,7 @@ namespace Necromatic.Char.NPC
             destination = p;
         }
 
+
         protected override void FixedUpdate()
         {
             if (_move)
@@ -60,6 +61,7 @@ namespace Necromatic.Char.NPC
         public void StopMoving()
         {
             _movement.Move(Vector3.zero);
+            destination = transform.position;
             _move = false;
 
         }
