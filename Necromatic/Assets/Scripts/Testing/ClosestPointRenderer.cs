@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Necromatic.Utility;
-public class ClosestPointRenderer : MonoBehaviour
+namespace Necromatic.Testing
 {
-    public Transform _target;
-
-    void OnDrawGizmos()
+    public class ClosestPointRenderer : MonoBehaviour
     {
-        var pos = Vector3Utils.ClosestPointOnCircle(_target.position, 2, transform.position);
-        var sliceAngles = Vector3Utils.GetClosestPieSlice(_target.position, 2, pos, 36);
-        var first = Vector3Utils.AngleOnCircleToPoint(_target.position, 2, sliceAngles.x);
-        var second = Vector3Utils.AngleOnCircleToPoint(_target.position, 2, sliceAngles.y);
-        Gizmos.DrawCube(first, Vector3.one/4);
-        Gizmos.DrawCube(second, Vector3.one / 4);
+        public CircleRenderer _target;
+
+        void Start()
+        {
+            var newPosition = _target.Subscribe(gameObject, transform.position);
+            transform.position = newPosition;
+        }
+
+        void OnDrawGizmos()
+        {
+
+        }
     }
 }

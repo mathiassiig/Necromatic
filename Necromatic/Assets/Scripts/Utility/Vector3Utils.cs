@@ -65,7 +65,19 @@ namespace Necromatic.Utility
             return new Vector3(x, center.y, z);
         }
         
-        // return a vector2 representing the start (x) and end (y) angle of the pie slice
+
+        public static int GetPieSliceIterator(Vector3 center, float radius, Vector2 pointOnCircle, int amountOfSlices)
+        {
+            Vector2 c = ToXZVector(center);
+            var p_angle = Mathf.Atan2(pointOnCircle.y - c.y, pointOnCircle.x - c.x);
+            p_angle = Mathf.Sign(p_angle) == -1 ? 2 * Mathf.PI + p_angle : p_angle;
+            var anglePerSlice = (Mathf.PI * 2) / amountOfSlices;
+            var sliceMin = Mathf.FloorToInt(p_angle / anglePerSlice);
+            return sliceMin;
+        }
+
+
+
         public static Vector2 GetClosestPieSlice(Vector3 center, float radius, Vector2 pointOnCircle, int amountOfSlices)
         {
             Vector2 c = ToXZVector(center);
