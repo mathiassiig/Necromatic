@@ -14,15 +14,16 @@ namespace Necromatic.Char.NPC
         private Inventory _inventory;
         private bool _hasTree => CurrentTree != null;
         private float _treeSearchRadius = 10;
-        private int _maxWood = 2;
+        [SerializeField] private int _maxWood = 2;
         private int _currentWood => _inventory.AmountOf(ItemId.Wood);
         //private CharacterNPCMovement _npcMovement;
 
         public ResourceTree CurrentTree { get; private set; }
+        public Vector3 CurrentTreeCuttingPosition { get; private set; }
         private Stash _currentStash;
         public bool ShouldFindNewTree =>  !_hasTree && _currentWood < _maxWood;
         public bool MaxWoodReached => _currentWood >= _maxWood;
-        public bool ShouldNavigateToTree => _hasTree && Vector3Utils.XZDistanceGreater(transform.position, CurrentTree.transform.position, _axe.Range) && !CurrentTree.Cut;
+        public bool ShouldNavigateToTree => _hasTree && Vector3Utils.XZDistanceGreater(transform.position, CurrentTreeCuttingPosition, _axe.Range) && !CurrentTree.Cut;
         public bool ShouldTurnTowardsTree => _hasTree && !CurrentTree.Cut;
         private WeaponBase _axe;
 
@@ -100,8 +101,10 @@ namespace Necromatic.Char.NPC
             {
                 CurrentTree = closestTree;
             }
+            CurrentTreeCuttingPosition = CurrentTree.Engage(gameObject, CurrentTree.DesiredPosition(transform));
             return CurrentTree.transform;
         }
+
 
         //private bool _pullingLog = false;
 

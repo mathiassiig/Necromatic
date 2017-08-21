@@ -22,7 +22,7 @@ namespace Necromatic.Char.NPC
 
         private IDisposable _turningSubscription;
 
-        private Transform _resourceNavigationTarget;
+        private Vector3 _resourceNavigationPosition;
         private Hurtable _resourceHurtable;
 
         void Awake()
@@ -47,21 +47,22 @@ namespace Necromatic.Char.NPC
         {
             if (_lumberAI.ShouldFindNewTree)
             {
-                _resourceNavigationTarget = _lumberAI.FindTree();
+                _lumberAI.FindTree();
+                _resourceNavigationPosition = _lumberAI.CurrentTreeCuttingPosition;
                 _resourceHurtable = _lumberAI.CurrentTree;
             }
             else if (_lumberAI.MaxWoodReached)
             {
-                _resourceNavigationTarget = _lumberAI.FindLumberStash();
+                _resourceNavigationPosition = _lumberAI.FindLumberStash().position;
             }
             if (_lumberAI.ShouldNavigateToTree || _lumberAI.MaxWoodReached)
             {
-                _npcMovement.NavigateTo(_resourceNavigationTarget.position);
+                _npcMovement.NavigateTo(_resourceNavigationPosition);
             }
             else if (_lumberAI.ShouldTurnTowardsTree)
             {
                 _npcMovement.StopMoving();
-                LookAndDo(_resourceNavigationTarget, () =>
+                LookAndDo(_lumberAI.CurrentTree.transform, () =>
                 {
                     Combat.InitAttack(_lumberAI.CurrentTree);
                     if (_turningSubscription != null)
