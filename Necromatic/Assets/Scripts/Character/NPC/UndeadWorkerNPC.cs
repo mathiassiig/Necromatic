@@ -43,6 +43,7 @@ namespace Necromatic.Char.NPC
             base.Think();
         }
 
+
         protected override void NPCUpdate()
         {
             if (_lumberAI.ShouldFindNewTree)
@@ -53,8 +54,10 @@ namespace Necromatic.Char.NPC
             }
             else if (_lumberAI.MaxWoodReached)
             {
+                _lumberAI.IsCuttingTree = false;
                 _resourceNavigationPosition = _lumberAI.FindLumberStash().position;
             }
+
             if (_lumberAI.ShouldNavigateToTree || _lumberAI.MaxWoodReached)
             {
                 _npcMovement.NavigateTo(_resourceNavigationPosition);
@@ -65,6 +68,7 @@ namespace Necromatic.Char.NPC
                 LookAndDo(_lumberAI.CurrentTree.transform, () =>
                 {
                     Combat.InitAttack(_lumberAI.CurrentTree);
+                    _lumberAI.IsCuttingTree = true;
                     if (_turningSubscription != null)
                     {
                         _turningSubscription.Dispose();
@@ -72,7 +76,7 @@ namespace Necromatic.Char.NPC
                     }
                 });
             }
-            else
+            else if(!_lumberAI.IsCuttingTree)
             {
                 base.NPCUpdate();
             }

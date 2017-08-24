@@ -10,7 +10,8 @@ namespace Necromatic
     {
         public Stat Health;
         Dictionary<int, GameObject> _occupiedAttackingCharSpots = new Dictionary<int, GameObject>();
-        public float AttackRadius { get; private set; } = 6;
+        public float AttackRadius { get; private set; } = 1.5f;
+        [SerializeField] private int _amountOfAttackers = 16;
 
         public Vector3 GetCorrectedAttackingPos(Vector3 desiredPosition)
         {
@@ -25,12 +26,11 @@ namespace Necromatic
 
         public Vector3 Engage(GameObject g, Vector3 desiredPosition)
         {
-            int slices = 32;
             float radius = AttackRadius;
             // get closest pie slice
-            var anglePerSlice = (Mathf.PI * 2) / slices;
+            var anglePerSlice = (Mathf.PI * 2) / _amountOfAttackers;
             var posOnCircle = Vector3Utils.ClosestPointOnCircle(transform.position, radius, desiredPosition);
-            int pieSliceIterator = Vector3Utils.GetPieSliceIterator(transform.position, radius, posOnCircle, slices);
+            int pieSliceIterator = Vector3Utils.GetPieSliceIterator(transform.position, radius, posOnCircle, _amountOfAttackers);
             GameObject occupant;
             _occupiedAttackingCharSpots.TryGetValue(pieSliceIterator, out occupant);
             bool foundAvailable = false;
@@ -40,10 +40,10 @@ namespace Necromatic
                 int checkedSlices = 0;
                 int posI = pieSliceIterator;
                 int negI = pieSliceIterator;
-                while (checkedSlices < slices)
+                while (checkedSlices < _amountOfAttackers)
                 {
-                    posI = (int)Mathf.Repeat(posI + 1, slices);
-                    negI = (int)Mathf.Repeat(negI - 1, slices);
+                    posI = (int)Mathf.Repeat(posI + 1, _amountOfAttackers);
+                    negI = (int)Mathf.Repeat(negI - 1, _amountOfAttackers);
                     _occupiedAttackingCharSpots.TryGetValue(posI, out occupant);
                     if (occupant == null)
                     {
@@ -68,12 +68,14 @@ namespace Necromatic
             if (foundAvailable) _occupiedAttackingCharSpots.Add(pieSliceIterator, g);
             // occupied or not, convert to position
             var sliceAngle = anglePerSlice * pieSliceIterator;
-            return Vector3Utils.AngleOnCircleToPoint(transform.position, radius, sliceAngle);
+            var position = Vector3Utils.AngleOnCircleToPoint(transform.position, radius, sliceAngle);
+            position.y = 0;
+            return position;
         }
 
 
 
-        public void Unengage(GameObject g)
+        public void Disengange(GameObject g)
         {
             var existing = _occupiedAttackingCharSpots.FirstOrDefault(x => x.Value == g);
             if (existing.Value == null)

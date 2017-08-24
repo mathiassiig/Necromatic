@@ -25,6 +25,11 @@ namespace Necromatic.Char.NPC
             destination = p;
         }
 
+        void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(destination, 0.25f);
+        }
+
 
         protected override void FixedUpdate()
         {
