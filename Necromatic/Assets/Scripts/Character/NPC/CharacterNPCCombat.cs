@@ -50,6 +50,11 @@ namespace Necromatic.Char.NPC
             _combat = combat;
         }
 
+        public void InitAttack(Hurtable h)
+        {
+            _combat.InitAttack(h);
+        }
+
         public void ThinkCombat()
         {
             // look for enemies

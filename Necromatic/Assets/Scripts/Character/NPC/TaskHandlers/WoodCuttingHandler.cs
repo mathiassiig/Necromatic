@@ -4,36 +4,44 @@ using Necromatic.Utility;
 using UniRx;
 using System.Linq;
 using Necromatic.Char.Combat;
-namespace Necromatic.Char.NPC
+using System;
+
+namespace Necromatic.Char.NPC.TaskHandlers
 {
-    public class LumberjackAI : MonoBehaviour
+    public class WoodCuttingHandler : MonoBehaviour, ITaskHandler
     {
-        [SerializeField]
-        private LayerMask _trees;
+        [SerializeField] private LayerMask _trees;
+        [SerializeField] private int _maxWood = 2;
+        [SerializeField] private float _treeSearchRadius = 100;
 
         private Inventory _inventory;
-        private bool _hasTree => CurrentTree != null;
-        private float _treeSearchRadius = 100;
-        [SerializeField] private int _maxWood = 2;
+        private CharacterNPCCombat _combat;
+        private CharacterNPCMovement _movement;
+        private Stash _currentStash;
+
         private int _currentWood => _inventory.AmountOf(ItemId.Wood);
-        //private CharacterNPCMovement _npcMovement;
 
         public ResourceTree CurrentTree { get; private set; }
         public Vector3 CurrentTreeCuttingPosition { get; private set; }
-        private Stash _currentStash;
+
+        // states
+        private bool _hasTree => CurrentTree != null;
         public bool ShouldFindNewTree =>  !_hasTree && _currentWood < _maxWood;
         public bool MaxWoodReached => _currentWood >= _maxWood;
-        public bool ShouldNavigateToTree => _hasTree && Vector3Utils.XZDistanceGreater(transform.position, CurrentTreeCuttingPosition, 0.05f) && !CurrentTree.Cut && !IsCuttingTree;
-        public bool ShouldTurnTowardsTree => _hasTree && !CurrentTree.Cut;
-        public bool IsCuttingTree { get; set; }
-        private WeaponBase _axe;
+        public bool ShouldNavigateToTree => _hasTree 
+            && Vector3Utils.XZDistanceGreater(transform.position, CurrentTreeCuttingPosition, 0.1f) 
+            && !CurrentTree.Cut && !IsCuttingTree.Value;
 
-        public void Init(Inventory inventory, CharacterAnimationEvents animEvents, WeaponBase axe)
+        public bool ShouldTurnTowardsTree => _hasTree && !CurrentTree.Cut;
+        public ReactiveProperty<bool> IsCuttingTree = new ReactiveProperty<bool>(false);
+
+
+        public void Init(CharacterNPC npc)
         {
-            _inventory = inventory;
-            //_npcMovement = npcMovement;
-            _axe = axe;
-            animEvents.Attacking.Subscribe(value =>
+            _inventory = npc.Inventory;
+            _movement = npc.NPCMovement;
+            _combat = npc.NPCCombat;
+            npc.AnimEvents.Attacking.Subscribe(value =>
             {
                 if (value && CurrentTree != null && _currentWood < _maxWood)
                 {
@@ -110,29 +118,36 @@ namespace Necromatic.Char.NPC
             return CurrentTree.transform;
         }
 
-
-        //private bool _pullingLog = false;
-
-        /*
-        private void HandleLog()
+        public void Think()
         {
-            _pullingLog = false;
-            Observable.Timer(TimeSpan.FromSeconds(3.4f)).TakeUntilDestroy(this).Subscribe(_ =>
+
+        }
+
+        public void TaskUpdate()
+        {
+            Vector3 treePos = Vector3.zero;
+            if (ShouldFindNewTree)
             {
-                var obs = FollowTarget(_currentTree.WorkerPosition);
-                obs.TakeWhile((x) => gameObject.activeInHierarchy && _currentTree.gameObject != null && _pullingLog == false).Subscribe(x =>
+                FindTree();
+            }
+            else if (MaxWoodReached)
+            {
+                IsCuttingTree.Value = false;
+            }
+
+            if (ShouldNavigateToTree)
+            {
+                _movement.NavigateTo(CurrentTreeCuttingPosition);
+            }
+            else if (ShouldTurnTowardsTree)
+            {
+                _movement.StopMoving();
+                _movement.LookAndDo(CurrentTree.transform, () =>
                 {
-                    Debug.Log(Vector3Utils.XZDistance(_currentTree.WorkerPosition.position, transform.position));
-                    if (!Vector3Utils.XZDistanceGreater(_currentTree.WorkerPosition.position, transform.position, 3f))
-                    {
-                        _pullingLog = true;
-                        Destroy(_currentTree.gameObject);
-                        _currentTree = null;
-                        StopFollowTarget();
-                        _inventory.AddItem(ItemId.Wood);
-                    }
+                    _combat.InitAttack(CurrentTree);
+                    IsCuttingTree.Value = true;
                 });
-            });
-        }*/
+            }
+        }
     }
 }

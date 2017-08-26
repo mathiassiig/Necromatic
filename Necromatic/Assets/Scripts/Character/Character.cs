@@ -15,16 +15,21 @@ namespace Necromatic.Char
         public ReactiveProperty<bool> IsDead = new ReactiveProperty<bool>();
         public CharacterType Type;
 
-        [Header("Submodules")]
-        [SerializeField] private CharacterMovement _movement;
-        [SerializeField] private CharacterCombat _combat;
-        [SerializeField] protected Animator _animator;
 
-        protected Inventory _inventory = new Inventory();
+
+        [Header("Submodules")]
+        [SerializeField] protected CharacterMovement _movement;
+        [SerializeField] protected CharacterCombat _combat;
+        [SerializeField] protected Animator _animator;
+        [SerializeField] protected CharacterAnimationEvents _animEvents;
+
+
+        public Inventory Inventory { get; private set; } = new Inventory();
 
         // public get-accessors
         public CharacterMovement Movement => _movement;
         public CharacterCombat Combat => _combat;
+        public CharacterAnimationEvents AnimEvents => _animEvents;
 
         void Awake()
         {

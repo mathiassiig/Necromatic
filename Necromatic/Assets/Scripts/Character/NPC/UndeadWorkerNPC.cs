@@ -6,6 +6,7 @@ using System.Linq;
 using UniRx;
 using Necromatic.Items;
 using System;
+using Necromatic.Char.NPC.TaskHandlers;
 
 namespace Necromatic.Char.NPC
 {
@@ -16,22 +17,20 @@ namespace Necromatic.Char.NPC
         [SerializeField]
         private GameObject _resourceBag;
         [SerializeField]
-        private CharacterAnimationEvents _animEvents;
-        [SerializeField]
-        private LumberjackAI _lumberAI;
+        private WoodCuttingHandler _woodCuttingHandler;
 
         private IDisposable _turningSubscription;
 
         private Vector3 _resourceNavigationPosition;
-        private Hurtable _resourceHurtable;
+        private bool _cutTrees = true;
 
         void Awake()
         {
             Init();
-            _lumberAI.Init(_inventory, _animEvents, Combat.Weapon);
-            _inventory.ItemAdded.Subscribe(value =>
+            _woodCuttingHandler.Init(this);
+            Inventory.ItemAdded.Subscribe(value =>
             {
-                var hasWood = _inventory.Contains(ItemId.Wood);
+                var hasWood = Inventory.Contains(ItemId.Wood);
                 _animator.SetLayerWeight(0, hasWood ? 0 : 1);
                 _animator.SetLayerWeight(1, hasWood ? 1 : 0);
                 _resourceWood.SetActive(hasWood);
@@ -46,37 +45,11 @@ namespace Necromatic.Char.NPC
 
         protected override void NPCUpdate()
         {
-            if (_lumberAI.ShouldFindNewTree)
+            if(_cutTrees)
             {
-                _lumberAI.FindTree();
-                _resourceNavigationPosition = _lumberAI.CurrentTreeCuttingPosition;
-                _resourceHurtable = _lumberAI.CurrentTree;
+                _woodCuttingHandler.TaskUpdate();
             }
-            else if (_lumberAI.MaxWoodReached)
-            {
-                _lumberAI.IsCuttingTree = false;
-                _resourceNavigationPosition = _lumberAI.FindLumberStash().position;
-            }
-
-            if (_lumberAI.ShouldNavigateToTree || _lumberAI.MaxWoodReached)
-            {
-                _npcMovement.NavigateTo(_resourceNavigationPosition);
-            }
-            else if (_lumberAI.ShouldTurnTowardsTree)
-            {
-                _npcMovement.StopMoving();
-                LookAndDo(_lumberAI.CurrentTree.transform, () =>
-                {
-                    Combat.InitAttack(_lumberAI.CurrentTree);
-                    _lumberAI.IsCuttingTree = true;
-                    if (_turningSubscription != null)
-                    {
-                        _turningSubscription.Dispose();
-                        _turningSubscription = null;
-                    }
-                });
-            }
-            else if(!_lumberAI.IsCuttingTree)
+            else if(!_woodCuttingHandler.IsCuttingTree.Value)
             {
                 base.NPCUpdate();
             }

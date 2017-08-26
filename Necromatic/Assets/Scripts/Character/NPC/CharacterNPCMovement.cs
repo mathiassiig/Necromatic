@@ -25,12 +25,6 @@ namespace Necromatic.Char.NPC
             destination = p;
         }
 
-        void OnDrawGizmos()
-        {
-            Gizmos.DrawSphere(destination, 0.25f);
-        }
-
-
         protected override void FixedUpdate()
         {
             if (_move)
@@ -69,6 +63,19 @@ namespace Necromatic.Char.NPC
             destination = transform.position;
             _move = false;
 
+        }
+
+
+        public void LookAndDo(Transform target, Action a)
+        {
+            if (IsLookingTowards(target))
+            {
+                a();
+            }
+            else
+            {
+                _movement.TurnTowards(target);
+            }
         }
     }
 }

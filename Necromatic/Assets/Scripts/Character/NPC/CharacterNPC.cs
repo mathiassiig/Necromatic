@@ -17,6 +17,9 @@ namespace Necromatic.Char.NPC
         [SerializeField]
         protected SpriteRenderer _selectionCircle;
 
+        public CharacterNPCCombat NPCCombat => _npcCombat;
+        public CharacterNPCMovement NPCMovement => _npcMovement;
+
         public bool HasPriorityDestination { get; private set; } // not the same value as the pathfinding destination
         private Transform _target;
         private IDisposable _followingSubscription;
@@ -114,18 +117,6 @@ namespace Necromatic.Char.NPC
                 return;
             }
             _npcMovement.StopMoving();
-        }
-
-        public void LookAndDo(Transform target, Action a)
-        {
-            if (_npcMovement.IsLookingTowards(target))
-            {
-                a();
-            }
-            else
-            {
-                Movement.TurnTowards(target);
-            }
         }
     }
 }
