@@ -18,7 +18,7 @@ namespace Necromatic.Items
 
         public static Item GetItem(ItemId iType)
         {
-            return _items[iType];
+            return Item.Copy(_items[iType]);
         }
     }
 }

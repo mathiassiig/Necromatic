@@ -3,8 +3,6 @@ using Necromatic.Items;
 using Necromatic.Utility;
 using UniRx;
 using System.Linq;
-using Necromatic.Char.Combat;
-using System;
 
 namespace Necromatic.Char.NPC.TaskHandlers
 {
@@ -17,7 +15,7 @@ namespace Necromatic.Char.NPC.TaskHandlers
         private Inventory _inventory;
         private CharacterNPCCombat _combat;
         private CharacterNPCMovement _movement;
-        private Stash _currentStash;
+
 
         private int _currentWood => _inventory.AmountOf(ItemId.Wood);
 
@@ -68,37 +66,6 @@ namespace Necromatic.Char.NPC.TaskHandlers
                 CurrentTree = null;
                 //HandleLog();
             }
-        }
-
-        public Transform FindLumberStash()
-        {
-            CurrentTree = null;
-            if (_currentStash != null)
-            {
-                return _currentStash.transform;
-            }
-            var stash = GameObject.FindGameObjectWithTag("Stash");
-            if(stash != null)
-            {
-                var stashScript = stash.GetComponent<Stash>();
-                _currentStash = stashScript;
-                Observable.EveryUpdate().TakeUntilDestroy(this).TakeWhile((x) => _currentStash != null).Subscribe(_ =>
-                {
-                    if(!Vector3Utils.XZDistanceGreater(transform.position, _currentStash.transform.position, 2f))
-                    {
-                        StashWood();
-                        _currentStash = null;
-                    }
-                });
-                return stash.transform;
-            }
-            return null;
-        }
-
-        private void StashWood()
-        {
-            var wood = _inventory.Pop(ItemId.Wood);
-            _currentStash.Inventory.AddItem(wood);
         }
 
         public Transform FindTree()

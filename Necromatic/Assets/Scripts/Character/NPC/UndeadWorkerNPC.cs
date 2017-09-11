@@ -18,6 +18,7 @@ namespace Necromatic.Char.NPC
         private GameObject _resourceBag;
         [SerializeField]
         private WoodCuttingHandler _woodCuttingHandler;
+        private StashingHandler _stashingHandler = new StashingHandler();
 
         private IDisposable _turningSubscription;
 
@@ -28,6 +29,7 @@ namespace Necromatic.Char.NPC
         {
             Init();
             _woodCuttingHandler.Init(this);
+            _stashingHandler.Init(this);
             Inventory.ItemAdded.Subscribe(value =>
             {
                 var hasWood = Inventory.Contains(ItemId.Wood);
@@ -45,11 +47,23 @@ namespace Necromatic.Char.NPC
 
         protected override void NPCUpdate()
         {
-            if(_cutTrees)
+            if (_cutTrees)
             {
-                _woodCuttingHandler.TaskUpdate();
+                if (!_woodCuttingHandler.MaxWoodReached)
+                {
+                    //Debug.Log(Inventory.AmountOf(ItemId.Wood));
+                    _woodCuttingHandler.TaskUpdate();
+                }
+                else if(!_stashingHandler.StashingDone.Value)
+                {
+                    if(_stashingHandler.CurrentStash == null)
+                    {
+                        _stashingHandler.FindStash();
+                    }
+                    _stashingHandler.TaskUpdate();
+                }
             }
-            else if(!_woodCuttingHandler.IsCuttingTree.Value)
+            else
             {
                 base.NPCUpdate();
             }

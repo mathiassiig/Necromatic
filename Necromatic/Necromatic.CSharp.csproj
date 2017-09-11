@@ -115,6 +115,7 @@
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCCombat.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCMovement.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\HumanNPC.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\TaskHandlers\StashingHandler.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\TaskHandlers\WoodCuttingHandler.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\TaskHandlers\ITaskHandler.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\UndeadNPC.cs" />
