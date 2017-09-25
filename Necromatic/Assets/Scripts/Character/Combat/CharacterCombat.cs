@@ -85,22 +85,21 @@ namespace Necromatic.Char.Combat
             return null;
         }
 
-        public void DoAttack()
+        private void DoAttack()
         {
             _weapon.Attack(CurrentTarget, CharacterScript);
         }
 
-        public UniRx.IObservable<long> AttackAnimation(float time)
+        private UniRx.IObservable<long> AttackAnimation(float attackSpeed)
         {
             Attacking.Value = true;
-            var baseTime = 0.24f; // TODO: attack animation is 24 frames, fetch it automagically later
-            var multiplier = baseTime / time;
-            _animator.SetFloat("AttackSpeed", multiplier);
+            _animator.SetFloat("AttackSpeed", attackSpeed);
             _animator.SetBool("Attack", true);
-            var obs = Observable.Timer(TimeSpan.FromSeconds(time)).TakeUntilDestroy(this);
+            var obs = Observable.Timer(TimeSpan.FromSeconds(_weapon.AttackTime)).TakeUntilDestroy(this);
             obs.Subscribe(_ =>
             {
                 Attacking.Value = false;
+                _animator.SetBool("Attack", false);
                 if (_animator.isActiveAndEnabled)
                 {
                     _animator.SetBool("Attack", false);
@@ -113,9 +112,9 @@ namespace Necromatic.Char.Combat
         public void InitAttack(Hurtable target)
         {
             CurrentTarget = target;
-            if(_weapon.CanAttack.Value)
+            if(_weapon.CanAttack.Value == true)
             {
-                AttackAnimation(_weapon.Speed);
+                AttackAnimation(_weapon.AttackSpeed);
             }
         }
 

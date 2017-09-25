@@ -42,7 +42,7 @@ namespace Necromatic.Char
         {
             var prefab = Resources.Load<StatBar>("Prefabs/UI/StatBar");
             _healthBar = Instantiate(prefab);
-            transform.ObserveEveryValueChanged(t=>t.position).Subscribe(pos =>
+            transform.ObserveEveryValueChanged(t=>t.position).TakeUntilDestroy(_healthBar).Subscribe(pos =>
             {
                 _healthBar.transform.position = pos + _healthBarOffset;
             });

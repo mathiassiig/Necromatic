@@ -4,6 +4,8 @@ using UnityEngine;
 using Necromatic.Char.Combat;
 using UniRx;
 using Necromatic.Utility;
+using System;
+
 namespace Necromatic.Char.NPC
 {
     public class CharacterNPCCombat : MonoBehaviour
@@ -62,17 +64,36 @@ namespace Necromatic.Char.NPC
             if (enemy == null || enemy.IsDead.Value)
             {
                 enemy = _combat.GetEnemy(_detectionRange);
+                _currentAttackTimer?.Dispose();
             }
 
-            if (enemy != null && _engageEnemy)
+            if (enemy != null && _engageEnemy && CurrentTarget != enemy)
             {
                 CurrentTarget = enemy;
-                var dis = (enemy.transform.position - transform.position).magnitude;
+                StartAttackTimer(enemy);
+            }
+        }
+
+        private IDisposable _currentAttackTimer;
+
+        private void StartAttackTimer(Hurtable enemy)
+        {
+            _currentAttackTimer?.Dispose();
+            _currentAttackTimer = Observable
+                .Timer(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(_combat.Weapon.AttackTime))
+                .TakeUntilDestroy(enemy.gameObject)
+                .TakeUntilDestroy(gameObject)
+                .Subscribe(_ =>
+            {
+                if(gameObject.name == "NPC_Human_Infantry")
+                {
+                    Debug.Log(_combat.Weapon.AttackTime);
+                }
                 if (!TargetOutOfRange)
                 {
                     _combat.InitAttack(enemy);
                 }
-            }
+            });
         }
     }
 }

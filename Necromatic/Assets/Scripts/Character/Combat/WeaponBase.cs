@@ -9,8 +9,11 @@ namespace Necromatic.Char.Combat
 {
     public class WeaponBase : MonoBehaviour
     {
+        private const int FPS = 60;
         public float Range => _range; 
-        public float Speed => _speed;
+        public float AttackSpeed => _attackSpeed;
+        public float AttackTime => (AttackTimeFrames / (float)FPS) / _attackSpeed;
+        public int AttackTimeFrames = 30;
         // public float Damage { get { return _damage; } }
         public readonly ReactiveProperty<bool> CanAttack = new ReactiveProperty<bool>();
         public bool IsMelee => _projectile == null;
@@ -20,7 +23,7 @@ namespace Necromatic.Char.Combat
         [SerializeField] private List<SoundEffect> _attackSounds;
         [SerializeField] private AudioSource _attackAudio;
         [SerializeField] private float _range = 2f;
-        [SerializeField] private float _speed = 0.24f;
+        [SerializeField] private float _attackSpeed = 1f;
         [SerializeField] private float _damage = 0f;
         [SerializeField] private ProjectileBase _projectile; 
         [SerializeField] private Vector3 _projectileSpawnOffset;
@@ -50,7 +53,10 @@ namespace Necromatic.Char.Combat
                 {
                     c.Health.Add(-_damage, sender);
                 }
-                Observable.Timer(TimeSpan.FromSeconds(_speed)).First().Subscribe(_ => CanAttack.Value = true);
+                Observable
+                    .Timer(TimeSpan.FromSeconds(AttackTime))
+                    .First()
+                    .Subscribe(_ => CanAttack.Value = true);
             }
         }
 
