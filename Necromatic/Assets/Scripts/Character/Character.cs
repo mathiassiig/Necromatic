@@ -22,6 +22,8 @@ namespace Necromatic.Char
         [SerializeField] protected CharacterCombat _combat;
         [SerializeField] protected Animator _animator;
         [SerializeField] protected CharacterAnimationEvents _animEvents;
+        [SerializeField] protected MonoBehaviour _death;
+        private IDeath _deathScript;
 
 
         public Inventory Inventory { get; private set; } = new Inventory();
@@ -49,23 +51,22 @@ namespace Necromatic.Char
 
         protected virtual void Init()
         {
+            _deathScript = _death as IDeath;
             InitBar();
             Health.Init();
             IsDead.TakeUntilDestroy(this).Subscribe(x =>
             {
-                if (x) HandleDeath();
+                if (x)
+                {
+                    Destroy(_healthBar.gameObject);
+                    _deathScript.HandleDeath();
+                }
             });
             Health.Current.TakeUntilDestroy(this).Subscribe(x =>
             {
                 if (x <= 0) IsDead.Value = true;
                 _healthBar.UpdateStatbar(Health.Max.Value, Health.Current.Value);
             });
-        }
-
-        protected virtual void HandleDeath()
-        {
-            Destroy(_healthBar.gameObject);
-            Destroy(gameObject);
         }
 
         public static bool Killable(Character c)

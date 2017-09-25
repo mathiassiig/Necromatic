@@ -10,7 +10,7 @@ using Necromatic.Char.NPC.TaskHandlers;
 
 namespace Necromatic.Char.NPC
 {
-    public class UndeadWorkerNPC : UndeadNPC
+    public class WorkerNPC : CharacterNPC
     {
         [SerializeField]
         private GameObject _resourceWood;
@@ -43,7 +43,6 @@ namespace Necromatic.Char.NPC
         {
             base.Think();
         }
-
 
         protected override void NPCUpdate()
         {

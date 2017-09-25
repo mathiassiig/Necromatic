@@ -12,15 +12,12 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -114,12 +111,13 @@
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPC.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCCombat.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\CharacterNPCMovement.cs" />
-    <Compile Include="Assets\Scripts\Character\NPC\HumanNPC.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\HumanDeath.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\IDeath.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\TaskHandlers\ITaskHandler.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\TaskHandlers\StashingHandler.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\TaskHandlers\WoodCuttingHandler.cs" />
-    <Compile Include="Assets\Scripts\Character\NPC\TaskHandlers\ITaskHandler.cs" />
-    <Compile Include="Assets\Scripts\Character\NPC\UndeadNPC.cs" />
-    <Compile Include="Assets\Scripts\Character\NPC\UndeadWorkerNPC.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\UndeadDeath.cs" />
+    <Compile Include="Assets\Scripts\Character\NPC\WorkerNPC.cs" />
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\User\CharacterMovementInput.cs" />
     <Compile Include="Assets\Scripts\Character\User\MouseInput.cs" />
@@ -172,6 +170,5 @@
     <None Include="Assets\Plugins\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
