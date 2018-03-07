@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System;
+using UniRx.Operators;
 
 namespace Necromatic.Character
 {
@@ -15,17 +16,23 @@ namespace Necromatic.Character
 
     public class Combat
     {
-        [SerializeField] private float _damage = 5;
-        [SerializeField] private float _forwardTime = 0.2f;
-        [SerializeField] private float _retractTime = 0.3f;
+        private float _damage = 50;
+        private float _forwardTime = 0.2f;
+        private float _retractTime = 0.3f;
 
         public float ForwardTime => _forwardTime;
         public float RetractTime => _retractTime;
         public readonly ReactiveProperty<CombatState> CurrentState = new ReactiveProperty<CombatState>(CombatState.Idle);
+        
+        private CharacterInstance _lastTarget;
+        public CharacterInstance LastTarget => _lastTarget;
+
+        private IDisposable _attackingDisposable;
+        private IDisposable _checkDeadDisposable;
 
         public void TryAttack(CharacterInstance c)
         {
-            if(CurrentState.Value != CombatState.Idle)
+            if (CurrentState.Value != CombatState.Idle)
             {
                 return;
             }
@@ -34,16 +41,31 @@ namespace Necromatic.Character
 
         private void DoAttack(CharacterInstance c)
         {
+            _lastTarget = c;
             CurrentState.Value = CombatState.Forward;
-            Observable.Timer(TimeSpan.FromSeconds(_forwardTime)).Subscribe(x =>
+            _attackingDisposable = Observable.Timer(TimeSpan.FromSeconds(_forwardTime)).Subscribe(x =>
             {
                 c.Health.Add(-_damage);
                 CurrentState.Value = CombatState.Retracting;
-                Observable.Timer(TimeSpan.FromSeconds(_retractTime)).Subscribe(y =>
+                _attackingDisposable = Observable.Timer(TimeSpan.FromSeconds(_retractTime)).Subscribe(y =>
                 {
                     CurrentState.Value = CombatState.Idle;
                 });
             });
+
+            if(_checkDeadDisposable != null)
+            {
+                _checkDeadDisposable.Dispose();
+            }
+            _checkDeadDisposable = c.Dead.TakeUntilDestroy(c.gameObject).Subscribe(dead =>
+            {
+                if(dead)
+                {
+                    _attackingDisposable.Dispose();
+                    CurrentState.Value = CombatState.Idle;
+                }
+            });
+            
         }
     }
 }
