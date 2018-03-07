@@ -17,10 +17,7 @@ namespace Necromatic.Player
             {
                 _character.AttackNearest();
             }
-        }
 
-        void FixedUpdate()
-        {
             var direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             if (direction.magnitude != 0)
             {

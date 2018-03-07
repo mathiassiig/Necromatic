@@ -33,6 +33,11 @@ namespace Necromatic.Character
             }
         }
 
+        public void Move(Vector3 direction)
+        {
+            Move(new Vector2(direction.x, direction.z));
+        }
+
         public void Move(Vector2 direction)
         {
             if (_canMove)
@@ -40,9 +45,9 @@ namespace Necromatic.Character
                 direction.Normalize();
                 _representation.LookDirection(direction);
                 // check if can move
-                transform.position = new Vector3(transform.position.x + direction.x * _baseSpeed * Time.fixedDeltaTime,
+                transform.position = new Vector3(transform.position.x + direction.x * _baseSpeed * Time.deltaTime,
                                                 transform.position.y,
-                                                transform.position.z + direction.y * _baseSpeed * Time.fixedDeltaTime);
+                                                transform.position.z + direction.y * _baseSpeed * Time.deltaTime);
             }
         }
     }

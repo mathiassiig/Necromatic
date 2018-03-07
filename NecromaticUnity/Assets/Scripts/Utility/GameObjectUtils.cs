@@ -20,6 +20,12 @@ namespace Necromatic.Utility
             return targets.FirstOrDefault( x => Distance(x.position, sender.position) == min);
         }
 
+        public static T Closest<T>(List<T> targets, MonoBehaviour sender)
+        {
+            var min = targets.Select(x => Distance((x as MonoBehaviour).transform.position, sender.transform.position)).Min(); // todo: one-liner?
+            return targets.FirstOrDefault(x => Distance((x as MonoBehaviour).transform.position, sender.transform.position) == min); 
+        }
+
         public static float Distance(Vector3 a, Vector3 b)
         {
             return (a-b).sqrMagnitude;

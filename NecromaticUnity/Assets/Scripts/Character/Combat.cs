@@ -16,7 +16,7 @@ namespace Necromatic.Character
 
     public class Combat
     {
-        private float _damage = 50;
+        public float Damage = 50;
         private float _forwardTime = 0.2f;
         private float _retractTime = 0.3f;
 
@@ -45,7 +45,7 @@ namespace Necromatic.Character
             CurrentState.Value = CombatState.Forward;
             _attackingDisposable = Observable.Timer(TimeSpan.FromSeconds(_forwardTime)).Subscribe(x =>
             {
-                c.Health.Add(-_damage);
+                c.Health.Add(-Damage);
                 CurrentState.Value = CombatState.Retracting;
                 _attackingDisposable = Observable.Timer(TimeSpan.FromSeconds(_retractTime)).Subscribe(y =>
                 {

@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114687556833407792}
   - component: {fileID: 65154813592569702}
   - component: {fileID: 114837010732969750}
+  - component: {fileID: 114613048222290562}
   m_Layer: 8
   m_Name: Human
   m_TagString: Untagged
@@ -213,10 +214,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _faction: 1
   _movement: {fileID: 114687556833407792}
-  _health:
-    _initial: 100
   _weapon: {fileID: 4996016848133520}
   _death: {fileID: 114837010732969750}
+  _health:
+    _initial: 100
+  _damage: 5
+  _attackRange: 1.5
+--- !u!114 &114613048222290562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1075966943176206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31836b456e1ce224484d389a8474f4f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 114516734194258584}
+  _searchRange: 10
 --- !u!114 &114637464830105466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -240,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _representation: {fileID: 114637464830105466}
-  _baseSpeed: 5
+  _baseSpeed: 3
 --- !u!114 &114837010732969750
 MonoBehaviour:
   m_ObjectHideFlags: 1
