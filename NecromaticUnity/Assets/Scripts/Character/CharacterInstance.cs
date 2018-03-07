@@ -17,20 +17,18 @@ namespace Necromatic.Character
     public class CharacterInstance : MonoBehaviour
     {
         [SerializeField] private Faction _faction;
-        public Faction Faction => _faction;
-
         [SerializeField] private Movement _movement;
-        public Movement Movement => _movement;
-
-        public Combat Combat { get; private set; } = new Combat();
-
         [SerializeField] private Stat _health;
-        public Stat Health => _health;
-
         [SerializeField] private Transform _weapon;
+        [SerializeField] private Death _death;
         private WeaponAnimator _animator = new WeaponAnimator();
-
-        public readonly ReactiveProperty<bool> Dead = new ReactiveProperty<bool>(false);
+        public Combat Combat { get; private set; } = new Combat();
+        
+        // accessors
+        public Faction Faction => _faction;
+        public Movement Movement => _movement;
+        public Stat Health => _health;
+        public Death Death => _death;
 
         void Start()
         {
@@ -44,7 +42,7 @@ namespace Necromatic.Character
             {
                 if(value <= 0)
                 {
-                    Die();
+                    Death.Die();
                 }
             });
         }
@@ -57,12 +55,6 @@ namespace Necromatic.Character
                 var nearest = enemies.FirstOrDefault(e => e.transform == GameObjectUtils.Closest(enemies.Select(x => x.transform).ToList(), transform));
                 Combat.TryAttack(nearest);
             }
-        }
-        
-        protected virtual void Die()
-        {
-            Dead.Value = true;
-            Destroy(gameObject);
         }
     }
 }

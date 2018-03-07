@@ -57,7 +57,7 @@ namespace Necromatic.Character
             {
                 _checkDeadDisposable.Dispose();
             }
-            _checkDeadDisposable = c.Dead.TakeUntilDestroy(c.gameObject).Subscribe(dead =>
+            _checkDeadDisposable = c.Death.Dead.TakeUntilDestroy(c.gameObject).Subscribe(dead =>
             {
                 if(dead)
                 {

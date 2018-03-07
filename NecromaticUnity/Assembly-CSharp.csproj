@@ -53,7 +53,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Character\CharacterInstance.cs" />
      <Compile Include="Assets\Scripts\Character\Combat.cs" />
+     <Compile Include="Assets\Scripts\Character\Death.cs" />
      <Compile Include="Assets\Scripts\Character\Health.cs" />
+     <Compile Include="Assets\Scripts\Character\HumanDeath.cs" />
      <Compile Include="Assets\Scripts\Character\Movement.cs" />
      <Compile Include="Assets\Scripts\Character\Representation.cs" />
      <Compile Include="Assets\Scripts\Character\WeaponAnimator.cs" />
