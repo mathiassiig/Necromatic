@@ -11,7 +11,9 @@ namespace Necromatic.Character
             Destroy(GetComponent<CharacterInstance>());
             Destroy(GetComponent<Movement>());
             Destroy(GetComponent<ArtificialIntelligence>());
+            _representation.gameObject.AddComponent<BoxCollider>();
             _representation.DeathAnimation();
+            Dead.Value = true;
         }
     }
 }

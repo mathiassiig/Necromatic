@@ -20,11 +20,14 @@ namespace Necromatic.Character
         [SerializeField] private Movement _movement;
         [SerializeField] private Transform _weapon;
         [SerializeField] private Death _death;
+        [SerializeField] private Representation _representation;
         
         [Header("Combat settings")]
         [SerializeField] private Stat _health;
         [SerializeField] private float _damage; 
         [SerializeField] private float _attackRange = 1;
+
+        public Ability CurrentAbility;
 
         private WeaponAnimator _animator = new WeaponAnimator();
         public Combat Combat { get; private set; } = new Combat();
@@ -34,6 +37,7 @@ namespace Necromatic.Character
         public Movement Movement => _movement;
         public Stat Health => _health;
         public Death Death => _death;
+        public Representation Representation => _representation;
         public float AttackRange => _attackRange;
 
         void Start()
@@ -61,6 +65,14 @@ namespace Necromatic.Character
             {
                 var nearest = enemies.FirstOrDefault(e => e.transform == GameObjectUtils.Closest(enemies.Select(x => x.transform).ToList(), transform));
                 Combat.TryAttack(nearest);
+            }
+        }
+
+        public void DoAbility()
+        {
+            if(gameObject.tag == "Player")
+            {
+                CurrentAbility.PlayerFire();
             }
         }
     }

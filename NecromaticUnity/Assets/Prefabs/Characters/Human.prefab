@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4175062751194626}
   - component: {fileID: 114516734194258584}
   - component: {fileID: 114687556833407792}
-  - component: {fileID: 65154813592569702}
   - component: {fileID: 114837010732969750}
   - component: {fileID: 114613048222290562}
+  - component: {fileID: 65420034793470328}
   m_Layer: 8
   m_Name: Human
   m_TagString: Untagged
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 33293670860229642}
   - component: {fileID: 23195501416605404}
   - component: {fileID: 114637464830105466}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Representation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1674239085891318}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65154813592569702
+--- !u!65 &65420034793470328
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -216,6 +216,7 @@ MonoBehaviour:
   _movement: {fileID: 114687556833407792}
   _weapon: {fileID: 4996016848133520}
   _death: {fileID: 114837010732969750}
+  _representation: {fileID: 114637464830105466}
   _health:
     _initial: 100
   _damage: 5
