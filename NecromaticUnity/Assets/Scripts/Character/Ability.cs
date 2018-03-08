@@ -9,10 +9,9 @@ namespace Necromatic.Character
     public interface Ability
     {
         bool PlayerFire();
-		// todo: npc fire		
+        // todo: npc fire		
     }
-    // 100000000
-	// todo: move to separate file
+    // todo: move to separate file
     public class RaiseCorpse : Ability
     {
         public bool PlayerFire()
@@ -23,14 +22,14 @@ namespace Necromatic.Character
             {
                 Transform objectHit = hit.transform;
                 var corpse = objectHit.parent.GetComponent<HumanDeath>();
-				Debug.Log(corpse);
+                Debug.Log(corpse);
                 if (corpse != null && corpse.Dead.Value)
                 {
-					Debug.Log("Raise");
-					Raise(corpse.gameObject, Object.FindObjectOfType<MotherPool>().GetCharacterPrefab(CharacterType.Skeleton));
+                    Debug.Log("Raise");
+                    Raise(corpse.gameObject, Object.FindObjectOfType<MotherPool>().GetCharacterPrefab(CharacterType.Skeleton));
                 }
             }
-			return false;
+            return false;
         }
 
         private void Raise(GameObject corpse, CharacterInstance undeadToRaise)
