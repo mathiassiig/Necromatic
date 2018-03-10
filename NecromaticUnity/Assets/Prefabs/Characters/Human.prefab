@@ -216,10 +216,11 @@ MonoBehaviour:
   _movement: {fileID: 114687556833407792}
   _weapon: {fileID: 4996016848133520}
   _death: {fileID: 114837010732969750}
-  _representation: {fileID: 114637464830105466}
+  _representation: {fileID: 0}
+  _combat:
+    _damage: 5
   _health:
     _initial: 100
-  _damage: 5
   _attackRange: 1.5
 --- !u!114 &114613048222290562
 MonoBehaviour:

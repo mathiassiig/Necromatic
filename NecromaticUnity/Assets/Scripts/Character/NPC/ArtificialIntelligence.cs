@@ -30,7 +30,7 @@ namespace Necromatic.Character
             var enemies = GameObjectUtils.DetectEnemies(_searchRange, _character.transform.position, _character);
             if (enemies != null && enemies.Count != 0)
             {
-                var inRange = enemies.FirstOrDefault(x => GameObjectUtils.Distance(x.transform.position, _character.transform.position) <= _character.AttackRange);
+                var inRange = enemies.FirstOrDefault(x => GameObjectUtils.Distance(x.transform.position, _character.transform.position) <= _character.Combat.AttackRange);
                 if (inRange != null)
                 {
                     _character.AttackNearest();
