@@ -23,10 +23,8 @@ namespace Necromatic.Character
             {
                 Transform objectHit = hit.transform;
                 var corpse = objectHit.parent.GetComponent<HumanDeath>();
-                Debug.Log(corpse);
                 if (corpse != null && corpse.Dead.Value)
                 {
-                    Debug.Log("Raise");
                     Raise(corpse.gameObject, Object.FindObjectOfType<MotherPool>().GetCharacterPrefab(CharacterType.Skeleton));
                 }
             }
