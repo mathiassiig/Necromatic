@@ -16,6 +16,7 @@ namespace Necromatic.Character.NPC
 
         private List<Strategy> _strageties = new List<Strategy>()
         {
+            new FollowStrategy(){Priority = 0},
             new MovementStrategy(){Priority = 1},
             new SearchAndDestroyStrategy(){Priority = 2}
         };
@@ -38,19 +39,27 @@ namespace Necromatic.Character.NPC
                 {
                     _currentStrategy = _strageties.OrderByDescending(x => x.Priority).First();
                 }
-                _lastResult = _currentStrategy.Act(_character, _lastResult);
-                if (_currentStrategyType != _lastResult.NextDesiredStrategy)
+                var result = _currentStrategy.Act(_character, _lastResult);
+                if (_currentStrategyType != result.NextDesiredStrategy)
                 {
-                    _currentStrategy = SetStrategy(_lastResult);
+                    SetStrategy(result);
                 }
             }
         }
 
-        private Strategy SetStrategy(StrategyResult r)
+        public void SetLeader(CharacterInstance leader)
+        {
+            _strageties.FirstOrDefault(x => x.GetType() == typeof(FollowStrategy)).Priority = 3;
+            SetStrategy(new FollowResult(leader.transform, 2f, 5f));
+            Debug.Log(_currentStrategy);
+        }
+
+        private void SetStrategy(StrategyResult r)
         {
             var type = r.NextDesiredStrategy;
+            _lastResult = r;
             _currentStrategyType = type;
-            return _strageties.FirstOrDefault(x => x.GetType() == _currentStrategyType);
+            _currentStrategy = _strageties.FirstOrDefault(x => x.GetType() == _currentStrategyType);
         }
 
     }

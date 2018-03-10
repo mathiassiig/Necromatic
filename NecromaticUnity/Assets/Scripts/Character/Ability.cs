@@ -12,6 +12,7 @@ namespace Necromatic.Character
         bool PlayerFire();
         // todo: npc fire		
     }
+
     // todo: move to separate file
     public class RaiseCorpse : Ability
     {
@@ -37,6 +38,8 @@ namespace Necromatic.Character
             var ai = undead.GetComponent<ArtificialIntelligence>();
             ai.SetBrainState(false);
             undead.Representation.ReviveAnimation(() => ai.SetBrainState(true));
+            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterInstance>();
+            ai.SetLeader(player);
             Object.Destroy(corpse);
         }
     }
