@@ -7,5 +7,6 @@ namespace Necromatic.Character.NPC.Strategies.Results
     public abstract class StrategyResult
     {
         public System.Type NextDesiredStrategy;
+        public int Priority = 0;
     }
 }

@@ -26,9 +26,16 @@ namespace Necromatic.Character.NPC.Strategies
 			var distance = ((_toFollow.position - sender.transform.position)).magnitude;
 			if(distance >= _maxDistance)
 			{
-				return new MoveResult(_toFollow, _minDistance);
+				return new MoveResult(_toFollow, _minDistance) {Priority = 4};
 			}
 			return r;
+        }
+
+        public FollowStrategy(Transform toFollow, float minDistance, float maxDistance)
+        {
+            _toFollow = toFollow;
+            _minDistance = minDistance;
+            _maxDistance = maxDistance;
         }
     }
 }

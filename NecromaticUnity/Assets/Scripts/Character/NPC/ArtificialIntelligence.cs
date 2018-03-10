@@ -14,17 +14,26 @@ namespace Necromatic.Character.NPC
         [SerializeField] private float _searchRange = 10;
         private bool _brainActivated = true;
 
-        private List<Strategy> _strageties = new List<Strategy>()
+        private List<Strategy> _secondaryStrategies = new List<Strategy>()
         {
-            new FollowStrategy(){Priority = 0},
-            new MovementStrategy(){Priority = 1},
-            new SearchAndDestroyStrategy(){Priority = 2}
+            new MovementStrategy(),
+            new EngageEnemy(),
         };
 
-        private Strategy _currentStrategy;
-        private System.Type _currentStrategyType;
+        private List<Strategy> _primaryStrategies = new List<Strategy>()
+        {
+            new SearchForEnemies()
+        };
 
-        private StrategyResult _lastResult = new NoneResult();
+        private List<StrategyResult> _inputResults = new List<StrategyResult>();
+
+        private Strategy _currentTask;
+        private StrategyResult _currentTaskResult = new NoneResult();
+
+        public void AddPrimaryStrategy(Strategy s)
+        {
+            _primaryStrategies.Add(s);
+        }
 
         public void SetBrainState(bool on)
         {
@@ -35,31 +44,41 @@ namespace Necromatic.Character.NPC
         {
             if (_brainActivated)
             {
-                if (_currentStrategy == null)
+                GetInputs();
+                foreach(var r in _inputResults)
                 {
-                    _currentStrategy = _strageties.OrderByDescending(x => x.Priority).First();
+                    if(r.Priority >= _currentTaskResult.Priority)
+                    {
+                        SetStrategy(r);
+                    }
                 }
-                var result = _currentStrategy.Act(_character, _lastResult);
-                if (_currentStrategyType != result.NextDesiredStrategy)
+                if(_currentTask != null)
                 {
-                    SetStrategy(result);
+                    var nextResult = _currentTask.Act(_character, _currentTaskResult);
+                    SetStrategy(nextResult);
                 }
             }
         }
 
-        public void SetLeader(CharacterInstance leader)
+        void GetInputs()
         {
-            _strageties.FirstOrDefault(x => x.GetType() == typeof(FollowStrategy)).Priority = 3;
-            SetStrategy(new FollowResult(leader.transform, 2f, 5f));
-            Debug.Log(_currentStrategy);
+            _inputResults.Clear();
+            foreach (var i in _primaryStrategies)
+            {
+                var result = i.Act(_character, null);
+                if (result.GetType() != typeof(NoneResult))
+                {
+                    _inputResults.Add(result);
+                }
+            }
         }
+
 
         private void SetStrategy(StrategyResult r)
         {
             var type = r.NextDesiredStrategy;
-            _lastResult = r;
-            _currentStrategyType = type;
-            _currentStrategy = _strageties.FirstOrDefault(x => x.GetType() == _currentStrategyType);
+            _currentTaskResult = r;
+            _currentTask = _secondaryStrategies.FirstOrDefault(x => x.GetType() == type);
         }
 
     }

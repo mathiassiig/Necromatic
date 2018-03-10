@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using Necromatic.Utility;
 using Necromatic.Character.NPC;
+using Necromatic.Character.NPC.Strategies;
 
 namespace Necromatic.Character
 {
@@ -39,7 +40,7 @@ namespace Necromatic.Character
             ai.SetBrainState(false);
             undead.Representation.ReviveAnimation(() => ai.SetBrainState(true));
             var player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterInstance>();
-            ai.SetLeader(player);
+            ai.AddPrimaryStrategy(new FollowStrategy(player.transform, 2.5f, 7.5f));
             Object.Destroy(corpse);
         }
     }

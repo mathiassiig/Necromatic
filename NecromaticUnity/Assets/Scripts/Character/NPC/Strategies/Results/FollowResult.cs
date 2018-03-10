@@ -9,14 +9,11 @@ namespace Necromatic.Character.NPC.Strategies.Results
         public Transform ToFollow;
         public float MinDistance;
 		public float MaxDistance;
-		
-        public FollowResult()
-        {
-            
-        }
+
 
 		public FollowResult(Transform toFollow, float minDistance, float maxDistance)
 		{
+            Priority = 3;
             NextDesiredStrategy = typeof(FollowStrategy);
 			ToFollow = toFollow;
             MinDistance = minDistance;
