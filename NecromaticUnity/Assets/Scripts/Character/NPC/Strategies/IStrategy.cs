@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Necromatic.Character;
+using Necromatic.Character.NPC.Strategies.Results;
 
 namespace Necromatic.Character.NPC.Strategies
 {

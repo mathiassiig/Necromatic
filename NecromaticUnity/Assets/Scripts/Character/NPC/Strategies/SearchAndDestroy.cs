@@ -4,6 +4,7 @@ using UnityEngine;
 using Necromatic.Character;
 using Necromatic.Utility;
 using System.Linq;
+using Necromatic.Character.NPC.Strategies.Results;
 
 namespace Necromatic.Character.NPC.Strategies
 {

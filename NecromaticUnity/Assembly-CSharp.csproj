@@ -62,8 +62,11 @@
      <Compile Include="Assets\Scripts\Character\NPC\HumanDeath.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\IStrategy.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\MovementStrategy.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\MoveResult.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\NoneResult.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\SearchAndDestroyResult.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\StrategyResult.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\SearchAndDestroy.cs" />
-     <Compile Include="Assets\Scripts\Character\NPC\Strategies\StrategyResult.cs" />
      <Compile Include="Assets\Scripts\Character\Representation.cs" />
      <Compile Include="Assets\Scripts\Character\WeaponAnimator.cs" />
      <Compile Include="Assets\Scripts\Player\InputManager.cs" />
