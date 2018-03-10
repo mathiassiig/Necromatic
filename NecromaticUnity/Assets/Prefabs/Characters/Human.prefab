@@ -219,9 +219,9 @@ MonoBehaviour:
   _representation: {fileID: 0}
   _combat:
     _damage: 5
+    _attackRange: 2
   _health:
     _initial: 100
-  _attackRange: 1.5
 --- !u!114 &114613048222290562
 MonoBehaviour:
   m_ObjectHideFlags: 1

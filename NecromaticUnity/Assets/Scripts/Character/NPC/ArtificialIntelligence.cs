@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Necromatic.Utility;
 using System.Linq;
+using Necromatic.Character.NPC.Strategies;
 
-namespace Necromatic.Character
+namespace Necromatic.Character.NPC
 {
     public class ArtificialIntelligence : MonoBehaviour
     {
@@ -12,44 +13,44 @@ namespace Necromatic.Character
         [SerializeField] private float _searchRange = 10;
         private bool _brainActivated = true;
 
+        private List<Strategy> _strageties = new List<Strategy>()
+        {
+            new MovementStrategy(){Priority = 1},
+            new SearchAndDestroyStrategy(){Priority = 2}
+        };
+
+        private Strategy _currentStrategy;
+        private System.Type _currentStrategyType;
+
+        private StrategyResult _lastResult = new NoneResult();
+
         public void SetBrainState(bool on)
         {
-			_brainActivated = on;
+            _brainActivated = on;
         }
 
         void Update()
         {
             if (_brainActivated)
             {
-                SearchAndDestroy();
-            }
-        }
-
-        void SearchAndDestroy()
-        {
-            var enemies = GameObjectUtils.DetectEnemies(_searchRange, _character.transform.position, _character);
-            if (enemies != null && enemies.Count != 0)
-            {
-                var inRange = enemies.FirstOrDefault(x => GameObjectUtils.Distance(x.transform.position, _character.transform.position) <= _character.Combat.AttackRange);
-                if (inRange != null)
+                if (_currentStrategy == null)
                 {
-                    _character.AttackNearest();
+                    _currentStrategy = _strageties.OrderByDescending(x => x.Priority).First();
                 }
-                else
+                _lastResult = _currentStrategy.Act(_character, _lastResult);
+                if (_currentStrategyType != _lastResult.NextDesiredStrategy)
                 {
-                    var nearest = GameObjectUtils.Closest<CharacterInstance>(enemies, _character);
-                    MoveTo(nearest.transform);
+                    _currentStrategy = SetStrategy(_lastResult);
                 }
             }
-
         }
 
-        void MoveTo(Transform t)
+        private Strategy SetStrategy(StrategyResult r)
         {
-
-            var dir = (t.position - _character.transform.position).normalized;
-            //Debug.Log(dir + " - " + t.name);
-            _character.Movement.Move(dir);
+            var type = r.NextDesiredStrategy;
+            _currentStrategyType = type;
+            return _strageties.FirstOrDefault(x => x.GetType() == _currentStrategyType);
         }
+
     }
 }

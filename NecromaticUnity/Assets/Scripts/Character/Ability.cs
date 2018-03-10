@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using Necromatic.Utility;
+using Necromatic.Character.NPC;
 
 namespace Necromatic.Character
 {
