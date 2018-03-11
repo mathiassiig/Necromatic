@@ -16,17 +16,17 @@ namespace Necromatic.Character
 
     public class CharacterInstance : MonoBehaviour
     {
-        [SerializeField] private Faction _faction;
-        [SerializeField] private Movement _movement;
-        [SerializeField] private Transform _weapon;
-        [SerializeField] private Death _death;
-        [SerializeField] private Representation _representation;
-        [SerializeField] private Combat _combat;
-        [SerializeField] private Stat _health;
+        [SerializeField] protected Faction _faction;
+        [SerializeField] protected Movement _movement;
+        [SerializeField] protected Transform _weapon;
+        [SerializeField] protected Death _death;
+        [SerializeField] protected Representation _representation;
+        [SerializeField] protected Combat _combat;
+        [SerializeField] protected Stat _health;
 
         public Ability CurrentAbility;
 
-        private WeaponAnimator _animator = new WeaponAnimator();
+        protected WeaponAnimator _animator = new WeaponAnimator();
         // accessors
         public Combat Combat => _combat;
         public Faction Faction => _faction;
@@ -37,17 +37,26 @@ namespace Necromatic.Character
 
         void Start()
         {
+            Init();
+        }
+
+        protected virtual void Init()
+        {
+            if(_death == null)
+            {
+                _death = new Death();
+            }
             Movement.Init(_combat);
             Combat.CurrentState.Subscribe(state =>
             {
                 _animator.FireAnimation(state, _weapon, Combat);
             });
             _health.Init();
-            _health.Current.Subscribe(value => 
+            _health.Current.Subscribe(value =>
             {
-                if(value <= 0)
+                if (value <= 0)
                 {
-                    Death.Die();
+                    Death.Die(this);
                 }
             });
         }
@@ -59,7 +68,7 @@ namespace Necromatic.Character
 
         public void DoAbility()
         {
-            if(gameObject.tag == "Player")
+            if (gameObject.tag == "Player")
             {
                 CurrentAbility.PlayerFire();
             }

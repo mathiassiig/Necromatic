@@ -19,9 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4175062751194626}
-  - component: {fileID: 114516734194258584}
+  - component: {fileID: 114302287987851850}
   - component: {fileID: 114687556833407792}
-  - component: {fileID: 114837010732969750}
   - component: {fileID: 114613048222290562}
   - component: {fileID: 65420034793470328}
   m_Layer: 8
@@ -201,7 +200,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &114516734194258584
+--- !u!114 &114302287987851850
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -209,14 +208,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1075966943176206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bd968460945f49fdb9b939cb17cc77f, type: 3}
+  m_Script: {fileID: 11500000, guid: 691b51e998f6c304bac33e97b66fc0bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _faction: 1
   _movement: {fileID: 114687556833407792}
   _weapon: {fileID: 4996016848133520}
-  _death: {fileID: 114837010732969750}
-  _representation: {fileID: 0}
+  _representation: {fileID: 114637464830105466}
   _combat:
     _damage: 5
     _attackRange: 2
@@ -233,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31836b456e1ce224484d389a8474f4f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _character: {fileID: 114516734194258584}
+  _character: {fileID: 114302287987851850}
   _searchRange: 10
 --- !u!114 &114637464830105466
 MonoBehaviour:
@@ -259,15 +257,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _representation: {fileID: 114637464830105466}
   _baseSpeed: 3
---- !u!114 &114837010732969750
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1075966943176206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 920a1504712357b41a7f46cabf94a61d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _representation: {fileID: 114637464830105466}

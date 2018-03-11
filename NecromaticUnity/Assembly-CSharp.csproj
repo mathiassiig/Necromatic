@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Character\Health.cs" />
      <Compile Include="Assets\Scripts\Character\Movement.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\ArtificialIntelligence.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\HumanCharacter.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\HumanDeath.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\FollowStrategy.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\IStrategy.cs" />

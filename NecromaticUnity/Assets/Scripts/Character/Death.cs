@@ -4,14 +4,14 @@ using UnityEngine;
 using UniRx;
 namespace Necromatic.Character
 {
-    public class Death : MonoBehaviour
+    public class Death
     {
         public ReactiveProperty<bool> Dead = new ReactiveProperty<bool>(false);
 
-        public virtual void Die()
+        public virtual void Die(CharacterInstance c)
         {
             Dead.Value = true;
-            Destroy(gameObject);
+            Object.Destroy(c.gameObject);
         }
     }
 }

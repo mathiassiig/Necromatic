@@ -6,14 +6,12 @@ namespace Necromatic.Character.NPC
 {
     public class HumanDeath : Death
     {
-        [SerializeField] private Representation _representation;
-        public override void Die()
+        public override void Die(CharacterInstance c)
         {
-            Destroy(GetComponent<CharacterInstance>());
-            Destroy(GetComponent<Movement>());
-            Destroy(GetComponent<ArtificialIntelligence>());
-            _representation.gameObject.AddComponent<BoxCollider>();
-            _representation.DeathAnimation();
+            Object.Destroy(c.GetComponent<Movement>());
+            Object.Destroy(c.GetComponent<ArtificialIntelligence>());
+            c.Representation.gameObject.AddComponent<BoxCollider>();
+            c.Representation.DeathAnimation();
             Dead.Value = true;
         }
     }

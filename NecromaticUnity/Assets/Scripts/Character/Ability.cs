@@ -24,8 +24,8 @@ namespace Necromatic.Character
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Corpse")))
             {
                 Transform objectHit = hit.transform;
-                var corpse = objectHit.parent.GetComponent<HumanDeath>();
-                if (corpse != null && corpse.Dead.Value)
+                var corpse = objectHit.parent.GetComponent<CharacterInstance>();
+                if (corpse != null && corpse.Death.Dead.Value)
                 {
                     Raise(corpse.gameObject, Object.FindObjectOfType<MotherPool>().GetCharacterPrefab(CharacterType.Skeleton));
                 }

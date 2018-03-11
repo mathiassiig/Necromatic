@@ -58,7 +58,6 @@ GameObject:
   - component: {fileID: 114359856708535636}
   - component: {fileID: 65195546537314388}
   - component: {fileID: 114148831736245510}
-  - component: {fileID: 114314652881551604}
   m_Layer: 8
   m_Name: Skeleton
   m_TagString: Untagged
@@ -239,23 +238,12 @@ MonoBehaviour:
   _faction: 0
   _movement: {fileID: 114359856708535636}
   _weapon: {fileID: 4517245934278134}
-  _death: {fileID: 0}
   _representation: {fileID: 114155744155699460}
+  _combat:
+    _damage: 50
+    _attackRange: 1
   _health:
     _initial: 100
-  _damage: 5
-  _attackRange: 1.5
---- !u!114 &114314652881551604
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1404385009788348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b9e9b7df418b92429a489a521f92752, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114359856708535636
 MonoBehaviour:
   m_ObjectHideFlags: 1
