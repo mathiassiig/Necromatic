@@ -10,6 +10,6 @@ You will play as a necromancer whose ultimate goal is to conquer the world.
 ## Features
 
 - Player movement
-- Mega basic AI (search and destroy)
-- Human NPC
-- Fighting
+- Modular AI
+- Human + Skeleton NPC
+- Abilities
