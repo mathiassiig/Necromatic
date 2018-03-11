@@ -35,7 +35,7 @@ namespace Necromatic.Character
         public Death Death => _death;
         public Representation Representation => _representation;
 
-        void Start()
+        void Awake()
         {
             Init();
         }

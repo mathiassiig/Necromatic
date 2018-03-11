@@ -233,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _character: {fileID: 114302287987851850}
   _searchRange: 10
+  _debugLog: 0
 --- !u!114 &114637464830105466
 MonoBehaviour:
   m_ObjectHideFlags: 1

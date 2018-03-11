@@ -15,7 +15,7 @@ namespace Necromatic.Character.NPC.Strategies
 
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
-            var enemies = GameObjectUtils.DetectEnemies(_searchRange, sender.transform.position, sender);
+            var enemies = GameObjectUtils.DetectEnemies(_searchRange, sender.transform.position, sender).Where(x => x.Death.Dead.Value == false).ToList();
             if (enemies != null && enemies.Count != 0)
             {
                 return new EnemySpottedResult(GameObjectUtils.Closest<CharacterInstance>(enemies, sender));
@@ -30,6 +30,10 @@ namespace Necromatic.Character.NPC.Strategies
         {
             var enemyResult = parameters as EnemySpottedResult;
             var enemy = enemyResult.Enemy;
+            if(enemy.Death.Dead.Value || enemy == null)
+            {
+                return new NoneResult();
+            }
             if ((enemy.transform.position - sender.transform.position).magnitude <= sender.Combat.AttackRange)
             {
                 sender.Combat.TryAttack(enemy);

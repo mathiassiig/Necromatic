@@ -12,6 +12,7 @@ namespace Necromatic.Character.NPC
     {
         [SerializeField] private CharacterInstance _character;
         [SerializeField] private float _searchRange = 10;
+        [SerializeField] private bool _debugLog;
         private bool _brainActivated = true;
 
         private List<Strategy> _secondaryStrategies = new List<Strategy>()
@@ -25,10 +26,11 @@ namespace Necromatic.Character.NPC
             new SearchForEnemies()
         };
 
-        private List<StrategyResult> _inputResults = new List<StrategyResult>();
+        private List<StrategyResult> _primaryResults = new List<StrategyResult>();
 
         private Strategy _currentTask;
         private StrategyResult _currentTaskResult = new NoneResult();
+        private string _currentTaskName;
 
         public void AddPrimaryStrategy(Strategy s)
         {
@@ -45,10 +47,16 @@ namespace Necromatic.Character.NPC
             if (_brainActivated)
             {
                 GetInputs();
-                foreach(var r in _inputResults)
+                foreach(var r in _primaryResults)
                 {
                     if(r.Priority >= _currentTaskResult.Priority)
                     {
+                        if(_debugLog)
+                        {
+                            print($"Setting strategy {r.NextDesiredStrategy.ToString().Split('.').Last()} " +
+                            $"because {r.GetType().ToString().Split('.').Last()}'s priority of {r.Priority} " +
+                            $"is higher than {_currentTaskResult.GetType().ToString().Split('.').Last()}'s priority of {_currentTaskResult.Priority}");
+                        }
                         SetStrategy(r);
                     }
                 }
@@ -62,13 +70,13 @@ namespace Necromatic.Character.NPC
 
         void GetInputs()
         {
-            _inputResults.Clear();
+            _primaryResults.Clear();
             foreach (var i in _primaryStrategies)
             {
                 var result = i.Act(_character, null);
                 if (result.GetType() != typeof(NoneResult))
                 {
-                    _inputResults.Add(result);
+                    _primaryResults.Add(result);
                 }
             }
         }
@@ -79,6 +87,7 @@ namespace Necromatic.Character.NPC
             var type = r.NextDesiredStrategy;
             _currentTaskResult = r;
             _currentTask = _secondaryStrategies.FirstOrDefault(x => x.GetType() == type);
+            _currentTaskName = _currentTask == null? "None" : _currentTask.GetType().ToString().Split('.').LastOrDefault();
         }
 
     }

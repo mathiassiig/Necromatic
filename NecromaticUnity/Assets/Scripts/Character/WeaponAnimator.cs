@@ -11,11 +11,15 @@ namespace Necromatic.Character
         private Vector3 _forward = new Vector3(0.25f, 0, 3f);
         public void FireAnimation(CombatState state, Transform weapon, Combat c)
         {
+            if(weapon == null)
+            {
+                return;
+            }
             weapon.DOKill();
             switch (state)
             {
                 case CombatState.Idle:
-                    weapon.localPosition = _retracted;
+                    weapon.localPosition = _retracted; // error here
                     break;
                 case CombatState.Forward:
                     weapon.DOLocalMove(_forward, c.ForwardTime).SetEase(Ease.OutExpo);

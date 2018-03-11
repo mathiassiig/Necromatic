@@ -10,6 +10,10 @@ namespace Necromatic.Character.NPC.Strategies
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
             var moveResult = parameters as MoveResult;
+            if(moveResult.To == null)
+            {
+                return new NoneResult();
+            }
             var dir = (moveResult.To.position - sender.transform.position).normalized;
             sender.Movement.Move(dir);
 			if ((moveResult.To.position - sender.transform.position).magnitude <= moveResult.ReachedDistance)
