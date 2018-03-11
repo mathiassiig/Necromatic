@@ -5,6 +5,7 @@ using Necromatic.Utility;
 using System.Linq;
 using Necromatic.Character.NPC.Strategies;
 using Necromatic.Character.NPC.Strategies.Results;
+using UniRx;
 
 namespace Necromatic.Character.NPC
 {
@@ -31,6 +32,17 @@ namespace Necromatic.Character.NPC
         private Strategy _currentTask;
         private StrategyResult _currentTaskResult = new NoneResult();
         private string _currentTaskName;
+
+        void Awake()
+        {
+            _character.Combat.LastAttacker.Subscribe(attacker =>
+            {
+                if(attacker != null)
+                {
+                    SetStrategy(new EnemySpottedResult(attacker));
+                }
+            });
+        }
 
         public void AddPrimaryStrategy(Strategy s)
         {
@@ -80,7 +92,6 @@ namespace Necromatic.Character.NPC
                 }
             }
         }
-
 
         private void SetStrategy(StrategyResult r)
         {

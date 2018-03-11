@@ -46,11 +46,12 @@ namespace Necromatic.Character
             {
                 _death = new Death();
             }
-            Movement.Init(_combat);
+            Combat.Init(this);
             Combat.CurrentState.Subscribe(state =>
             {
                 _animator.FireAnimation(state, _weapon, Combat);
             });
+            Movement.Init(_combat);
             _health.Init();
             _health.Current.Subscribe(value =>
             {
