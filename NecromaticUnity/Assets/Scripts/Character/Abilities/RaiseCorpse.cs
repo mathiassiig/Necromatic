@@ -8,22 +8,20 @@ using Necromatic.Utility;
 
 namespace Necromatic.Character.Abilities
 {
-    public class RaiseCorpse : Ability
+    public class RaiseCorpse : ClickAbility
     {
-        public bool PlayerFire()
+        protected override void HandleHitObject(Transform objectHit)
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Corpse")))
+            var corpse = objectHit.parent.GetComponent<CharacterInstance>();
+            if (corpse != null && corpse.Death.Dead.Value)
             {
-                Transform objectHit = hit.transform;
-                var corpse = objectHit.parent.GetComponent<CharacterInstance>();
-                if (corpse != null && corpse.Death.Dead.Value)
-                {
-                    Raise(corpse.gameObject, Object.FindObjectOfType<MotherPool>().GetCharacterPrefab(CharacterType.Skeleton));
-                }
+                Raise(corpse.gameObject, Object.FindObjectOfType<MotherPool>().GetCharacterPrefab(CharacterType.Skeleton));
             }
-            return false;
+        }
+
+        protected override string GetLayer()
+        {
+            return "Corpse";
         }
 
         private void Raise(GameObject corpse, CharacterInstance undeadToRaise)
@@ -31,8 +29,12 @@ namespace Necromatic.Character.Abilities
             var undead = Object.Instantiate(undeadToRaise, corpse.transform.position, corpse.transform.rotation);
             var ai = undead.GetComponent<ArtificialIntelligence>();
             ai.SetBrainState(false);
-            undead.Representation.ReviveAnimation(() => ai.SetBrainState(true));
             var player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterInstance>();
+            undead.Representation.ReviveAnimation(() =>
+            {
+                ai.SetBrainState(true);
+                undead.Representation.LookDirectionAnim(GameObjectUtils.PlaneDirection(undead.transform, player.transform), 0.3f);
+            });
             ai.AddPrimaryStrategy(new FollowStrategy(player.transform, 2.5f, 7.5f));
             Object.Destroy(corpse);
         }

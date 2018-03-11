@@ -26,6 +26,12 @@ namespace Necromatic.Character
             transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0, yRot, 0), _rotateSpeed * Time.deltaTime);
         }
 
+        public void LookDirectionAnim(Vector2 direction, float time)
+        {
+            var yRot = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+            transform.DOLocalRotate(new Vector3(0, yRot, 0), time);
+        }
+
         public void DeathAnimation()
         {
             foreach (Transform c in transform)

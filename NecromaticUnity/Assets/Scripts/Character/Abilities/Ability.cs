@@ -7,7 +7,7 @@ namespace Necromatic.Character.Abilities
 {
     public interface Ability
     {
-        bool PlayerFire();
+        bool PlayerFire(CharacterInstance sender);
         // todo: npc fire		
     }
 }

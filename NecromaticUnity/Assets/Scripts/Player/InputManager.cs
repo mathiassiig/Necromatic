@@ -12,6 +12,7 @@ namespace Necromatic.Player
     {
         [SerializeField] private CharacterInstance _character;
 
+
         void Start()
         {
             _character.CurrentAbility = new RaiseCorpse();
@@ -36,6 +37,22 @@ namespace Necromatic.Player
             if (Input.GetButtonDown("Fire1"))
             {
                 _character.DoAbility();
+            }
+
+            CheckAbilitySwap();
+        }
+
+        void CheckAbilitySwap()
+        {
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                _character.CurrentAbility = new RaiseCorpse();
+                Debug.Log("Switched to raise corpse");
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                _character.CurrentAbility = new Sacrifice();
+                Debug.Log("Switched to sacrifice");
             }
         }
     }

@@ -37,13 +37,18 @@ namespace Necromatic.Character
             Current.Value = value;
         }
 
-        public void Add(float value)
+        public float Add(float value)
         {
+            var before = Current.Value;
             if (value > 0 && Current.Value == Max.Value)
             {
-                return;
+                return 0;
             }
-            Current.Value = Mathf.Clamp(Current.Value + value, 0, Max.Value);
+            else
+            {
+                Current.Value = Mathf.Clamp(Current.Value + value, 0, Max.Value);
+            }
+            return Mathf.Clamp(before-Current.Value, 0, Max.Value);
         }
     }
 }

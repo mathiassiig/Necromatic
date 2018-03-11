@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Character\Abilities\Ability.cs" />
+     <Compile Include="Assets\Scripts\Character\Abilities\ClickAbility.cs" />
+     <Compile Include="Assets\Scripts\Character\Abilities\RaiseCorpse.cs" />
+     <Compile Include="Assets\Scripts\Character\Abilities\Sacrifice.cs" />
+     <Compile Include="Assets\Scripts\Character\Buffs\Buff.cs" />
      <Compile Include="Assets\Scripts\Character\CharacterInstance.cs" />
      <Compile Include="Assets\Scripts\Character\CharacterType.cs" />
      <Compile Include="Assets\Scripts\Character\Combat.cs" />
@@ -69,7 +73,6 @@
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\NoneResult.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\StrategyResult.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\SearchForEnemies.cs" />
-     <Compile Include="Assets\Scripts\Character\RaiseCorpse.cs" />
      <Compile Include="Assets\Scripts\Character\Representation.cs" />
      <Compile Include="Assets\Scripts\Character\WeaponAnimator.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />

@@ -36,6 +36,14 @@ namespace Necromatic.Character
         public Death Death => _death;
         public Representation Representation => _representation;
 
+        private List<Buff> _buffs = new List<Buff>();
+        public List<Buff> Buffs => _buffs;
+
+        public void AddBuff(Buff buff)
+        {
+            _buffs.Add(buff);
+        }
+
         void Awake()
         {
             Init();
@@ -73,7 +81,7 @@ namespace Necromatic.Character
         {
             if (gameObject.tag == "Player")
             {
-                CurrentAbility.PlayerFire();
+                CurrentAbility.PlayerFire(this);
             }
         }
     }

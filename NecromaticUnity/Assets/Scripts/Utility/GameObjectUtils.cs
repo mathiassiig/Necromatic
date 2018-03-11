@@ -26,9 +26,13 @@ namespace Necromatic.Utility
             return targets.FirstOrDefault(x => Distance((x as MonoBehaviour).transform.position, sender.transform.position) == min); 
         }
 
-        public static float Distance(Vector3 a, Vector3 b)
+        public static float Distance(Vector3 a, Vector3 b) => (a-b).sqrMagnitude;
+
+        public static Vector2 PlaneDirection(Transform from, Transform to)
         {
-            return (a-b).sqrMagnitude;
+            var fromV = new Vector2(from.position.x, from.position.z);
+            var toV = new Vector2(to.position.x, to.position.z);
+            return (toV - fromV).normalized;
         }
 
         public static List<CharacterInstance> DetectEnemies(float range, Vector3 position, CharacterInstance sender)
