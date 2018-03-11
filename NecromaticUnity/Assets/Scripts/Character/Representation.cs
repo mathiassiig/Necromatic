@@ -13,6 +13,7 @@ namespace Necromatic.Character
         private Vector3 _aliveScale = new Vector3(1, 1.8f, 0.35f);
         private Vector3 _alivePosition = new Vector3(0, 0.9f, 0);
         private float _animationTime = 0.3f;
+        private float _rotateSpeed = 10;
 
         public void LookDirection(Vector3 direction)
         {
@@ -21,8 +22,8 @@ namespace Necromatic.Character
 
         public void LookDirection(Vector2 direction)
         {
-            var yRot = Mathf.Atan2(direction.x, direction.y);
-            transform.localRotation = Quaternion.Euler(0, yRot * Mathf.Rad2Deg, 0);
+            var yRot = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0, yRot, 0), _rotateSpeed * Time.deltaTime);
         }
 
         public void DeathAnimation()

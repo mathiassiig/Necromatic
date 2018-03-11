@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Necromatic.Character;
 using Necromatic.Utility;
+using Necromatic.Character.Abilities;
 using System.Linq;
 
 namespace Necromatic.Player

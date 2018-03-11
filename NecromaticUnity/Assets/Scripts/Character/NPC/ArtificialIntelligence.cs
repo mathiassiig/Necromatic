@@ -12,7 +12,6 @@ namespace Necromatic.Character.NPC
     public class ArtificialIntelligence : MonoBehaviour
     {
         [SerializeField] private CharacterInstance _character;
-        [SerializeField] private float _searchRange = 10;
         [SerializeField] private bool _debugLog;
         private bool _brainActivated = true;
 
@@ -31,7 +30,6 @@ namespace Necromatic.Character.NPC
 
         private Strategy _currentTask;
         private StrategyResult _currentTaskResult = new NoneResult();
-        private string _currentTaskName;
 
         void Awake()
         {
@@ -98,7 +96,6 @@ namespace Necromatic.Character.NPC
             var type = r.NextDesiredStrategy;
             _currentTaskResult = r;
             _currentTask = _secondaryStrategies.FirstOrDefault(x => x.GetType() == type);
-            _currentTaskName = _currentTask == null? "None" : _currentTask.GetType().ToString().Split('.').LastOrDefault();
         }
 
     }

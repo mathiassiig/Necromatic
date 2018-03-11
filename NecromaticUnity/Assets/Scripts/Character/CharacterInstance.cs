@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using Necromatic.Utility;
 using System.Linq;
+using Necromatic.Character.Abilities;
 
 namespace Necromatic.Character
 {

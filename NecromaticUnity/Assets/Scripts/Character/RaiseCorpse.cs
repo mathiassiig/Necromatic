@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using Necromatic.Utility;
 using Necromatic.Character.NPC;
 using Necromatic.Character.NPC.Strategies;
+using Necromatic.Utility;
 
-namespace Necromatic.Character
+namespace Necromatic.Character.Abilities
 {
-    public interface Ability
-    {
-        bool PlayerFire();
-        // todo: npc fire		
-    }
-
-    // todo: move to separate file
     public class RaiseCorpse : Ability
     {
         public bool PlayerFire()
