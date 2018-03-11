@@ -74,14 +74,18 @@
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Player\InputManager.cs" />
      <Compile Include="Assets\Scripts\UI\FollowCamera.cs" />
+     <Compile Include="Assets\Scripts\UI\Research\AbilityUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Research\ResearchManager.cs" />
      <Compile Include="Assets\Scripts\UI\StatBar.cs" />
      <Compile Include="Assets\Scripts\Utility\GameObjectUtils.cs" />
      <Compile Include="Assets\Scripts\Utility\MotherPool.cs" />
      <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />
+     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
      <Compile Include="Assets\Scripts\World\ChunkMesh.cs" />
      <Compile Include="Assets\Scripts\World\WorldManager.cs" />
      <None Include="Assets\Scripts\World\test.shader" />
      <None Include="Assets\Shaders\VertexColor.shader" />
+     <None Include="Assets\Materials\UI\GreyScale.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Programs/Unity_2017_3_0f3/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -162,6 +166,12 @@
  </Reference>
  <Reference Include="DOTweenEditor">
  <HintPath>D:/Projects/Games/Necromatic/NecromaticUnity/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="TextMeshPro-2017.3-1.0.56-Editor">
+ <HintPath>D:/Projects/Games/Necromatic/NecromaticUnity/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-1.0.56-Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="TextMeshPro-2017.3-1.0.56-Runtime">
+ <HintPath>D:/Projects/Games/Necromatic/NecromaticUnity/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-1.0.56-Runtime.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>C:/Users/Mathias/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
