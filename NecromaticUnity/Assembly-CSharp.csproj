@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Player\InputManager.cs" />
      <Compile Include="Assets\Scripts\UI\FollowCamera.cs" />
+     <Compile Include="Assets\Scripts\UI\StatBar.cs" />
      <Compile Include="Assets\Scripts\Utility\GameObjectUtils.cs" />
      <Compile Include="Assets\Scripts\Utility\MotherPool.cs" />
      <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />

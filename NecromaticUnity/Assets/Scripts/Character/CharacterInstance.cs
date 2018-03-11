@@ -60,6 +60,7 @@ namespace Necromatic.Character
                     Death.Die(this);
                 }
             });
+            FindObjectOfType<MotherPool>().AddBarToCharacter(this);
         }
 
         public void AttackNearest()

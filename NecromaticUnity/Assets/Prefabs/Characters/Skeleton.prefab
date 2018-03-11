@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _character: {fileID: 114295765616411764}
   _searchRange: 10
+  _debugLog: 0
 --- !u!114 &114155744155699460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -240,8 +241,8 @@ MonoBehaviour:
   _weapon: {fileID: 4517245934278134}
   _representation: {fileID: 114155744155699460}
   _combat:
-    _damage: 50
-    _attackRange: 1
+    _damage: 10
+    _attackRange: 2
   _health:
     _initial: 100
 --- !u!114 &114359856708535636
