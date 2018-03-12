@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1513457516136028
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,8 +238,8 @@ MonoBehaviour:
   _movement: {fileID: 114487301434432370}
   _weapon: {fileID: 4552349229058892}
   _representation: {fileID: 114455808058026836}
-  _combat:
-    _damage: 50
-    _attackRange: 2
   _health:
     _initial: 100
+  Combat:
+    _damage: 50
+    _attackRange: 10

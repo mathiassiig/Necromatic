@@ -18,28 +18,37 @@ namespace Necromatic.Character
     [System.Serializable]
     public class Combat
     {
-        [SerializeField] private float _damage = 50f;
-        [SerializeField] private float _attackRange = 1f;
-        private float _forwardTime = 0.2f;
-        private float _retractTime = 0.3f;
+        [SerializeField] protected float _damage = 50f;
+        [SerializeField] protected float _attackRange = 1f;
+        protected float _forwardTime = 0.2f;
+        protected float _retractTime = 0.3f;
 
         public float ForwardTime => _forwardTime;
         public float RetractTime => _retractTime;
         public float AttackRange => _attackRange;
         public readonly ReactiveProperty<CombatState> CurrentState = new ReactiveProperty<CombatState>(CombatState.Idle);
 
-        private CharacterInstance _lastTarget;
+        protected CharacterInstance _lastTarget;
         public CharacterInstance LastTarget => _lastTarget; // who are we attacking
         public readonly ReactiveProperty<CharacterInstance> LastAttacker = new ReactiveProperty<CharacterInstance>(); // who's attacking us
-        private CharacterInstance _owner; // who are we 
-        private IDisposable _attackingDisposable;
-        private IDisposable _checkDeadDisposable;
+        protected CharacterInstance _owner; // who are we 
+        protected IDisposable _attackingDisposable;
+        protected IDisposable _checkDeadDisposable;
 
 
 
         public void Init(CharacterInstance owner)
         {
             _owner = owner;
+        }
+
+        public void Init(CharacterInstance owner, float damage, float forwardTime, float retractTime, float attackRange)
+        {
+            _damage = damage;
+            _attackRange = attackRange;
+            _forwardTime = forwardTime;
+            _retractTime = retractTime;
+            Init(owner);
         }
 
         public void TryAttackNearest(CharacterInstance sender)
@@ -67,7 +76,7 @@ namespace Necromatic.Character
             _owner.Health.Add(-damage);
         }
 
-        private void DoAttack(CharacterInstance c)
+        protected virtual void DoAttack(CharacterInstance c)
         {
             _lastTarget = c;
             CurrentState.Value = CombatState.Forward;

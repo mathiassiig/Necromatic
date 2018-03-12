@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Character\CharacterInstance.cs" />
      <Compile Include="Assets\Scripts\Character\CharacterType.cs" />
      <Compile Include="Assets\Scripts\Character\Combat.cs" />
+     <Compile Include="Assets\Scripts\Character\CombatRanged.cs" />
      <Compile Include="Assets\Scripts\Character\Death.cs" />
      <Compile Include="Assets\Scripts\Character\Health.cs" />
      <Compile Include="Assets\Scripts\Character\Movement.cs" />

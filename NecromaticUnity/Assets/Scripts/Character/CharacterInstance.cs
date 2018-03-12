@@ -22,14 +22,13 @@ namespace Necromatic.Character
         [SerializeField] protected Transform _weapon;
         [SerializeField] protected Death _death;
         [SerializeField] protected Representation _representation;
-        [SerializeField] protected Combat _combat;
         [SerializeField] protected Stat _health;
 
         public Ability CurrentAbility;
 
         protected WeaponAnimator _animator = new WeaponAnimator();
         // accessors
-        public Combat Combat => _combat;
+        public Combat Combat;
         public Faction Faction => _faction;
         public Movement Movement => _movement;
         public Stat Health => _health;
@@ -60,7 +59,7 @@ namespace Necromatic.Character
             {
                 _animator.FireAnimation(state, _weapon, Combat);
             });
-            Movement.Init(_combat);
+            Movement.Init(Combat);
             _health.Init();
             _health.Current.Subscribe(value =>
             {
