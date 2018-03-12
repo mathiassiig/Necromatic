@@ -5,9 +5,19 @@ using UniRx;
 
 namespace Necromatic.Character.Abilities
 {
-    public interface Ability
+    public class Ability
     {
-        bool PlayerFire(CharacterInstance sender);
-        // todo: npc fire		
+        public virtual bool PlayerFire(CharacterInstance sender)
+        {
+            return false;
+        }
+        
+        public virtual string GetIconPath()
+        {
+            return "Images/UI/Icons/";
+        }
+
+        public virtual string GetDescription => "";
+        public virtual string GetName => "";
     }
 }

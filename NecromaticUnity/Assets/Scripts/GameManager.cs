@@ -4,39 +4,17 @@ using UnityEngine;
 using Necromatic.Utility;
 using Necromatic.Character;
 using UniRx;
+using Necromatic.Player;
 
 namespace Necromatic
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private MotherPool _pool;
-		[SerializeField] private CharacterInstance _king;
-		[SerializeField] private CharacterInstance _player;
+        public ResearchBank ResearchBank { get; private set; } = new ResearchBank();
 
-		void Start()
+        void Start()
         {
-			_king.Death.Dead.Subscribe(dead =>
-			{
-				if(dead)
-					GameWon();
-			});
-
-			_player.Death.Dead.Subscribe(dead =>
-			{
-				if(dead)
-					GameOver();
-			});
+            ResearchBank.LoadBank();
         }
-
-		void GameOver()
-		{
-			Debug.Log("You lost...");
-		}
-
-		void GameWon()
-		{
-			Debug.Log("You won!");
-		}
-
     }
 }

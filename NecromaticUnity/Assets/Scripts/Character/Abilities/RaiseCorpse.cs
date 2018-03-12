@@ -24,6 +24,11 @@ namespace Necromatic.Character.Abilities
             return "Corpse";
         }
 
+        public override string GetIconPath()
+        {
+            return $"{base.GetIconPath()}icon_raise";
+        }
+
         private void Raise(GameObject corpse, CharacterInstance undeadToRaise)
         {
             var undead = Object.Instantiate(undeadToRaise, corpse.transform.position, corpse.transform.rotation);

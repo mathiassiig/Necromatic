@@ -12,7 +12,7 @@ namespace Necromatic.Character.Abilities
     {
 		protected string _layer;
 		protected CharacterInstance _sender;
-        public bool PlayerFire(CharacterInstance sender)
+        public override bool PlayerFire(CharacterInstance sender)
         {
 			_sender = sender;
             RaycastHit hit;

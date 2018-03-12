@@ -77,7 +77,9 @@
      <Compile Include="Assets\Scripts\Character\WeaponAnimator.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Player\InputManager.cs" />
+     <Compile Include="Assets\Scripts\Player\ResearchBank.cs" />
      <Compile Include="Assets\Scripts\UI\FollowCamera.cs" />
+     <Compile Include="Assets\Scripts\UI\HotBar.cs" />
      <Compile Include="Assets\Scripts\UI\Research\AbilityUI.cs" />
      <Compile Include="Assets\Scripts\UI\Research\ResearchManager.cs" />
      <Compile Include="Assets\Scripts\UI\StatBar.cs" />

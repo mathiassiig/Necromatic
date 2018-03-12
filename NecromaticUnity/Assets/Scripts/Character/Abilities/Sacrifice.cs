@@ -26,21 +26,26 @@ namespace Necromatic.Character.Abilities
             return "Character";
         }
 
+        public override string GetIconPath()
+        {
+            return $"{base.GetIconPath()}icon_sacrifice";
+        }
+
         private void Kill(CharacterInstance toSacrifice)
         {
             var alreadyHas = toSacrifice.Buffs.FirstOrDefault(x => x.GetType() == typeof(SacrificialBuff)) != null;
             if (!alreadyHas)
             {
-				toSacrifice.AddBuff(new SacrificialBuff());
+                toSacrifice.AddBuff(new SacrificialBuff());
                 Observable
-					.EveryUpdate()
-					.TakeUntilDestroy(toSacrifice)
-					.TakeWhile((x) => !toSacrifice.Death.Dead.Value && !_sender.Death.Dead.Value)
-					.Subscribe(_ =>
-					{
-						var hpStolen = toSacrifice.Health.Add(-2);
-						_sender.Health.Add(hpStolen);
-					});
+                    .EveryUpdate()
+                    .TakeUntilDestroy(toSacrifice)
+                    .TakeWhile((x) => !toSacrifice.Death.Dead.Value && !_sender.Death.Dead.Value)
+                    .Subscribe(_ =>
+                    {
+                        var hpStolen = toSacrifice.Health.Add(-2);
+                        _sender.Health.Add(hpStolen);
+                    });
             }
         }
     }

@@ -5,17 +5,28 @@ using Necromatic.Character;
 using Necromatic.Utility;
 using Necromatic.Character.Abilities;
 using System.Linq;
+using UniRx;
+using Necromatic.UI;
 
 namespace Necromatic.Player
 {
     public class InputManager : MonoBehaviour
     {
         [SerializeField] private CharacterInstance _character;
+        private GameManager _gameManager;
+        private HotBar _hotBar;
 
-
-        void Start()
+        void Awake()
         {
-            _character.CurrentAbility = new RaiseCorpse();
+            _gameManager = FindObjectOfType<GameManager>();
+            _gameManager.ResearchBank.BankLoaded.Subscribe(loaded =>
+            {
+                if(loaded)
+                {
+                    _character.CurrentAbility = _gameManager.ResearchBank.Abilities[0];
+                }
+            });
+            _hotBar = FindObjectOfType<HotBar>();
         }
 
         void Update()
@@ -39,20 +50,24 @@ namespace Necromatic.Player
                 _character.DoAbility();
             }
 
-            CheckAbilitySwap();
+            CheckAbilities();
         }
 
-        void CheckAbilitySwap()
+        void CheckAbilities()
         {
-            if(Input.GetKeyDown(KeyCode.Alpha1))
+            int maxAllowedOnHotbar = System.Math.Max(_gameManager.ResearchBank.Abilities.Count, 10);
+            for (int i = 0; i < maxAllowedOnHotbar; i++)
             {
-                _character.CurrentAbility = new RaiseCorpse();
-                Debug.Log("Switched to raise corpse");
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                _character.CurrentAbility = new Sacrifice();
-                Debug.Log("Switched to sacrifice");
+                if (Input.GetKeyDown((KeyCode)(i+(int)KeyCode.Alpha0)))
+                {
+                    var index = (int)Mathf.Repeat(i-1, 10);
+                    var ability = _gameManager.ResearchBank.Abilities[index];
+                    if (ability != null)
+                    {
+                        _character.CurrentAbility = ability;
+                        _hotBar.SwitchTo(index);
+                    }
+                }
             }
         }
     }
