@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NecromaticUnity", "Assembly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NecromaticUnity", "Assembly-CSharp.csproj", "{317D33BC-3EDF-1CDE-1AC4-B7F13F1F4EA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NecromaticUnity", "Assembly-CSharp-Editor.csproj", "{1E468278-120E-08AC-A8EC-493213163E8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{317D33BC-3EDF-1CDE-1AC4-B7F13F1F4EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{317D33BC-3EDF-1CDE-1AC4-B7F13F1F4EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{317D33BC-3EDF-1CDE-1AC4-B7F13F1F4EA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E468278-120E-08AC-A8EC-493213163E8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E468278-120E-08AC-A8EC-493213163E8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E468278-120E-08AC-A8EC-493213163E8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E468278-120E-08AC-A8EC-493213163E8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

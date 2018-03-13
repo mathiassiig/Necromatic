@@ -89,6 +89,7 @@
      <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
      <Compile Include="Assets\Scripts\World\ChunkMesh.cs" />
+     <Compile Include="Assets\Scripts\World\NavigationMesh.cs" />
      <Compile Include="Assets\Scripts\World\WorldManager.cs" />
      <None Include="Assets\Scripts\World\test.shader" />
      <None Include="Assets\Shaders\VertexColor.shader" />
