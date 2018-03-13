@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Necromatic.World;
+using UniRx;
 
 namespace Necromatic.Character
 {
@@ -9,22 +11,32 @@ namespace Necromatic.Character
         [SerializeField] private Representation _representation;
         [SerializeField] private float _baseSpeed;
 
-        private Combat _combat;
+        private CharacterInstance _character;
         private bool _canMove = true;
 
-        public void Init(Combat c)
+        private NavTileStatus _currentNavTile;
+
+        public void Init(CharacterInstance c)
         {
-            _combat = c;
+            _character = c;
+            _character.Death.Dead.Subscribe(dead =>
+            {
+                if(dead && _currentNavTile != null)
+                {
+                    _currentNavTile.Taken = false;
+                    GameManager.Instance.NavMesh.SetStatus(transform.position, _currentNavTile);
+                }
+            });
         }
 
         void Update()
         {
-            if (_combat.CurrentState.Value != CombatState.Idle)
+            if (_character.Combat.CurrentState.Value != CombatState.Idle)
             {
                 _canMove = false;
-                if(_combat.LastTarget != null)
+                if(_character.Combat.LastTarget != null)
                 {
-                    _representation.LookDirection((_combat.LastTarget.transform.position - transform.position).normalized);
+                    _representation.LookDirection((_character.Combat.LastTarget.transform.position - transform.position).normalized);
                 }
             }
             else
@@ -45,9 +57,31 @@ namespace Necromatic.Character
                 direction.Normalize();
                 _representation.LookDirection(direction);
                 // check if can move
-                transform.position = new Vector3(transform.position.x + direction.x * _baseSpeed * Time.deltaTime,
+                var desiredPosition = new Vector3(transform.position.x + direction.x * _baseSpeed * Time.deltaTime,
                                                 transform.position.y,
                                                 transform.position.z + direction.y * _baseSpeed * Time.deltaTime);
+                var tilePos = GameManager.Instance.NavMesh.GetStatus(desiredPosition);
+                if(!tilePos.Taken)
+                {
+                    if(tilePos != _currentNavTile)
+                    {
+                        if(_currentNavTile != null)
+                        {
+                            _currentNavTile.Taken = false;
+                            GameManager.Instance.NavMesh.SetStatus(transform.position, _currentNavTile);
+                        }
+                        _currentNavTile = tilePos;
+                    }
+                    transform.position = desiredPosition;
+                }
+                else if(tilePos == _currentNavTile)
+                {
+                    transform.position = desiredPosition;
+                }
+                if(_currentNavTile != null) // shouldn't be null here though
+                {
+                    _currentNavTile.Taken = true;
+                }
             }
         }
     }

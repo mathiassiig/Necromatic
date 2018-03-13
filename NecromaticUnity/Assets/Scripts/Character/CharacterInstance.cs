@@ -59,7 +59,7 @@ namespace Necromatic.Character
             {
                 _animator.FireAnimation(state, _weapon, Combat);
             });
-            Movement.Init(Combat);
+            Movement.Init(this);
             _health.Init();
             _health.Current.Subscribe(value =>
             {

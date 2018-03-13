@@ -39,5 +39,31 @@ namespace Necromatic.Testing
             var result = navMesh.GetGridPos(new Vector3(0.75f, 0, -0.75f));
             Assert.AreEqual(new Vector2Int(1, -2), result);
         }
+
+        [Test]
+        public void IsAvailable_New()
+        {
+            var navMesh = new NavigationMesh();
+            var result = navMesh.IsAvailable(new Vector3(1, 0, 1));
+            Assert.AreEqual(true, result);
+        }
+
+        [Test]
+        public void IsAvailable_ExistingFree()
+        {
+            var navMesh = new NavigationMesh();
+            navMesh.SetStatus(new Vector3(1, 0, 1), new NavTileStatus(false));
+            var result = navMesh.IsAvailable(new Vector3(1, 0, 1));
+            Assert.AreEqual(true, result);
+        }
+
+        [Test]
+        public void IsAvailable_ExistingOccupied()
+        {
+            var navMesh = new NavigationMesh();
+            navMesh.SetStatus(new Vector3(1, 0, 1), new NavTileStatus(true));
+            var result = navMesh.IsAvailable(new Vector3(1, 0, 1));
+            Assert.AreEqual(false, result);
+        }
     }
 }
