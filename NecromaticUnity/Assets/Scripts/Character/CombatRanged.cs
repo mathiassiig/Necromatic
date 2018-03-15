@@ -11,6 +11,12 @@ namespace Necromatic.Character
         private GameObject _projectile;
         private Vector3 _offset = new Vector3(0, 1, 0);
 
+        public CombatRanged(CharacterInstance owner, float damage, float forwardTime, float retractTime, float attackRange) :
+        base(owner, damage, forwardTime, retractTime, attackRange)
+        {
+
+        }
+
         public void SetProjectile(GameObject projectile)
         {
             var instance = UnityEngine.Object.Instantiate(projectile);
@@ -35,14 +41,13 @@ namespace Necromatic.Character
                 {
                     time += Time.deltaTime;
                     t = Mathf.InverseLerp(0, _retractTime, time);
-                    _projectile.transform.position = Vector3.Lerp(_owner.transform.position + _offset, c.transform.position, t);
-                    if(t >= 1)
+                    _projectile.transform.position = Vector3.Lerp(_owner.Representation.transform.position, c.Representation.transform.position, t);
+                    _projectile.transform.LookAt(c.Representation.transform);
+                    if (t >= 1)
                     {
                         c.Combat.ReceiveAttack(_damage, _owner);
                         CurrentState.Value = CombatState.Idle;
-                        _projectile.gameObject.SetActive(false);
-                        _projectile.transform.SetParent(_owner.transform);
-                        _projectile.transform.localPosition = _offset;
+                        ResetProjectile();
                     }
                 });
             });
@@ -51,14 +56,27 @@ namespace Necromatic.Character
             {
                 _checkDeadDisposable.Dispose();
             }
-            _checkDeadDisposable = c.Death.Dead.TakeUntilDestroy(c.gameObject).Subscribe(dead =>
+            var deadTarget = c.Death.Dead.TakeUntilDestroy(c.gameObject);
+            var deadSelf = _owner.Death.Dead.TakeUntilDestroy(_owner);
+            _checkDeadDisposable = Observable.Merge(deadTarget, deadSelf).Subscribe(targetDead => 
             {
-                if (dead)
+                if(c.Death.Dead.Value || _owner.Death.Dead.Value)
                 {
                     _attackingDisposable.Dispose();
                     CurrentState.Value = CombatState.Idle;
+                    ResetProjectile();
                 }
             });
+        }
+
+        void ResetProjectile()
+        {
+            if(_projectile != null)
+            {
+                _projectile.gameObject.SetActive(false);
+                _projectile.transform.SetParent(_owner.transform);
+                _projectile.transform.localPosition = _offset;
+            }
         }
     }
 }

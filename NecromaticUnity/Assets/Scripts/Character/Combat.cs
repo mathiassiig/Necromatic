@@ -26,29 +26,31 @@ namespace Necromatic.Character
         public float ForwardTime => _forwardTime;
         public float RetractTime => _retractTime;
         public float AttackRange => _attackRange;
-        public readonly ReactiveProperty<CombatState> CurrentState = new ReactiveProperty<CombatState>(CombatState.Idle);
+        public ReactiveProperty<CombatState> CurrentState;
 
         protected CharacterInstance _lastTarget;
         public CharacterInstance LastTarget => _lastTarget; // who are we attacking
-        public readonly ReactiveProperty<CharacterInstance> LastAttacker = new ReactiveProperty<CharacterInstance>(); // who's attacking us
+        public readonly ReactiveProperty<CharacterInstance> LastAttacker; // who's attacking us
         protected CharacterInstance _owner; // who are we 
         protected IDisposable _attackingDisposable;
         protected IDisposable _checkDeadDisposable;
 
 
 
-        public void Init(CharacterInstance owner)
+        public Combat(CharacterInstance owner)
         {
             _owner = owner;
+            CurrentState = new ReactiveProperty<CombatState>(CombatState.Idle);
+            LastAttacker = new ReactiveProperty<CharacterInstance>();
         }
 
-        public void Init(CharacterInstance owner, float damage, float forwardTime, float retractTime, float attackRange)
+        public Combat(CharacterInstance owner, float damage, float forwardTime, float retractTime, float attackRange) : this(owner)
         {
             _damage = damage;
             _attackRange = attackRange;
             _forwardTime = forwardTime;
             _retractTime = retractTime;
-            Init(owner);
+            _owner = owner;
         }
 
         public void TryAttackNearest(CharacterInstance sender)

@@ -15,6 +15,7 @@ namespace Necromatic.Character
         private bool _canMove = true;
 
         private NavTileStatus _currentNavTile;
+        private bool _initialized = false;
 
         public void Init(CharacterInstance c)
         {
@@ -27,21 +28,25 @@ namespace Necromatic.Character
                     GameManager.Instance.NavMesh.SetStatus(transform.position, _currentNavTile);
                 }
             });
+            _initialized = true;
         }
 
         void Update()
         {
-            if (_character.Combat.CurrentState.Value != CombatState.Idle)
+            if(_initialized)
             {
-                _canMove = false;
-                if(_character.Combat.LastTarget != null)
+                if (_character.Combat.CurrentState.Value != CombatState.Idle)
                 {
-                    _representation.LookDirection((_character.Combat.LastTarget.transform.position - transform.position).normalized);
+                    _canMove = false;
+                    if(_character.Combat.LastTarget != null)
+                    {
+                        _representation.LookDirection((_character.Combat.LastTarget.transform.position - transform.position).normalized);
+                    }
                 }
-            }
-            else
-            {
-                _canMove = true;
+                else
+                {
+                    _canMove = true;
+                }
             }
         }
 

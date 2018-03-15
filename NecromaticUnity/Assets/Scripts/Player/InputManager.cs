@@ -27,10 +27,6 @@ namespace Necromatic.Player
                 }
             });
             _hotBar = FindObjectOfType<HotBar>();
-            var ranged = new CombatRanged();
-            _character.Combat = ranged;
-            _character.Combat.Init(_character, 25, 0.4f, 0.2f, 15);
-            ranged.SetProjectile(Resources.Load<GameObject>("Prefabs/Projectiles/Projectile"));
         }
 
         void Update()

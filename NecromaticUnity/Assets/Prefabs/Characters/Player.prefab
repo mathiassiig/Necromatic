@@ -54,9 +54,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4578130554205446}
-  - component: {fileID: 114723770673106004}
   - component: {fileID: 114487301434432370}
   - component: {fileID: 65197839542363138}
+  - component: {fileID: 114481163387163116}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -210,6 +210,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7f9de1e23724062892f6e67bc68075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114481163387163116
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576605017982434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4abab586ef03044ca38c932557e69e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _faction: 0
+  _movement: {fileID: 114487301434432370}
+  _weapon: {fileID: 4552349229058892}
+  _representation: {fileID: 114455808058026836}
+  _health:
+    _initial: 100
+  Combat:
+    _damage: 50
+    _attackRange: 10
 --- !u!114 &114487301434432370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,23 +243,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _representation: {fileID: 114455808058026836}
   _baseSpeed: 5
---- !u!114 &114723770673106004
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1576605017982434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bd968460945f49fdb9b939cb17cc77f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _faction: 0
-  _movement: {fileID: 114487301434432370}
-  _weapon: {fileID: 4552349229058892}
-  _representation: {fileID: 114455808058026836}
-  _health:
-    _initial: 100
-  Combat:
-    _damage: 50
-    _attackRange: 10

@@ -28,7 +28,7 @@ namespace Necromatic.Character
 
         protected WeaponAnimator _animator = new WeaponAnimator();
         // accessors
-        public Combat Combat;
+        public Combat Combat = null;
         public Faction Faction => _faction;
         public Movement Movement => _movement;
         public Stat Health => _health;
@@ -37,6 +37,8 @@ namespace Necromatic.Character
 
         private List<Buff> _buffs = new List<Buff>();
         public List<Buff> Buffs => _buffs;
+
+        private System.IDisposable _combatSwitchDisposable;
 
         public void AddBuff(Buff buff)
         {
@@ -50,15 +52,7 @@ namespace Necromatic.Character
 
         protected virtual void Init()
         {
-            if(_death == null)
-            {
-                _death = new Death();
-            }
-            Combat.Init(this);
-            Combat.CurrentState.Subscribe(state =>
-            {
-                _animator.FireAnimation(state, _weapon, Combat);
-            });
+            InitCombat();
             Movement.Init(this);
             _health.Init();
             _health.Current.Subscribe(value =>
@@ -69,6 +63,24 @@ namespace Necromatic.Character
                 }
             });
             FindObjectOfType<MotherPool>().AddBarToCharacter(this);
+        }
+
+        void InitCombat()
+        {
+            this.ObserveEveryValueChanged(x => x.Combat).TakeUntilDestroy(this).Subscribe(x =>
+            {
+                if(_combatSwitchDisposable != null)
+                {
+                    _combatSwitchDisposable.Dispose();
+                }
+                if(x != null && x.CurrentState != null)
+                {
+                    x.CurrentState.TakeUntilDestroy(this).Subscribe(state =>
+                    {
+                        _animator.FireAnimation(state, _weapon, Combat);
+                    });
+                }
+            });
         }
 
         public void AttackNearest()

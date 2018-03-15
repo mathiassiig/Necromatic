@@ -31,13 +31,25 @@ namespace Necromatic.Character.NPC
         private Strategy _currentTask;
         private StrategyResult _currentTaskResult = new NoneResult();
 
-        void Awake()
+        private System.IDisposable _agroDisposable;
+
+        void Start()
         {
-            _character.Combat.LastAttacker.Subscribe(attacker =>
+            _character.ObserveEveryValueChanged(x => x.Combat).TakeUntilDestroy(_character).Subscribe(x =>
             {
-                if(attacker != null)
+                if(_agroDisposable != null)
                 {
-                    SetStrategy(new EnemySpottedResult(attacker));
+                    _agroDisposable.Dispose();
+                }
+                if(_character.Combat != null && _character.Combat.LastAttacker != null)
+                {
+                    _agroDisposable = _character.Combat.LastAttacker.Subscribe(attacker =>
+                    {
+                        if(attacker != null)
+                        {
+                            SetStrategy(new EnemySpottedResult(attacker));
+                        }
+                    });
                 }
             });
         }

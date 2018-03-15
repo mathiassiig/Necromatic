@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23236955265666698}
   - component: {fileID: 96962897539370910}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Projectile_Arcane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

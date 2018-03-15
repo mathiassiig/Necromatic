@@ -6,7 +6,12 @@ namespace Necromatic.Character
 {
     public class Death
     {
-        public ReactiveProperty<bool> Dead = new ReactiveProperty<bool>(false);
+        public ReactiveProperty<bool> Dead;
+
+        public Death()
+        {
+            Dead = new ReactiveProperty<bool>(false);
+        }
 
         public virtual void Die(CharacterInstance c)
         {
