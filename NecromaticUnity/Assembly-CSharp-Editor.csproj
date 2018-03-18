@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Tests\Editor\NavTests.cs" />
      <Compile Include="Assets\Scripts\Tests\Editor\PathFinderTests.cs" />
+     <Compile Include="Assets\Scripts\World\Editor\WallEditor.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Programs/Unity_2017_3_0f3/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

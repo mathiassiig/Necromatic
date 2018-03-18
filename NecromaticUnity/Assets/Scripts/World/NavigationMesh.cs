@@ -66,6 +66,12 @@ namespace Necromatic.World
             return !_navTiles[navPos].Taken;
         }
 
+        public void TakePosition(Vector2Int navPos)
+        {
+            var n = new Node(true);
+            SetNode(navPos, n);
+        }
+
         public void SetNode(Vector2Int navPos, Node node)
         {
             if (!_navTiles.ContainsKey(navPos))
