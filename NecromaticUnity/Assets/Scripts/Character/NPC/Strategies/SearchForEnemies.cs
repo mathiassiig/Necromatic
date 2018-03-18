@@ -11,7 +11,7 @@ namespace Necromatic.Character.NPC.Strategies
     [System.Serializable]
     public class SearchForEnemies : Strategy
     {
-        private float _searchRange = 10; // todo: cannot set this yet
+        private float _searchRange = 20; // todo: cannot set this yet
 
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
