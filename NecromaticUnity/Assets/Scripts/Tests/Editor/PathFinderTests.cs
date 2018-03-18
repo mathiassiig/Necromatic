@@ -11,13 +11,13 @@ namespace Necromatic.Testing
         [Test]
         public void GetNeighbors_Test()
         {
-            var pathfinder = new Pathfinder();
+            /*var pathfinder = new Pathfinder();
             pathfinder.NavMesh = new NavigationMesh();
             var node = new Node(false);
             node.GridPos = new Vector2Int(0,0);
             var result = pathfinder.GetNeighbours(node);
             
-            Debug.Log(result.Count);
+            Debug.Log(result.Count);*/
         }
     }
 }

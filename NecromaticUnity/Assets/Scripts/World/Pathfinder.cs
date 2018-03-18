@@ -1,22 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 
 // based on https://github.com/sharpaccent/Astar-for-Unity/blob/master/Assets/Scripts/Pathfinder.cs
 namespace Necromatic.World
 {
     public class Pathfinder
     {
+        public ReactiveProperty<List<Node>> PathFound = new ReactiveProperty<List<Node>>();
         public NavigationMesh NavMesh;
+        private Node _start;
         private Node _end;
-        public List<Node> FindPath(Node start, Node end)
+
+        public Pathfinder(Node start, Node end)
         {
+            _start = start;
             _end = end;
+        }
+
+        public void StartJob()
+        {
             if(NavMesh == null)
             {
                 NavMesh = GameManager.Instance.NavMesh;
             }
-            return FindPathActual(start, end);
+            PathFound.Value = FindPathActual(_start, _end);
         }
 
         public List<Node> FindPathActual(Node start, Node target)

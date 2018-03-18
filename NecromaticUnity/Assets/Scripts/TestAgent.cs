@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Necromatic;
 using Necromatic.World;
+using UniRx;
+
 public class TestAgent : MonoBehaviour
 {
     private List<Node> _path;
-    private float _triggerTime = 2;
+    private float _triggerTime = 0.1f;
     private float _dt = 0;
     // Use this for initialization
     void Start()
@@ -26,7 +28,13 @@ public class TestAgent : MonoBehaviour
             _dt = 0;
             var start = GameManager.Instance.NavMesh.GetNode(transform.position);
             var end = GameManager.Instance.NavMesh.GetNode(FindObjectOfType<Necromatic.Character.Necromancer>().transform.position);
-            _path = GameManager.Instance.PathFinder.FindPath(start, end);
+            GameManager.Instance.PathFinder.RequestPathfind(start, end).Subscribe(result =>
+            {
+                if(result != null)
+                {
+                    _path = result;
+                }
+            });
         }
 
         if (_path != null && _path.Count > 0)

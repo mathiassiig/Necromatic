@@ -13,7 +13,7 @@ namespace Necromatic
     {
         public ResearchBank ResearchBank { get; private set; }
         public NavigationMesh NavMesh { get; private set; }
-        public Pathfinder PathFinder { get; private set; }
+        public PathfinderManager PathFinder { get; private set; }
         
         [SerializeField] private bool _drawNavMesh;
 
@@ -21,11 +21,12 @@ namespace Necromatic
         {
             ResearchBank = new ResearchBank();
             NavMesh = new NavigationMesh();
-            PathFinder = new Pathfinder();
+            PathFinder = new PathfinderManager();
         }
 
         void Start()
         {
+            PathFinder.Init();
             ResearchBank.LoadBank();
         }
 
