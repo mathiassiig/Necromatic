@@ -51,14 +51,14 @@ namespace Necromatic.World
             });
         }
 
-        public ReactiveProperty<List<Node>> RequestPathfind(Vector3 start, Vector3 end)
+        public ReactiveProperty<List<Vector3>> RequestPathfind(Vector3 start, Vector3 end)
         {
             var startNode = GameManager.Instance.NavMesh.GetNode(start);
             var endNode = GameManager.Instance.NavMesh.GetNode(end);
             return RequestPathfind(startNode, endNode);
         }
 
-        public ReactiveProperty<List<Node>> RequestPathfind(Node start, Node target)
+        public ReactiveProperty<List<Vector3>> RequestPathfind(Node start, Node target)
         {
             Pathfinder newJob = new Pathfinder(start, target);
             todoJobs.Add(newJob);

@@ -2,13 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
-
+using System.Linq;
 // based on https://github.com/sharpaccent/Astar-for-Unity/blob/master/Assets/Scripts/Pathfinder.cs
 namespace Necromatic.World
 {
     public class Pathfinder
     {
-        public ReactiveProperty<List<Node>> PathFound = new ReactiveProperty<List<Node>>();
+        public ReactiveProperty<List<Vector3>> PathFound = new ReactiveProperty<List<Vector3>>();
         public NavigationMesh NavMesh;
         private Node _start;
         private Node _end;
@@ -21,14 +21,14 @@ namespace Necromatic.World
 
         public void StartJob()
         {
-            if(NavMesh == null)
+            if (NavMesh == null)
             {
                 NavMesh = GameManager.Instance.NavMesh;
             }
             PathFound.Value = FindPathActual(_start, _end);
         }
 
-        public List<Node> FindPathActual(Node start, Node target)
+        public List<Vector3> FindPathActual(Node start, Node target)
         {
             List<Node> foundPath = new List<Node>();
 
@@ -82,7 +82,9 @@ namespace Necromatic.World
                     }
                 }
             }
-            return foundPath;
+            //var toWorld = foundPath.Select(x => x.WorldPos).ToList();
+            var smoothed = Chaikin(foundPath.Select(x =>  x.WorldPos).ToArray()).ToList();
+            return smoothed;
         }
 
         public List<Node> RetracePath(Node startNode, Node endNode)
@@ -122,7 +124,7 @@ namespace Necromatic.World
                         searchPos.y = node.GridPos.y + y;
                         var neighbor = GetNode(searchPos);
 
-                        if (neighbor != null && (neighbor.Taken == false || neighbor == _end))
+                        if (neighbor != null && (neighbor.Taken == false || neighbor == _end) && !neighbor.WallNeighbor)
                         {
                             retList.Add(neighbor);
                         }
@@ -199,6 +201,24 @@ namespace Necromatic.World
             }
             return n;
         }
+
+        //based on https://answers.unity.com/questions/686644/smoothing-a-path.html
+        private Vector3[] Chaikin(Vector3[] pts)
+        {
+            Vector3[] newPts = new Vector3[(pts.Length - 2) * 2 + 2];
+            newPts[0] = pts[0];
+            newPts[newPts.Length - 1] = pts[pts.Length - 1];
+
+            int j = 1;
+            for (int i = 0; i < pts.Length - 2; i++)
+            {
+                newPts[j] = pts[i] + (pts[i + 1] - pts[i]) * 0.75f;
+                newPts[j + 1] = pts[i + 1] + (pts[i + 2] - pts[i + 1]) * 0.25f;
+                j += 2;
+            }
+            return newPts;
+        }
+
 
         private float GetDistance(Node nodeA, Node nodeB)
         {

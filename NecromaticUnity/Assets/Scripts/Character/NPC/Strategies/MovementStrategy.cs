@@ -11,9 +11,12 @@ namespace Necromatic.Character.NPC.Strategies
     public class MovementStrategy : Strategy
     {
         private IDisposable _pathFindingJob;
-        private List<Node> _path;
+        private List<Vector3> _path;
         private int _pathIndex = 0;
         private float _pathIndexReachedDistance = 0.25f;
+        private float _recalculatePathTime = 0.5f;
+        private bool _recalculatePath = true;
+
 
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
@@ -22,28 +25,30 @@ namespace Necromatic.Character.NPC.Strategies
             {
                 return new NoneResult();
             }
-            if (_pathFindingJob == null)
+            if (_recalculatePath)
             {
+                _recalculatePath = false;
                 GetPath(sender, moveResult.To.position);
+                Observable.Timer(System.TimeSpan.FromSeconds(_recalculatePathTime)).TakeUntilDestroy(sender).Subscribe(_ =>
+                {
+                    _recalculatePath = true;
+                });
+                return moveResult;
             }
-
             if (_path == null)
             {
                 return moveResult;
             }
-            //_pathFindingJob.Dispose();
             MoveThroughPath(sender);
-            if (_path != null && _path.Count > 0)
+            /*if (_path != null && _path.Count > 0)
             {
                 for (int i = 0; i < _path.Count - 1; i++)
                 {
-                    var from = GameManager.Instance.NavMesh.GetWorldPos(_path[i].GridPos);
-                    var to = GameManager.Instance.NavMesh.GetWorldPos(_path[i + 1].GridPos);
                     var color = Color.white;
-                    Debug.DrawLine(from, to, color, Time.deltaTime);
+                    Debug.DrawLine(_path[i], _path[i + 1], color, Time.deltaTime);
                 }
             }
-            Debug.DrawLine(sender.transform.position, GameManager.Instance.NavMesh.GetWorldPos(_path[_pathIndex].GridPos), Color.red, 0.1f);
+            Debug.DrawLine(sender.transform.position, _path[_pathIndex], Color.red, 0.1f);*/
             if ((moveResult.To.position - sender.transform.position).magnitude <= moveResult.ReachedDistance)
             {
                 return new NoneResult();
@@ -57,7 +62,7 @@ namespace Necromatic.Character.NPC.Strategies
         private void GetPath(CharacterInstance sender, Vector3 target)
         {
             var pathFindingResult = GameManager.Instance.PathFinder.RequestPathfind(sender.transform.position, target);
-            _pathFindingJob = pathFindingResult.TakeUntilDestroy(sender).Subscribe(path =>
+            _pathFindingJob = pathFindingResult.TakeUntilDestroy(sender).ObserveOnMainThread().Subscribe(path =>
             {
                 if (path != null)
                 {
@@ -70,12 +75,14 @@ namespace Necromatic.Character.NPC.Strategies
         private void MoveThroughPath(CharacterInstance sender)
         {
             var current = _path[_pathIndex];
-            var currentWorldPos = GameManager.Instance.NavMesh.GetWorldPos(current.GridPos);
-            var dir = (currentWorldPos - sender.transform.position).normalized;
+            var dir = (current - sender.transform.position).normalized;
             sender.Movement.Move(dir);
-            if ((currentWorldPos - sender.transform.position).magnitude <= _pathIndexReachedDistance)
+            if ((current - sender.transform.position).magnitude <= _pathIndexReachedDistance)
             {
-                _pathIndex++;
+                if (_pathIndex < _path.Count - 1)
+                {
+                    _pathIndex++;
+                }
             }
         }
     }

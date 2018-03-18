@@ -6,8 +6,10 @@ namespace Necromatic.World
     public class Node
     {
         public bool Taken = false;
+        public bool WallNeighbor = false;
         public Transform Owner;
         public Vector2Int GridPos;
+        public Vector3 WorldPos;
         public float GCost;
         public float HCost;
         public float FCost => GCost + HCost;
@@ -34,6 +36,7 @@ namespace Necromatic.World
         private void AddNode(Vector2Int navPos, bool taken = false)
         {
             var node = new Node(taken){GridPos = navPos};
+            node.WorldPos = GetWorldPos(navPos);
             _navTiles.Add(navPos, node);
         }
 
@@ -83,6 +86,15 @@ namespace Necromatic.World
             {
                 _navTiles[navPos] = node;
             }
+        }
+
+        public void SetIfNotTaken(Vector2Int navPos, Node node)
+        {
+            if (_navTiles.ContainsKey(navPos) && _navTiles[navPos].Taken)
+            {
+                return;
+            }
+            SetNode(navPos, node);
         }
 
         public void SetStatus(Vector3 position, Node node)

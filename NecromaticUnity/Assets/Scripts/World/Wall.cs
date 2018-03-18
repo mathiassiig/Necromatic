@@ -32,6 +32,17 @@ namespace Necromatic.World
                     GameManager.Instance.NavMesh.TakePosition(new Vector2Int(x, y));
                 }
             }
+
+            for (int x = upperLeft.x - 1; x <= lowerRight.x; x++)
+            {
+                GameManager.Instance.NavMesh.SetIfNotTaken(new Vector2Int(x, upperLeft.y), new Node(false) { WallNeighbor = true });
+                GameManager.Instance.NavMesh.SetIfNotTaken(new Vector2Int(x, lowerRight.y-1), new Node(false) { WallNeighbor = true });
+            }
+            for (int y = lowerRight.y - 1; y <= upperLeft.y; y++)
+            {
+                GameManager.Instance.NavMesh.SetIfNotTaken(new Vector2Int(upperLeft.x-1, y), new Node(false) { WallNeighbor = true });
+                GameManager.Instance.NavMesh.SetIfNotTaken(new Vector2Int(lowerRight.x, y), new Node(false) { WallNeighbor = true });
+            }
         }
 
         public void ReMesh()

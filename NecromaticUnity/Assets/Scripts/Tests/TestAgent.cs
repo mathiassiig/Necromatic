@@ -8,7 +8,7 @@ namespace Necromatic.Testing
 {
     public class TestAgent : MonoBehaviour
     {
-        private List<Node> _path;
+        private List<Vector3> _path;
         private float _triggerTime = 0.1f;
         private float _dt = 0;
         // Use this for initialization
@@ -42,9 +42,7 @@ namespace Necromatic.Testing
             {
                 for (int i = 0; i < _path.Count - 1; i++)
                 {
-                    var from = GameManager.Instance.NavMesh.GetWorldPos(_path[i].GridPos);
-                    var to = GameManager.Instance.NavMesh.GetWorldPos(_path[i + 1].GridPos);
-                    Debug.DrawLine(from, to, Color.white, Time.deltaTime);
+                    Debug.DrawLine(_path[i], _path[i+1], Color.white, Time.deltaTime);
                 }
             }
         }
