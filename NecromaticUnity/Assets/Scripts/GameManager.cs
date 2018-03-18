@@ -11,9 +11,19 @@ namespace Necromatic
 {
     public class GameManager : Singleton<GameManager>
     {
-        public ResearchBank ResearchBank { get; private set; } = new ResearchBank();
-        public NavigationMesh NavMesh { get; private set; } = new NavigationMesh();
+        public ResearchBank ResearchBank { get; private set; }
+        public NavigationMesh NavMesh { get; private set; }
+        public Pathfinder PathFinder { get; private set; }
+        
         [SerializeField] private bool _drawNavMesh;
+
+        protected GameManager()
+        {
+            ResearchBank = new ResearchBank();
+            NavMesh = new NavigationMesh();
+            PathFinder = new Pathfinder();
+        }
+
         void Start()
         {
             ResearchBank.LoadBank();

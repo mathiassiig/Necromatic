@@ -52,7 +52,7 @@ namespace Necromatic.Testing
         public void IsAvailable_ExistingFree()
         {
             var navMesh = new NavigationMesh();
-            navMesh.SetStatus(new Vector3(1, 0, 1), new NavTileStatus(false));
+            navMesh.SetStatus(new Vector3(1, 0, 1), new Node(false));
             var result = navMesh.IsAvailable(new Vector3(1, 0, 1));
             Assert.AreEqual(true, result);
         }
@@ -61,7 +61,7 @@ namespace Necromatic.Testing
         public void IsAvailable_ExistingOccupied()
         {
             var navMesh = new NavigationMesh();
-            navMesh.SetStatus(new Vector3(1, 0, 1), new NavTileStatus(true));
+            navMesh.SetStatus(new Vector3(1, 0, 1), new Node(true));
             var result = navMesh.IsAvailable(new Vector3(1, 0, 1));
             Assert.AreEqual(false, result);
         }

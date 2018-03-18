@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Necromatic.World
 {
-    public class NavTileStatus
+    public class Node
     {
         public bool Taken = false;
         public Transform Owner;
+        public Vector2Int GridPos;
+        public float GCost;
+        public float HCost;
+        public float FCost => GCost + HCost;
+        public Node ParentNode;
 
-        public NavTileStatus(bool taken)
+        public Node(bool taken)
         {
 			Taken = taken;
         }
 
-		public NavTileStatus(bool taken, Transform owner)
+		public Node(bool taken, Transform owner)
 		{
 			Taken = taken;
 			Owner = owner;
@@ -23,40 +28,61 @@ namespace Necromatic.World
     public class NavigationMesh
     {
         private const int SUBDIVISION = 2;
-        private Dictionary<Vector2Int, NavTileStatus> _navTiles = new Dictionary<Vector2Int, NavTileStatus>();
-		public Dictionary<Vector2Int, NavTileStatus> NavTiles => _navTiles;
+        private Dictionary<Vector2Int, Node> _navTiles = new Dictionary<Vector2Int, Node>();
+		public Dictionary<Vector2Int, Node> NavTiles => _navTiles;
 
-		public NavTileStatus GetStatus(Vector3 position)
+        private void AddNode(Vector2Int navPos, bool taken = false)
+        {
+            var node = new Node(taken){GridPos = navPos};
+            _navTiles.Add(navPos, node);
+        }
+
+		public Node GetNode(Vector3 position)
 		{
 			Vector2Int navPos = GetGridPos(position);
 			if (!_navTiles.ContainsKey(navPos))
             {
-                _navTiles.Add(navPos, new NavTileStatus(false) { });
+                AddNode(navPos);
             }
 			return _navTiles[navPos];
 		}
+
+        public Node GetNode(Vector2Int navPos)
+        {
+            if(!_navTiles.ContainsKey(navPos))
+            {
+                AddNode(navPos);
+            }
+            return _navTiles[navPos];
+        }
 
         public bool IsAvailable(Vector3 position)
         {
             Vector2Int navPos = GetGridPos(position);
             if (!_navTiles.ContainsKey(navPos))
             {
-                _navTiles.Add(navPos, new NavTileStatus(false) { });
+                AddNode(navPos);
             }
             return !_navTiles[navPos].Taken;
         }
 
-        public void SetStatus(Vector3 position, NavTileStatus status)
+        public void SetNode(Vector2Int navPos, Node node)
         {
-            Vector2Int navPos = GetGridPos(position);
             if (!_navTiles.ContainsKey(navPos))
             {
-                _navTiles.Add(navPos, status);
+                node.GridPos = navPos;
+                _navTiles.Add(navPos, node);
             }
             else
             {
-                _navTiles[navPos] = status;
+                _navTiles[navPos] = node;
             }
+        }
+
+        public void SetStatus(Vector3 position, Node node)
+        {
+            Vector2Int navPos = GetGridPos(position);
+            SetNode(navPos, node);
         }
 
         public Vector2Int GetGridPos(Vector3 position)

@@ -14,7 +14,7 @@ namespace Necromatic.Character
         private CharacterInstance _character;
         private bool _canMove = true;
 
-        private NavTileStatus _currentNavTile;
+        private Node _currentNavTile;
         private bool _initialized = false;
 
         public void Init(CharacterInstance c)
@@ -65,7 +65,7 @@ namespace Necromatic.Character
                 var desiredPosition = new Vector3(transform.position.x + direction.x * _baseSpeed * Time.deltaTime,
                                                 transform.position.y,
                                                 transform.position.z + direction.y * _baseSpeed * Time.deltaTime);
-                var tilePos = GameManager.Instance.NavMesh.GetStatus(desiredPosition);
+                var tilePos = GameManager.Instance.NavMesh.GetNode(desiredPosition);
                 if(!tilePos.Taken)
                 {
                     if(tilePos != _currentNavTile)

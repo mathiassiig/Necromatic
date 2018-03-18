@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Necromatic.Utility;
-namespace Necromatic.Character.NPC
+namespace Necromatic.Character
 {
     public class Necromancer : CharacterInstance
     {
