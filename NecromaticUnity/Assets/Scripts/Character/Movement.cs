@@ -22,7 +22,7 @@ namespace Necromatic.Character
             _character = c;
             _character.Death.Dead.Subscribe(dead =>
             {
-                if(dead && _currentNavTile != null)
+                if (dead && _currentNavTile != null)
                 {
                     _currentNavTile.Taken = false;
                     GameManager.Instance.NavMesh.SetStatus(transform.position, _currentNavTile);
@@ -33,12 +33,12 @@ namespace Necromatic.Character
 
         void Update()
         {
-            if(_initialized)
+            if (_initialized)
             {
                 if (_character.Combat.CurrentState.Value != CombatState.Idle)
                 {
                     _canMove = false;
-                    if(_character.Combat.LastTarget != null)
+                    if (_character.Combat.LastTarget != null)
                     {
                         _representation.LookDirection((_character.Combat.LastTarget.transform.position - transform.position).normalized);
                     }
@@ -62,15 +62,15 @@ namespace Necromatic.Character
                 direction.Normalize();
                 _representation.LookDirection(direction);
                 // check if can move
-                var desiredPosition = new Vector3(transform.position.x + direction.x * _baseSpeed * Time.deltaTime,
+                var desiredPosition = new Vector3(transform.position.x + direction.x * _baseSpeed * Time.fixedDeltaTime,
                                                 transform.position.y,
-                                                transform.position.z + direction.y * _baseSpeed * Time.deltaTime);
+                                                transform.position.z + direction.y * _baseSpeed * Time.fixedDeltaTime);
                 var tilePos = GameManager.Instance.NavMesh.GetNode(desiredPosition);
-                if(!tilePos.Taken)
+                if (!tilePos.Taken)
                 {
-                    if(tilePos != _currentNavTile)
+                    if (tilePos != _currentNavTile)
                     {
-                        if(_currentNavTile != null)
+                        if (_currentNavTile != null)
                         {
                             _currentNavTile.Taken = false;
                             GameManager.Instance.NavMesh.SetStatus(transform.position, _currentNavTile);
@@ -79,11 +79,11 @@ namespace Necromatic.Character
                     }
                     transform.position = desiredPosition;
                 }
-                else if(tilePos == _currentNavTile)
+                else if (tilePos == _currentNavTile)
                 {
                     transform.position = desiredPosition;
                 }
-                if(_currentNavTile != null) // shouldn't be null here though
+                if (_currentNavTile != null) // shouldn't be null here though
                 {
                     _currentNavTile.Taken = true;
                 }

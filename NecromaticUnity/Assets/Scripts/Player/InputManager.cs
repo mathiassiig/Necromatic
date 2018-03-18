@@ -15,13 +15,16 @@ namespace Necromatic.Player
         [SerializeField] private CharacterInstance _character;
         private GameManager _gameManager;
         private HotBar _hotBar;
+        private Vector2 _moveDir;
+        private bool _doAbility = false;
+        private bool _doAttack = false;
 
         void Awake()
         {
             _gameManager = FindObjectOfType<GameManager>();
             _gameManager.ResearchBank.BankLoaded.Subscribe(loaded =>
             {
-                if(loaded)
+                if (loaded)
                 {
                     _character.CurrentAbility = _gameManager.ResearchBank.Abilities[0];
                 }
@@ -31,26 +34,40 @@ namespace Necromatic.Player
 
         void Update()
         {
-            // attacking
-            if (Input.GetButton("Attack"))
+            FetchCommands();
+            CheckAbilities();
+            SendCommands();
+        }
+
+        void FixedUpdate()
+        {
+            
+        }
+
+        void FetchCommands()
+        {
+            _doAttack = Input.GetButton("Attack");
+            _moveDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            _doAbility = Input.GetButtonDown("Fire1");
+
+        }
+
+        void SendCommands()
+        {
+            if (_moveDir.magnitude != 0)
             {
+                _character.Movement.Move(_moveDir);
+            }
+            if(_doAttack)
+            {
+                _doAttack = false;
                 _character.AttackNearest();
             }
-
-            // moving
-            var direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            if (direction.magnitude != 0)
+            if(_doAbility)
             {
-                _character.Movement.Move(direction);
-            }
-
-            // spells
-            if (Input.GetButtonDown("Fire1"))
-            {
+                _doAbility = false;
                 _character.DoAbility();
             }
-
-            CheckAbilities();
         }
 
         void CheckAbilities()
@@ -58,9 +75,9 @@ namespace Necromatic.Player
             int maxAllowedOnHotbar = System.Math.Max(_gameManager.ResearchBank.Abilities.Count, 10);
             for (int i = 0; i < maxAllowedOnHotbar; i++)
             {
-                if (Input.GetKeyDown((KeyCode)(i+(int)KeyCode.Alpha0)))
+                if (Input.GetKeyDown((KeyCode)(i + (int)KeyCode.Alpha0)))
                 {
-                    var index = (int)Mathf.Repeat(i-1, 10);
+                    var index = (int)Mathf.Repeat(i - 1, 10);
                     var ability = _gameManager.ResearchBank.Abilities[index];
                     if (ability != null)
                     {
