@@ -68,14 +68,17 @@
      <Compile Include="Assets\Scripts\Character\NPC\HumanCharacter.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\HumanDeath.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\HumanRanged.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\ProtectionManager.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\SkeletonCharacter.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\EngageEnemy.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\FollowStrategy.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\IStrategy.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\MovementStrategy.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Strategies\ProtectTargetStrategy.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\FollowResult.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\MoveResult.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\NoneResult.cs" />
+     <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\ProtectResult.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\StrategyResult.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\Strategies\SearchForEnemies.cs" />
      <Compile Include="Assets\Scripts\Character\Representation.cs" />

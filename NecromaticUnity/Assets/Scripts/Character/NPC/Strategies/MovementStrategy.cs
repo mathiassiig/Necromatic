@@ -21,14 +21,22 @@ namespace Necromatic.Character.NPC.Strategies
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
             var moveResult = parameters as MoveResult;
-            if (moveResult.To == null)
+            if (moveResult.To == null && moveResult.UseTransform)
             {
                 return new NoneResult();
             }
+            var position = moveResult.UseTransform ? moveResult.To.position : moveResult.ToPosition;
+
+            var dis = (position - sender.transform.position).magnitude;
+            if (dis <= moveResult.ReachedDistance)
+            {
+                return new NoneResult();
+            }
+
             if (_recalculatePath)
             {
                 _recalculatePath = false;
-                GetPath(sender, moveResult.To.position);
+                GetPath(sender, position);
                 Observable.Timer(System.TimeSpan.FromSeconds(_recalculatePathTime)).TakeUntilDestroy(sender).Subscribe(_ =>
                 {
                     _recalculatePath = true;
@@ -40,7 +48,7 @@ namespace Necromatic.Character.NPC.Strategies
                 return moveResult;
             }
             MoveThroughPath(sender);
-            /*if (_path != null && _path.Count > 0)
+            if (_path != null && _path.Count > 0)
             {
                 for (int i = 0; i < _path.Count - 1; i++)
                 {
@@ -48,15 +56,8 @@ namespace Necromatic.Character.NPC.Strategies
                     Debug.DrawLine(_path[i], _path[i + 1], color, Time.deltaTime);
                 }
             }
-            Debug.DrawLine(sender.transform.position, _path[_pathIndex], Color.red, 0.1f);*/
-            if ((moveResult.To.position - sender.transform.position).magnitude <= moveResult.ReachedDistance)
-            {
-                return new NoneResult();
-            }
-            else
-            {
-                return moveResult;
-            }
+            Debug.DrawLine(sender.transform.position, _path[_pathIndex], Color.red, 0.1f);
+            return moveResult;
         }
 
         private void GetPath(CharacterInstance sender, Vector3 target)

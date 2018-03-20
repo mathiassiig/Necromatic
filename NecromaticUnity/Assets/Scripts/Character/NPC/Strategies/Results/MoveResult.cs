@@ -6,12 +6,23 @@ namespace Necromatic.Character.NPC.Strategies.Results
     public class MoveResult : StrategyResult
     {
         public Transform To;
+        public Vector3 ToPosition;
         public float ReachedDistance;
-		public MoveResult(Transform to, float reachedDistance)
+		public bool UseTransform = true;
+
+        public MoveResult(Transform to, float reachedDistance)
 		{
             NextDesiredStrategy = typeof(MovementStrategy);
 			To = to;
             ReachedDistance = reachedDistance;
 		}
+
+        public MoveResult(Vector3 to, float reachedDistance)
+        {
+            NextDesiredStrategy = typeof(MovementStrategy);
+            UseTransform = false;
+            ToPosition = to;
+            ReachedDistance = reachedDistance;
+        }
     }
 }

@@ -40,7 +40,6 @@ namespace Necromatic.Character.Abilities
                 ai.SetBrainState(true);
                 undead.Representation.LookDirectionAnim(GameObjectUtils.PlaneDirection(undead.transform, player.transform), 0.3f);
             });
-            ai.AddPrimaryStrategy(new FollowStrategy(player.transform, 2.5f, 7.5f));
             Object.Destroy(corpse);
         }
     }
