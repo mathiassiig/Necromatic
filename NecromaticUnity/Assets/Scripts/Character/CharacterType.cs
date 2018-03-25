@@ -8,6 +8,7 @@ namespace Necromatic.Character
     {
         Player,
         Human,
-        Skeleton
+        Skeleton,
+        SkeletonWorker
     }
 }

@@ -28,20 +28,25 @@ namespace Necromatic.Character
         public float AttackRange => _attackRange;
         public ReactiveProperty<CombatState> CurrentState;
 
-        protected CharacterInstance _lastTarget;
-        public CharacterInstance LastTarget => _lastTarget; // who are we attacking
+        protected IDamagable _lastTarget;
+        public IDamagable LastTarget => _lastTarget; // who are we attacking
         public readonly ReactiveProperty<CharacterInstance> LastAttacker; // who's attacking us
-        protected CharacterInstance _owner; // who are we 
+        protected CharacterInstance _ownerAttacker; // who are we 
+        protected IDamagable _owner;
         protected IDisposable _attackingDisposable;
         protected IDisposable _checkDeadDisposable;
 
 
-
-        public Combat(CharacterInstance owner)
+        public Combat(IDamagable owner)
         {
             _owner = owner;
             CurrentState = new ReactiveProperty<CombatState>(CombatState.Idle);
             LastAttacker = new ReactiveProperty<CharacterInstance>();
+        }
+
+        public Combat(CharacterInstance owner) : this(owner as IDamagable)
+        {
+            _ownerAttacker = owner;
         }
 
         public Combat(CharacterInstance owner, float damage, float forwardTime, float retractTime, float attackRange) : this(owner)
@@ -50,7 +55,6 @@ namespace Necromatic.Character
             _attackRange = attackRange;
             _forwardTime = forwardTime;
             _retractTime = retractTime;
-            _owner = owner;
         }
 
         public void TryAttackNearest(CharacterInstance sender)
@@ -63,7 +67,7 @@ namespace Necromatic.Character
             }
         }
 
-        public void TryAttack(CharacterInstance c)
+        public void TryAttack(IDamagable c)
         {
             if (CurrentState.Value != CombatState.Idle)
             {
@@ -78,13 +82,13 @@ namespace Necromatic.Character
             _owner.Health.Add(-damage);
         }
 
-        protected virtual void DoAttack(CharacterInstance c)
+        protected virtual void DoAttack(IDamagable c)
         {
             _lastTarget = c;
             CurrentState.Value = CombatState.Forward;
             _attackingDisposable = Observable.Timer(TimeSpan.FromSeconds(_forwardTime)).Subscribe(x =>
             {
-                c.Combat.ReceiveAttack(_damage, _owner);
+                c.Combat.ReceiveAttack(_damage, _ownerAttacker);
                 CurrentState.Value = CombatState.Retracting;
                 _attackingDisposable = Observable.Timer(TimeSpan.FromSeconds(_retractTime)).Subscribe(y =>
                 {

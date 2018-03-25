@@ -11,6 +11,7 @@ namespace Necromatic.Utility
     {
         [Header("Characters")]
         [SerializeField] private CharacterInstance _skeleton;
+        [SerializeField] private CharacterInstance _skeletonWorker;
         [SerializeField] private CharacterInstance _human;
 
         [Header("Utilities")]
@@ -24,6 +25,8 @@ namespace Necromatic.Utility
 					return _human;
 				case CharacterType.Skeleton:
 					return _skeleton;
+                case CharacterType.SkeletonWorker:
+                    return _skeletonWorker;
             }
 			throw new System.Exception("$Error, character of type {nameOf(t)} not found");
         }

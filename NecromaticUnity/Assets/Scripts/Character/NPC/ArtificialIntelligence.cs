@@ -6,10 +6,11 @@ using System.Linq;
 using Necromatic.Character.NPC.Strategies;
 using Necromatic.Character.NPC.Strategies.Results;
 using UniRx;
+using AIDebugger;
 
 namespace Necromatic.Character.NPC
 {
-    public class ArtificialIntelligence : MonoBehaviour
+    public class ArtificialIntelligence : MonoBehaviour, SerializeSubobjects
     {
         [SerializeField] private CharacterInstance _character;
         [SerializeField] private bool _debugLog;
@@ -57,6 +58,11 @@ namespace Necromatic.Character.NPC
         public void AddPrimaryStrategy(Strategy s)
         {
             _primaryStrategies.Add(s);
+        }
+
+        public void AddSecondatryStrategy(Strategy s)
+        {
+            _secondaryStrategies.Add(s);
         }
 
         public void SetBrainState(bool on)
@@ -110,5 +116,17 @@ namespace Necromatic.Character.NPC
             _currentTask = _secondaryStrategies.FirstOrDefault(x => x.GetType() == type);
         }
 
+        public List<object> GetSerializableObjects()
+        {
+            var combined = new List<object>();
+            combined.AddRange(_primaryStrategies);
+            combined.AddRange(_secondaryStrategies);
+            return combined;
+        }
+
+        public object GetCurrentObject()
+        {
+            return _currentTask;
+        }
     }
 }

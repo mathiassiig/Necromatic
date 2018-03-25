@@ -15,7 +15,7 @@ namespace Necromatic.Character
         Human
     }
 
-    public class CharacterInstance : MonoBehaviour
+    public class CharacterInstance : MonoBehaviour, IDamagable
     {
         [SerializeField] protected Faction _faction;
         [SerializeField] protected Movement _movement;
@@ -37,6 +37,8 @@ namespace Necromatic.Character
 
         private List<Buff> _buffs = new List<Buff>();
         public List<Buff> Buffs => _buffs;
+
+        Combat IDamagable.Combat => Combat;
 
         private System.IDisposable _combatSwitchDisposable;
 

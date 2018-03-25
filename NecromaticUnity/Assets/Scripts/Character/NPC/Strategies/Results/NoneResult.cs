@@ -10,17 +10,4 @@ namespace Necromatic.Character.NPC.Strategies.Results
             NextDesiredStrategy = null;
         }
     }
-
-    // todo: move
-    public class EnemySpottedResult : StrategyResult
-    {
-        public CharacterInstance Enemy { get; private set; }
-        
-        public EnemySpottedResult(CharacterInstance enemy)
-        {
-            NextDesiredStrategy = typeof(EngageEnemy);
-            Priority = 5;
-            Enemy = enemy;
-        }
-    }
 }

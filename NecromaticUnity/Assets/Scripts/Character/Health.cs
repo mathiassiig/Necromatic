@@ -14,7 +14,7 @@ namespace Necromatic.Character
         public ReactiveProperty<float> Max = new ReactiveProperty<float>();
         public ReactiveProperty<float> Current = new ReactiveProperty<float>();
 
-        [SerializeField] private float _initial;
+        public float _initial;
         //[SerializeField] private float _regen; // per second
 
         public bool LastSenderAdded { get; private set; }

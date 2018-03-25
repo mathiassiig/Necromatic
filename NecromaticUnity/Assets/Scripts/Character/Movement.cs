@@ -40,7 +40,7 @@ namespace Necromatic.Character
                     _canMove = false;
                     if (_character.Combat.LastTarget != null)
                     {
-                        _representation.LookDirection((_character.Combat.LastTarget.transform.position - transform.position).normalized);
+                        _representation.LookDirection((_character.Combat.LastTarget.gameObject.transform.position - transform.position).normalized);
                     }
                 }
                 else
