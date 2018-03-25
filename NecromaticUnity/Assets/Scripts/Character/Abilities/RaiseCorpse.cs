@@ -12,10 +12,10 @@ namespace Necromatic.Character.Abilities
     {
         protected override void HandleHitObject(Transform objectHit)
         {
-            var corpse = objectHit.parent.GetComponent<CharacterInstance>();
-            if (corpse != null && corpse.Death.Dead.Value)
+            var raisable = objectHit.GetComponent<IRaisable>();
+            if (raisable != null)
             {
-                Raise(corpse.gameObject, Object.FindObjectOfType<MotherPool>().GetCharacterPrefab(CharacterType.Skeleton));
+                raisable.Raise();
             }
         }
 
@@ -29,18 +29,5 @@ namespace Necromatic.Character.Abilities
             return $"{base.GetIconPath()}icon_raise";
         }
 
-        private void Raise(GameObject corpse, CharacterInstance undeadToRaise)
-        {
-            var undead = Object.Instantiate(undeadToRaise, corpse.transform.position, corpse.transform.rotation);
-            var ai = undead.GetComponent<ArtificialIntelligence>();
-            ai.SetBrainState(false);
-            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterInstance>();
-            undead.Representation.ReviveAnimation(() =>
-            {
-                ai.SetBrainState(true);
-                undead.Representation.LookDirectionAnim(GameObjectUtils.PlaneDirection(undead.transform, player.transform), 0.3f);
-            });
-            Object.Destroy(corpse);
-        }
     }
 }

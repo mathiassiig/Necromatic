@@ -12,7 +12,6 @@ namespace Necromatic.Character
         {
             _protectors.Add(protector);
 			var position = GetLocalPosition(_protectors.Count - 1);
-            print(position);
 			return position;
         }
 
