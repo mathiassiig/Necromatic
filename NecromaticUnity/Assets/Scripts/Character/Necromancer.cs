@@ -15,5 +15,15 @@ namespace Necromatic.Character
             FindObjectOfType<MotherPool>().AddBarToCharacter(this);
             base.Init();
         }
+
+        public void DoAbility()
+        {
+            CurrentAbility.PlayerFire(this);
+        }
+
+        public void DoHoverAbility()
+        {
+            CurrentAbility.PlayerHover(this);
+        }
     }
 }

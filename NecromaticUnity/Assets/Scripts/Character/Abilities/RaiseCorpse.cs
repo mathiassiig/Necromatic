@@ -10,9 +10,9 @@ namespace Necromatic.Character.Abilities
 {
     public class RaiseCorpse : ClickAbility
     {
-        protected override void HandleHitObject(Transform objectHit)
+        protected override void HandleHitObject(RaycastHit objectHit)
         {
-            var raisable = objectHit.GetComponent<IRaisable>();
+            var raisable = objectHit.transform.GetComponent<IRaisable>();
             if (raisable != null)
             {
                 raisable.Raise();

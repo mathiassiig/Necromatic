@@ -45,7 +45,7 @@ namespace Necromatic
                         }
                         Gizmos.color = color;
                         var pos = NavMesh.GetWorldPos(n.Key);
-                        Gizmos.DrawCube(pos + new Vector3(0.25f, -0.125f, 0.25f), new Vector3(0.5f, 0.25f, 0.5f));
+                        Gizmos.DrawCube(pos + new Vector3(0.25f, 0.125f, 0.25f), new Vector3(0.5f, 0.25f, 0.5f));
                     }
                 }
             }

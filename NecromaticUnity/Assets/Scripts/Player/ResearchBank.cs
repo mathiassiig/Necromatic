@@ -18,6 +18,7 @@ namespace Necromatic.Player
             {
 				new RaiseCorpse(),
                 new Sacrifice(),
+                new BuildWall()
             };
             BankLoaded.Value = true;
         }

@@ -12,7 +12,7 @@ namespace Necromatic.Player
 {
     public class InputManager : MonoBehaviour
     {
-        [SerializeField] private CharacterInstance _character;
+        [SerializeField] private Necromancer _character;
         private GameManager _gameManager;
         private HotBar _hotBar;
         private Vector2 _moveDir;
@@ -68,6 +68,7 @@ namespace Necromatic.Player
                 _doAbility = false;
                 _character.DoAbility();
             }
+            _character.DoHoverAbility();
         }
 
         void CheckAbilities()

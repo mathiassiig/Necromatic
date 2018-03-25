@@ -88,12 +88,5 @@ namespace Necromatic.Character
             Combat.TryAttackNearest(this);
         }
 
-        public void DoAbility()
-        {
-            if (gameObject.tag == "Player")
-            {
-                CurrentAbility.PlayerFire(this);
-            }
-        }
     }
 }

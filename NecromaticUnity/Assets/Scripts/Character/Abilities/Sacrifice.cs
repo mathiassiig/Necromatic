@@ -12,9 +12,9 @@ namespace Necromatic.Character.Abilities
     public class Sacrifice : ClickAbility
     {
 
-        protected override void HandleHitObject(Transform objectHit)
+        protected override void HandleHitObject(RaycastHit objectHit)
         {
-            var c = objectHit.GetComponent<CharacterInstance>();
+            var c = objectHit.transform.GetComponent<CharacterInstance>();
             if (c != null && !c.Death.Dead.Value && c.Faction == _sender.Faction)
             {
                 Kill(c);

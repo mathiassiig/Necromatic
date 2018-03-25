@@ -12,20 +12,23 @@ namespace Necromatic.World
     {
         void OnSceneGUI()
         {
+            // todo: fix
+            /* 
             Wall wall = target as Wall;
             Transform handleTransform = wall.transform;
             Quaternion handleRotation = Quaternion.identity;
             Vector3 upperLeft = handleTransform.TransformPoint(wall.UpperLeft);
             Vector3 lowerRight = handleTransform.TransformPoint(wall.LowerRight);
+            
 
             Handles.color = Color.white;
 			var upperRight = new Vector3(lowerRight.x, upperLeft.y, upperLeft.z);
 			var lowerLeft = new Vector3(upperLeft.x,  lowerRight.y, lowerRight.z);
-			/*Handles.DrawSolidRectangleWithOutline(new Vector3[4]
+			Handles.DrawSolidRectangleWithOutline(new Vector3[4]
 						{upperLeft + wall.transform.position, 
 						upperRight + wall.transform.position, 
 						lowerRight + wall.transform.position, 
-						lowerLeft + wall.transform.position}, Color.red, Color.black);*/
+						lowerLeft + wall.transform.position}, Color.red, Color.black);
             Handles.DoPositionHandle(upperLeft, handleRotation);
             Handles.DoPositionHandle(lowerRight, handleRotation);
             EditorGUI.BeginChangeCheck();
@@ -46,6 +49,7 @@ namespace Necromatic.World
                 wall.LowerRight = handleTransform.InverseTransformPoint(lowerRight);
 				wall.ReMesh();
             }
+            */
         }
     }
 }

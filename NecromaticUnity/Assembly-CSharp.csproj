@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Character\Abilities\Ability.cs" />
+     <Compile Include="Assets\Scripts\Character\Abilities\BuildWall.cs" />
      <Compile Include="Assets\Scripts\Character\Abilities\ClickAbility.cs" />
      <Compile Include="Assets\Scripts\Character\Abilities\RaiseCorpse.cs" />
      <Compile Include="Assets\Scripts\Character\Abilities\Sacrifice.cs" />

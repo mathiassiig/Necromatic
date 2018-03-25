@@ -11,6 +11,11 @@ namespace Necromatic.Character.Abilities
         {
             return false;
         }
+
+        public virtual void PlayerHover(CharacterInstance sender)
+        {
+            
+        }
         
         public virtual string GetIconPath()
         {
