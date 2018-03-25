@@ -26,6 +26,13 @@ namespace Necromatic.Utility
             return targets.FirstOrDefault(x => Distance((x as MonoBehaviour).transform.position, sender.transform.position) == min); 
         }
 
+        public static Vector2 CirclePoint(Vector2 center, float radius, float angle)
+        {
+            var x = center.x + radius * Mathf.Cos(angle);
+            var y = center.y + radius * Mathf.Sin(angle);
+            return new Vector2(x, y);
+        }
+
         public static float Distance(Vector3 a, Vector3 b) => (a-b).sqrMagnitude;
 
         public static Vector2 PlaneDirection(Transform from, Transform to)
