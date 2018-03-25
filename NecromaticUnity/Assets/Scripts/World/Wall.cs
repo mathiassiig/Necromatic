@@ -25,24 +25,20 @@ namespace Necromatic.World
         {
             _upperLeft = uL;
             _lowerRight = lR;
+            var tempUL = new Vector3(_upperLeft.x, _upperLeft.y, _upperLeft.z);
+            var tempLR = new Vector3(_lowerRight.x, _lowerRight.y, _lowerRight.z);
             if (_upperLeft.x > _lowerRight.x && _upperLeft.z > _lowerRight.z)
             {
-                var tempUL = new Vector3(_upperLeft.x, _upperLeft.y, _upperLeft.z);
-                var tempLR = new Vector3(_lowerRight.x, _lowerRight.y, _lowerRight.z);
                 _upperLeft = new Vector3(tempLR.x, tempUL.y, tempUL.z);
                 _lowerRight = new Vector3(tempUL.x, tempLR.y, tempLR.z);
             }
             else if (_upperLeft.x < _lowerRight.x && _upperLeft.z < _lowerRight.z)
             {
-                var tempUL = new Vector3(_upperLeft.x, _upperLeft.y, _upperLeft.z);
-                var tempLR = new Vector3(_lowerRight.x, _lowerRight.y, _lowerRight.z);
                 _upperLeft = new Vector3(tempUL.x, tempUL.y, tempLR.z);
                 _lowerRight = new Vector3(tempLR.x, tempLR.y, tempUL.z);
             }
             else if (_upperLeft.x > _lowerRight.x && _upperLeft.z < _lowerRight.z)
             {
-                var tempUL = new Vector3(_upperLeft.x, _upperLeft.y, _upperLeft.z);
-                var tempLR = new Vector3(_lowerRight.x, _lowerRight.y, _lowerRight.z);
                 _upperLeft = new Vector3(tempLR.x, tempUL.y, tempLR.z);
                 _lowerRight = new Vector3(tempUL.x, tempLR.y, tempUL.z);
             }
