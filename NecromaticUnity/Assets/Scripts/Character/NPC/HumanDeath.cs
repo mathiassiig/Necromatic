@@ -12,6 +12,7 @@ namespace Necromatic.Character.NPC
             Object.Destroy(c.GetComponent<ArtificialIntelligence>());
             c.Representation.gameObject.AddComponent<BoxCollider>();
             c.Representation.DeathAnimation();
+            c.gameObject.layer = LayerMask.NameToLayer("Corpse");
             Dead.Value = true;
         }
     }
