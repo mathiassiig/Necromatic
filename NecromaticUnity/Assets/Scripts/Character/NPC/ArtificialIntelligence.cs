@@ -109,7 +109,7 @@ namespace Necromatic.Character.NPC
             _primaryResults.Clear();
             foreach (var i in _primaryStrategies)
             {
-                var result = i.Act(_character, null);
+                var result = i.Act(_character, _currentTaskResult);
                 if (result.GetType() != typeof(NoneResult))
                 {
                     _primaryResults.Add(result);

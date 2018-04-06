@@ -56,7 +56,8 @@ namespace Necromatic.Character
         {
             InitCombat();
             Movement.Init(this);
-            _health.Init();
+            _health._initialRegen = 0.5f;
+            _health.Init(this);
             _health.Current.Subscribe(value =>
             {
                 if (value <= 0)

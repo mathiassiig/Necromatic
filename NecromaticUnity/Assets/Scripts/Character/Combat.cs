@@ -67,6 +67,11 @@ namespace Necromatic.Character
             }
         }
 
+        public void SetTarget(IDamagable c)
+        {
+            _lastTarget = c;
+        }
+
         public void TryAttack(IDamagable c)
         {
             if (CurrentState.Value != CombatState.Idle)
@@ -104,6 +109,7 @@ namespace Necromatic.Character
             {
                 if (dead)
                 {
+                    _lastTarget = null;
                     _attackingDisposable.Dispose();
                     CurrentState.Value = CombatState.Idle;
                 }

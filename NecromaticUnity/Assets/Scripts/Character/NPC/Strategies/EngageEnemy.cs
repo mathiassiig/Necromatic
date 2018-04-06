@@ -14,6 +14,7 @@ namespace Necromatic.Character.NPC.Strategies
         {
             var enemyResult = parameters as EnemySpottedResult;
             var enemy = enemyResult.Enemy;
+
             if(enemy.Death.Dead.Value || enemy == null)
             {
                 return new NoneResult();

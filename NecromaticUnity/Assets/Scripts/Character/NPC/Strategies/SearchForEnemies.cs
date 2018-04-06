@@ -15,6 +15,10 @@ namespace Necromatic.Character.NPC.Strategies
 
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
+            if(sender.Combat.LastTarget != null && sender.Combat.LastTarget.Death.Dead.Value == false)
+            {
+                return new NoneResult();
+            }
             var enemies = GameObjectUtils.DetectEnemies(_searchRange, sender.transform.position, sender)
                     .Where(x => x.Death.Dead.Value == false)
                     .ToList();

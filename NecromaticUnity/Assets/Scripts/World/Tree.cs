@@ -31,7 +31,7 @@ namespace Necromatic.World
             _combat = new Combat(this);
             _representation = gameObject.AddComponent<Representation>();
             Health._initial = 200;
-            Health.Init();
+            Health.Init(this);
             Health.Current.Subscribe(x =>
             {
                 if (x <= 0)
