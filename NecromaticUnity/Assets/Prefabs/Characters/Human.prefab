@@ -256,4 +256,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _representation: {fileID: 114637464830105466}
-  _baseSpeed: 0.5
+  _baseSpeed: 2.5

@@ -55,6 +55,14 @@ namespace Necromatic.Character.NPC
             });
         }
 
+        public void AddTask(StrategyResult sr)
+        {
+            if(_secondaryStrategies.FirstOrDefault(x => x.GetType() == sr.NextDesiredStrategy) != null)
+            {
+                SetStrategy(sr);
+            }
+        }
+
         public void AddPrimaryStrategy(Strategy s)
         {
             _primaryStrategies.Add(s);
