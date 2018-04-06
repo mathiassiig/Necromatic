@@ -23,7 +23,7 @@ namespace Necromatic.Character.NPC
             undead.Representation.ReviveAnimation(() =>
             {
                 ai.SetBrainState(true);
-                undead.Representation.LookDirectionAnim(GameObjectUtils.PlaneDirection(undead.transform, player.transform), 0.3f);
+                undead.Representation.LookDirectionAnim(MathUtils.PlaneDirection(undead.transform, player.transform), 0.3f);
             });
             Destroy(gameObject);
         }

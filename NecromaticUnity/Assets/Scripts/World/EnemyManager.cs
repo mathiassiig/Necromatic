@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System;
+using Necromatic.Utility;
+using Necromatic.Character;
 
 namespace Necromatic.World
 {
@@ -14,9 +16,11 @@ namespace Necromatic.World
 		private float _spawnRandomness = 0.1f; // in +- percentage
 		private bool _spawn = false;
 		private bool _spawnEnemyChunkNow = true;
+		private MotherPool _motherPool;
 
         void Start()
         {
+			_motherPool = FindObjectOfType<MotherPool>();
 			_dayNightManager.IsDay.Subscribe(day =>
 			{
 				_spawn = day;
@@ -42,7 +46,10 @@ namespace Necromatic.World
 
 		void SpawnEnemyChunk()
 		{
-			
+			var randomDir = UnityEngine.Random.Range(0f, 2*Mathf.PI);
+			var randomLocation = MathUtils.CirclePoint(Vector2.zero, 10, randomDir);
+			var hooman = _motherPool.GetCharacterPrefab(CharacterType.Human);
+			Instantiate(hooman, new Vector3(randomLocation.x, 0, randomLocation.y), Quaternion.identity);
 		}
     }
 }

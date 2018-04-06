@@ -33,6 +33,10 @@ namespace Necromatic.Character
 
         void Update()
         {
+            if (_character == null || _representation == null)
+            {
+                return;
+            }
             if (_initialized)
             {
                 if (_character.Combat.CurrentState.Value != CombatState.Idle)
@@ -40,7 +44,15 @@ namespace Necromatic.Character
                     _canMove = false;
                     if (_character.Combat.LastTarget != null)
                     {
-                        _representation.LookDirection((_character.Combat.LastTarget.gameObject.transform.position - transform.position).normalized);
+                        try
+                        {
+                            _representation.LookDirection((_character.Combat.LastTarget.gameObject.transform.position - transform.position).normalized);
+                        }
+                        catch
+                        {
+                            // so apparently I cannot null check for Character.Combat.LastTarget.gameObject
+                            // so I just have to try catch
+                        }
                     }
                 }
                 else
