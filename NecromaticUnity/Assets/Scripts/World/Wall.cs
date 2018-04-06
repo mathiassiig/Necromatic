@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Necromatic;
+using UnityEngine.AI;
 
 namespace Necromatic.World
 {
@@ -46,7 +47,8 @@ namespace Necromatic.World
 
         private void SetUnwalkable()
         {
-            
+            var nmo = gameObject.AddComponent<NavMeshObstacle>();
+            nmo.carving = true;
         }
 
         public void ReMesh()

@@ -13,10 +13,6 @@ namespace Necromatic.Character.NPC.Strategies
     {
         private IDisposable _pathFindingJob;
         private List<Vector3> _path;
-        private int _pathIndex = 0;
-        private float _pathIndexReachedDistance = 0.25f;
-        private float _recalculatePathTime = 0.5f;
-        private bool _recalculatePath = true;
 
 
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
