@@ -52,6 +52,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Plugins\AIDebugger\Editor\ObjectWindow.cs" />
+     <Compile Include="Assets\Plugins\NavMeshComponents\Editor\NavMeshComponentsGUIUtility.cs" />
+     <Compile Include="Assets\Plugins\NavMeshComponents\Editor\NavMeshLinkEditor.cs" />
+     <Compile Include="Assets\Plugins\NavMeshComponents\Editor\NavMeshModifierEditor.cs" />
+     <Compile Include="Assets\Plugins\NavMeshComponents\Editor\NavMeshModifierVolumeEditor.cs" />
+     <Compile Include="Assets\Plugins\NavMeshComponents\Editor\NavMeshSurfaceEditor.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity 2017.3.0f3/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -5,6 +5,7 @@ using Necromatic.Character.NPC.Strategies.Results;
 using UniRx;
 using System;
 using Necromatic.World;
+using Necromatic.Utility;
 
 namespace Necromatic.Character.NPC.Strategies
 {
@@ -25,66 +26,16 @@ namespace Necromatic.Character.NPC.Strategies
             {
                 return new NoneResult();
             }
+            
             var position = moveResult.UseTransform ? moveResult.To.position : moveResult.ToPosition;
-
-            var dis = (position - sender.transform.position).magnitude;
-            if (dis <= moveResult.ReachedDistance)
+            var dis = MathUtils.Distance(position, sender.transform.position);
+            if(dis <= moveResult.ReachedDistance)
             {
+                sender.Movement.Move(sender.transform.position);
                 return new NoneResult();
             }
-
-            if (_recalculatePath)
-            {
-                _recalculatePath = false;
-                GetPath(sender, position);
-                Observable.Timer(System.TimeSpan.FromSeconds(_recalculatePathTime)).TakeUntilDestroy(sender).Subscribe(_ =>
-                {
-                    _recalculatePath = true;
-                });
-                return moveResult;
-            }
-            if (_path == null)
-            {
-                return moveResult;
-            }
-            MoveThroughPath(sender);
-            if (_path != null && _path.Count > 0)
-            {
-                for (int i = 0; i < _path.Count - 1; i++)
-                {
-                    var color = Color.white;
-                    Debug.DrawLine(_path[i], _path[i + 1], color, Time.deltaTime);
-                }
-            }
-            Debug.DrawLine(sender.transform.position, _path[_pathIndex], Color.red, 0.1f);
+            sender.Movement.Move(position);
             return moveResult;
-        }
-
-        private void GetPath(CharacterInstance sender, Vector3 target)
-        {
-            var pathFindingResult = GameManager.Instance.PathFinder.RequestPathfind(sender.transform.position, target);
-            _pathFindingJob = pathFindingResult.TakeUntilDestroy(sender).ObserveOnMainThread().Subscribe(path =>
-            {
-                if (path != null)
-                {
-                    _pathIndex = 0;
-                    _path = path;
-                }
-            });
-        }
-
-        private void MoveThroughPath(CharacterInstance sender)
-        {
-            var current = _path[_pathIndex];
-            var dir = (current - sender.transform.position).normalized;
-            sender.Movement.Move(dir);
-            if ((current - sender.transform.position).magnitude <= _pathIndexReachedDistance)
-            {
-                if (_pathIndex < _path.Count - 1)
-                {
-                    _pathIndex++;
-                }
-            }
         }
     }
 }

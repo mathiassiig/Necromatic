@@ -56,7 +56,7 @@ namespace Necromatic.Player
         {
             if (_moveDir.magnitude != 0)
             {
-                _character.Movement.Move(_moveDir);
+                _character.Movement.MoveDir(_moveDir);
             }
             if(_doAttack)
             {
