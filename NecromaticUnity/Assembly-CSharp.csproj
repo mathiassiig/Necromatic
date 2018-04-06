@@ -101,6 +101,7 @@
      <Compile Include="Assets\Scripts\UI\Research\ResearchManager.cs" />
      <Compile Include="Assets\Scripts\UI\StatBar.cs" />
      <Compile Include="Assets\Scripts\Utility\GameObjectUtils.cs" />
+     <Compile Include="Assets\Scripts\Utility\MathUtils.cs" />
      <Compile Include="Assets\Scripts\Utility\MotherPool.cs" />
      <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Utility\Singleton.cs" />

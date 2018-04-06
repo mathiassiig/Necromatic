@@ -42,7 +42,7 @@ namespace Necromatic.World
 
 		void SpawnEnemyChunk()
 		{
-
+			
 		}
     }
 }

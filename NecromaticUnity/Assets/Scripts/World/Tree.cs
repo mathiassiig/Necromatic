@@ -46,10 +46,10 @@ namespace Necromatic.World
         void Fall()
         {
             gameObject.layer = LayerMask.NameToLayer("Default");
-            var attackerDir = GameObjectUtils.PlaneDirection(_logRoot, Combat.LastAttacker.Value.transform);
+            var attackerDir = MathUtils.PlaneDirection(_logRoot, Combat.LastAttacker.Value.transform);
             var angle = Mathf.Atan2(attackerDir.x, attackerDir.y);
             var pos = new Vector2(_logRoot.localPosition.x, _logRoot.localPosition.z);
-            var newPosition = GameObjectUtils.CirclePoint(pos, _logRadius, angle);
+            var newPosition = MathUtils.CirclePoint(pos, _logRadius, angle);
             //Debug.Log(newPosition);
             _logRoot.localPosition = new Vector3(newPosition.x, _logRoot.localPosition.y, newPosition.y);
             _logRoot.localRotation = Quaternion.Euler(0, angle*Mathf.Rad2Deg, 0);
