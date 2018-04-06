@@ -106,6 +106,7 @@
      <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
      <Compile Include="Assets\Scripts\World\ChunkMesh.cs" />
      <Compile Include="Assets\Scripts\World\DayNightManager.cs" />
+     <Compile Include="Assets\Scripts\World\EnemyManager.cs" />
      <Compile Include="Assets\Scripts\World\Grave.cs" />
      <Compile Include="Assets\Scripts\World\NavigationMesh.cs" />
      <Compile Include="Assets\Scripts\World\Pathfinder.cs" />

@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+
 namespace Necromatic.World
 {
     public class DayNightManager : MonoBehaviour
     {
         [SerializeField] private Light _sunLight;
         [SerializeField] private float _maxDaylight = 1f;
+        [SerializeField] private Gradient _dayCycleGradient;
         public float TwentyFourHours = 24f; // an entire game day in seconds
         private float _currentTime = 0;
+        public ReactiveProperty<bool> IsDay = new ReactiveProperty<bool>();
 
         void Start()
         {
@@ -18,16 +22,17 @@ namespace Necromatic.World
         void Update()
         {
             _currentTime = Mathf.Repeat(_currentTime + Time.deltaTime, TwentyFourHours);
-            SetSunlight();
-
+            var t = _currentTime / TwentyFourHours;
+            IsDay.Value = t > 0.25 && t <= 0.75;
+            SetSunlight(t);
+            RenderSettings.ambientLight = _dayCycleGradient.Evaluate(t);
         }
 
-        private void SetSunlight()
+        private void SetSunlight(float t)
         {
-            var t = _currentTime / TwentyFourHours;
             var pitch = Mathf.Repeat(t * 2 * Mathf.PI - Mathf.PI / 2, 2 * Mathf.PI);
             _sunLight.transform.localRotation = Quaternion.Euler(pitch * Mathf.Rad2Deg, 0, 0);
-			_sunLight.intensity = CalculateLight(t);
+            _sunLight.intensity = CalculateLight(t);
         }
 
         private float CalculateLight(float t)
@@ -45,25 +50,25 @@ namespace Necromatic.World
                 if (t < 0.5)
                 {
                     var i_t = (t - 0.25f) * 4;
-					return CubicOut(i_t) * _maxDaylight;
+                    return SunUp(i_t) * _maxDaylight;
                 }
                 else
                 {
-					var i_t = (t - 0.5f) * 4;
-					return CubicIn(i_t) * _maxDaylight;
+                    var i_t = (t - 0.5f) * 4;
+                    return SunDown(i_t) * _maxDaylight;
                 }
             }
         }
 
-        private float CubicOut(float x)
+        private float SunUp(float x)
         {
-            return Mathf.Pow(x, 3);
+            return Mathf.Cos(x * Mathf.PI + Mathf.PI) / 2 + 0.5f;
         }
 
-		private float CubicIn(float x)
-		{
-			return - Mathf.Pow(x, 3) + 1;
-		}
+        private float SunDown(float x)
+        {
+            return Mathf.Cos(x * Mathf.PI) / 2 + 0.5f;
+        }
 
     }
 }
