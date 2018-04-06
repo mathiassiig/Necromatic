@@ -10,8 +10,8 @@ namespace Necromatic.UI
 
         void Update()
         {
-			transform.LookAt(_target);
 			transform.position = _target.position + _offset;
+            transform.LookAt(_target);
         }
     }
 }

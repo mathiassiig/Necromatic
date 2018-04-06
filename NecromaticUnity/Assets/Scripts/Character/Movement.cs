@@ -26,7 +26,7 @@ namespace Necromatic.Character
             {
                 if (dead)
                 {
-                    
+                    Destroy(_agent);
                 }
             });
             _initialized = true;
