@@ -94,7 +94,6 @@
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Player\InputManager.cs" />
      <Compile Include="Assets\Scripts\Player\ResearchBank.cs" />
-     <Compile Include="Assets\Scripts\Tests\TestAgent.cs" />
      <Compile Include="Assets\Scripts\UI\FollowCamera.cs" />
      <Compile Include="Assets\Scripts\UI\HotBar.cs" />
      <Compile Include="Assets\Scripts\UI\Research\AbilityUI.cs" />
@@ -110,8 +109,6 @@
      <Compile Include="Assets\Scripts\World\EnemyManager.cs" />
      <Compile Include="Assets\Scripts\World\Grave.cs" />
      <Compile Include="Assets\Scripts\World\NavigationMesh.cs" />
-     <Compile Include="Assets\Scripts\World\Pathfinder.cs" />
-     <Compile Include="Assets\Scripts\World\PathfinderManager.cs" />
      <Compile Include="Assets\Scripts\World\Tree.cs" />
      <Compile Include="Assets\Scripts\World\Wall.cs" />
      <Compile Include="Assets\Scripts\World\WorldManager.cs" />

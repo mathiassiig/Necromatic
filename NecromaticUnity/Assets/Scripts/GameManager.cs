@@ -12,29 +12,26 @@ namespace Necromatic
     public class GameManager : Singleton<GameManager>
     {
         public ResearchBank ResearchBank { get; private set; }
-        public NavigationMesh NavMesh { get; private set; }
-        public PathfinderManager PathFinder { get; private set; }
+        public NavigationMesh BuildGrid { get; private set; }
         
-        [SerializeField] private bool _drawNavMesh;
+        [SerializeField] private bool _drawBuildGrid;
 
         protected GameManager()
         {
             ResearchBank = new ResearchBank();
-            NavMesh = new NavigationMesh();
-            PathFinder = new PathfinderManager();
+            BuildGrid = new NavigationMesh();
         }
 
         void Start()
         {
-            PathFinder.Init();
             ResearchBank.LoadBank();
         }
 
         void OnDrawGizmos()
         {
-            if (_drawNavMesh)
+            if (_drawBuildGrid)
             {
-                foreach (var n in NavMesh.NavTiles)
+                foreach (var n in BuildGrid.NavTiles)
                 {
                     if (n.Value != null && (n.Value.Taken || n.Value.WallNeighbor))
                     {
@@ -44,7 +41,7 @@ namespace Necromatic
                             color = Color.yellow;
                         }
                         Gizmos.color = color;
-                        var pos = NavMesh.GetWorldPos(n.Key);
+                        var pos = BuildGrid.GetWorldPos(n.Key);
                         Gizmos.DrawCube(pos + new Vector3(0.25f, 0.125f, 0.25f), new Vector3(0.5f, 0.25f, 0.5f));
                     }
                 }

@@ -20,7 +20,7 @@ namespace Necromatic.Character.Abilities
             {
                 return;
             }
-            var nearestGridPosWorldPos = GameManager.Instance.NavMesh.GetWorldPos(GameManager.Instance.NavMesh.GetGridPos(pos));
+            var nearestGridPosWorldPos = GameManager.Instance.BuildGrid.GetWorldPos(GameManager.Instance.BuildGrid.GetGridPos(pos));
             if (_firstPoint == null)
             {
                 _firstPoint = nearestGridPosWorldPos;
@@ -48,7 +48,7 @@ namespace Necromatic.Character.Abilities
         {
             if (_firstPoint != null && _secondPoint == null)
             {
-                var nearestGridPosWorldPos = GameManager.Instance.NavMesh.GetWorldPos(GameManager.Instance.NavMesh.GetGridPos(objectHit.point));
+                var nearestGridPosWorldPos = GameManager.Instance.BuildGrid.GetWorldPos(GameManager.Instance.BuildGrid.GetGridPos(objectHit.point));
                 _wallScript.UpdateWallCorners(_firstPoint.Value, nearestGridPosWorldPos);
                 _wallScript.ReMesh();
             }
@@ -61,7 +61,7 @@ namespace Necromatic.Character.Abilities
 
         private bool IsBuildable(Vector3 pos)
         {
-            var node = GameManager.Instance.NavMesh.GetNode(pos);
+            var node = GameManager.Instance.BuildGrid.GetNode(pos);
             return !node.Taken;
         }
     }

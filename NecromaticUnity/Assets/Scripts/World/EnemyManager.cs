@@ -29,7 +29,6 @@ namespace Necromatic.World
 			_player = FindObjectOfType<Necromancer>();
 			_dayNightManager.IsDay.Subscribe(day =>
 			{
-				Debug.Log(day);
 				_spawn = day;
 			});
         }
