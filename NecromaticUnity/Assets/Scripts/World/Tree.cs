@@ -30,7 +30,7 @@ namespace Necromatic.World
         {
             _combat = new Combat(this);
             _representation = gameObject.AddComponent<Representation>();
-            Health._initial = 200;
+            Health._initial = 40;
             Health.Init(this);
             Health.Current.Subscribe(x =>
             {
@@ -50,12 +50,10 @@ namespace Necromatic.World
             var angle = Mathf.Atan2(attackerDir.x, attackerDir.y);
             var pos = new Vector2(_logRoot.localPosition.x, _logRoot.localPosition.z);
             var newPosition = MathUtils.CirclePoint(pos, _logRadius, angle);
-            //Debug.Log(newPosition);
             _logRoot.localPosition = new Vector3(newPosition.x, _logRoot.localPosition.y, newPosition.y);
             _logRoot.localRotation = Quaternion.Euler(0, angle*Mathf.Rad2Deg, 0);
             _logMesh.SetParent(_logRoot);
             _logRoot.DOLocalRotate(new Vector3(-99, _logRoot.localEulerAngles.y, 0), 0.6f);
-            //Destroy(_logRoot.gameObject);
         }
     }
 }
