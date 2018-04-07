@@ -24,6 +24,12 @@ namespace Necromatic.World
 
         [SerializeField] private Transform _logMesh;
         [SerializeField] private Transform _logRoot;
+        [SerializeField] private Transform _foilage;
+        [SerializeField] private Transform _logLower;
+        [SerializeField] private Transform _logUpper;
+
+        public List<Transform> Logs = new List<Transform>();
+
         private float _logRadius = 0.5f;
 
         void Awake()
@@ -43,17 +49,42 @@ namespace Necromatic.World
 
         }
 
-        void Fall()
+        private void Fall()
         {
-            gameObject.layer = LayerMask.NameToLayer("Default");
             var attackerDir = MathUtils.PlaneDirection(_logRoot, Combat.LastAttacker.Value.transform);
             var angle = Mathf.Atan2(attackerDir.x, attackerDir.y);
             var pos = new Vector2(_logRoot.localPosition.x, _logRoot.localPosition.z);
             var newPosition = MathUtils.CirclePoint(pos, _logRadius, angle);
             _logRoot.localPosition = new Vector3(newPosition.x, _logRoot.localPosition.y, newPosition.y);
-            _logRoot.localRotation = Quaternion.Euler(0, angle*Mathf.Rad2Deg, 0);
+            _logRoot.localRotation = Quaternion.Euler(0, angle * Mathf.Rad2Deg, 0);
             _logMesh.SetParent(_logRoot);
-            _logRoot.DOLocalRotate(new Vector3(-99, _logRoot.localEulerAngles.y, 0), 0.6f);
+            var time = 0.6f;
+            var collider = GetComponent<Collider>();
+            Logs.Add(_logLower);
+            Logs.Add(_logUpper);
+            _logRoot.DOLocalRotate(new Vector3(-90, _logRoot.localEulerAngles.y, 0), time)
+                .SetEase(Ease.InExpo)
+                .OnComplete(() =>
+                {
+                    Destroy(_foilage.gameObject);
+                    AddPhysics(_logLower.gameObject, collider, attackerDir);
+                    AddPhysics(_logUpper.gameObject, collider, attackerDir);
+                });
+            gameObject.layer = LayerMask.NameToLayer("Default");
+        }
+
+        private void AddPhysics(GameObject g, Collider treeCollider, Vector3 falldir)
+        {
+            g.transform.SetParent(null);
+            var rb = g.AddComponent<Rigidbody>();
+            rb.mass = 40;
+            var mc = g.AddComponent<MeshCollider>();
+            Physics.IgnoreCollision(mc, treeCollider, true);
+            mc.convex = true;
+            mc.sharedMesh = g.GetComponent<MeshFilter>().mesh;
+            rb.AddTorque(UnityEngine.Random.Range(-50f, 50f), UnityEngine.Random.Range(-50f, 50f), UnityEngine.Random.Range(-50f, 50f));
+            rb.AddForce(Vector3.up * 150, ForceMode.Impulse);
+
         }
     }
 }

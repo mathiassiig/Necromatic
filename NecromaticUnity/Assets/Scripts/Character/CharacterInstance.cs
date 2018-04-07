@@ -5,6 +5,7 @@ using UniRx;
 using Necromatic.Utility;
 using System.Linq;
 using Necromatic.Character.Abilities;
+using Necromatic.Character.NPC;
 
 namespace Necromatic.Character
 {
@@ -23,6 +24,19 @@ namespace Necromatic.Character
         [SerializeField] protected Death _death;
         [SerializeField] protected Representation _representation;
         [SerializeField] protected Stat _health;
+
+        private ArtificialIntelligence _ai;
+        public ArtificialIntelligence AI
+        {
+            get
+            {
+                if(_ai == null)
+                {
+                    _ai = GetComponent<ArtificialIntelligence>();
+                }
+                return _ai;
+            }
+        }
 
         public Ability CurrentAbility;
 

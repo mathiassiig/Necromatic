@@ -38,15 +38,15 @@ namespace Necromatic.Character.NPC
         {
             _character.ObserveEveryValueChanged(x => x.Combat).TakeUntilDestroy(_character).Subscribe(x =>
             {
-                if(_agroDisposable != null)
+                if (_agroDisposable != null)
                 {
                     _agroDisposable.Dispose();
                 }
-                if(_character.Combat != null && _character.Combat.LastAttacker != null)
+                if (_character.Combat != null && _character.Combat.LastAttacker != null)
                 {
                     _agroDisposable = _character.Combat.LastAttacker.Subscribe(attacker =>
                     {
-                        if(attacker != null)
+                        if (attacker != null)
                         {
                             SetStrategy(new EnemySpottedResult(attacker));
                         }
@@ -57,7 +57,7 @@ namespace Necromatic.Character.NPC
 
         public void AddTask(StrategyResult sr)
         {
-            if(_secondaryStrategies.FirstOrDefault(x => x.GetType() == sr.NextDesiredStrategy) != null)
+            if (_secondaryStrategies.FirstOrDefault(x => x.GetType() == sr.NextDesiredStrategy) != null)
             {
                 SetStrategy(sr);
             }
@@ -83,20 +83,20 @@ namespace Necromatic.Character.NPC
             if (_brainActivated)
             {
                 GetInputs();
-                foreach(var r in _primaryResults)
+                foreach (var r in _primaryResults)
                 {
-                    if(r.Priority >= _currentTaskResult.Priority)
+                    if (r.Priority >= _currentTaskResult.Priority)
                     {
-                        if(_debugLog)
+                        /*if (_debugLog)
                         {
                             print($"Setting strategy {r.NextDesiredStrategy.ToString().Split('.').Last()} " +
                             $"because {r.GetType().ToString().Split('.').Last()}'s priority of {r.Priority} " +
                             $"is higher than {_currentTaskResult.GetType().ToString().Split('.').Last()}'s priority of {_currentTaskResult.Priority}");
-                        }
+                        }*/
                         SetStrategy(r);
                     }
                 }
-                if(_currentTask != null)
+                if (_currentTask != null)
                 {
                     var nextResult = _currentTask.Act(_character, _currentTaskResult);
                     SetStrategy(nextResult);
@@ -122,6 +122,10 @@ namespace Necromatic.Character.NPC
             var type = r.NextDesiredStrategy;
             _currentTaskResult = r;
             _currentTask = _secondaryStrategies.FirstOrDefault(x => x.GetType() == type);
+            if (_debugLog)
+            {
+                print(_currentTaskResult.GetType());
+            }
         }
 
         public List<object> GetSerializableObjects()

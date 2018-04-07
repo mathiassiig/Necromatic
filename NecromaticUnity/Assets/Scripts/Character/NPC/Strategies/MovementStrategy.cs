@@ -13,11 +13,13 @@ namespace Necromatic.Character.NPC.Strategies
     {
         private IDisposable _pathFindingJob;
         private List<Vector3> _path;
+        private string _target;
 
 
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
             var moveResult = parameters as MoveResult;
+            _target = moveResult.UseTransform ? moveResult.To.name : moveResult.ToPosition.ToString();  
             if (moveResult.To == null && moveResult.UseTransform)
             {
                 return new NoneResult();
@@ -28,6 +30,14 @@ namespace Necromatic.Character.NPC.Strategies
             if(dis <= moveResult.ReachedDistance)
             {
                 sender.Movement.Move(sender.transform.position);
+                if(moveResult.OnReached != null)
+                {
+                    moveResult.OnReached();
+                }
+                if(moveResult.NextResult != null)
+                {
+                    return moveResult.NextResult;
+                }
                 return new NoneResult();
             }
             sender.Movement.Move(position);

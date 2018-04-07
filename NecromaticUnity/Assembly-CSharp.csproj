@@ -104,6 +104,7 @@
      <Compile Include="Assets\Scripts\Utility\MotherPool.cs" />
      <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
+     <Compile Include="Assets\Scripts\World\Buildings\TimberDropoff.cs" />
      <Compile Include="Assets\Scripts\World\ChunkMesh.cs" />
      <Compile Include="Assets\Scripts\World\DayNightManager.cs" />
      <Compile Include="Assets\Scripts\World\EnemyManager.cs" />

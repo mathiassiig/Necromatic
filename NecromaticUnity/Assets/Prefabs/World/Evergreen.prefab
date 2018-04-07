@@ -86,8 +86,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4535295537285478}
   - component: {fileID: 114463063683656604}
-  - component: {fileID: 136514699247648678}
   - component: {fileID: 208934793475031944}
+  - component: {fileID: 65331147686002828}
   m_Layer: 10
   m_Name: Evergreen
   m_TagString: Untagged
@@ -256,7 +256,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1634245186636778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.99, y: 0.65, z: -0.02}
+  m_LocalPosition: {x: -25.99, y: 0.65, z: -3.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4608722288967816}
@@ -708,6 +708,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1976634815315734}
   m_Mesh: {fileID: 4300008, guid: 340c58941df4145cbb5955ba0a4b5487, type: 3}
+--- !u!65 &65331147686002828
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1634245186636778}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114463063683656604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -721,19 +733,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _logMesh: {fileID: 4608722288967816}
   _logRoot: {fileID: 4587334360404654}
---- !u!136 &136514699247648678
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1634245186636778}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.55
-  m_Height: 8.53
-  m_Direction: 1
-  m_Center: {x: 0, y: 3.41, z: 0}
+  _foilage: {fileID: 4742930210712880}
+  _logLower: {fileID: 4654039562227748}
+  _logUpper: {fileID: 4584314008625350}
 --- !u!208 &208934793475031944
 NavMeshObstacle:
   m_ObjectHideFlags: 1
