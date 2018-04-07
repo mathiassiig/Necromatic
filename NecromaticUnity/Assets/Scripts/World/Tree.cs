@@ -70,7 +70,6 @@ namespace Necromatic.World
                     AddPhysics(_logLower.gameObject, collider, attackerDir);
                     AddPhysics(_logUpper.gameObject, collider, attackerDir);
                 });
-            gameObject.layer = LayerMask.NameToLayer("Default");
         }
 
         private void AddPhysics(GameObject g, Collider treeCollider, Vector3 falldir)

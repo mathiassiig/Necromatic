@@ -19,7 +19,6 @@ namespace Necromatic.Character.NPC.Strategies
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
             var moveResult = parameters as MoveResult;
-            _target = moveResult.UseTransform ? moveResult.To.name : moveResult.ToPosition.ToString();  
             if (moveResult.To == null && moveResult.UseTransform)
             {
                 return new NoneResult();

@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4584314008625350}
   - component: {fileID: 33093496367675172}
   - component: {fileID: 23603754936430262}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Log.Upper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 4654039562227748}
   - component: {fileID: 33556399054890546}
   - component: {fileID: 23863572937831424}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Log.Lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1474963405653564}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.05, y: -0.926, z: 0}
+  m_LocalPosition: {x: 0.05, y: 7.05, z: -0}
   m_LocalScale: {x: 100, y: 99.99991, z: 99.99991}
   m_Children: []
   m_Father: {fileID: 4608722288967816}
@@ -327,7 +327,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834277670654710}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.05, y: -0.926, z: 0}
+  m_LocalPosition: {x: 0.05, y: 2.52, z: -0}
   m_LocalScale: {x: 100, y: 99.99991, z: 99.99991}
   m_Children: []
   m_Father: {fileID: 4608722288967816}
@@ -665,7 +665,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1474963405653564}
-  m_Mesh: {fileID: 4300004, guid: 340c58941df4145cbb5955ba0a4b5487, type: 3}
+  m_Mesh: {fileID: 4300004, guid: ca68c3615256f4a18bc04903fc72c32d, type: 3}
 --- !u!33 &33103753150891164
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -693,7 +693,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834277670654710}
-  m_Mesh: {fileID: 4300002, guid: 340c58941df4145cbb5955ba0a4b5487, type: 3}
+  m_Mesh: {fileID: 4300002, guid: ca68c3615256f4a18bc04903fc72c32d, type: 3}
 --- !u!33 &33877902419218228
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -736,6 +736,7 @@ MonoBehaviour:
   _foilage: {fileID: 4742930210712880}
   _logLower: {fileID: 4654039562227748}
   _logUpper: {fileID: 4584314008625350}
+  Logs: []
 --- !u!208 &208934793475031944
 NavMeshObstacle:
   m_ObjectHideFlags: 1

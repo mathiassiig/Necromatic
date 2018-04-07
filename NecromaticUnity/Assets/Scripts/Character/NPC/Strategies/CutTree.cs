@@ -39,8 +39,6 @@ namespace Necromatic.Character.NPC.Strategies
         {
             if (_log == null)
             {
-                Debug.Log("Move to tree");
-                // move to a log
                 var log = toCut.Logs.FirstOrDefault();
                 var dropoff = GameObject.FindObjectOfType<TimberDropoff>();
                 var moveToTimber = new MoveResult(dropoff.transform, 0.5f);
@@ -52,8 +50,14 @@ namespace Necromatic.Character.NPC.Strategies
                 };
                 moveToTimber.OnReached = () =>
                 {
+                    toCut.Logs.Remove(log);
+                    _log = null;
                     log.gameObject.SetActive(true);
-                    log.transform.position = dropoff.transform.position;
+                    dropoff.Dropoff(log);
+                    if(toCut.Logs.Count == 0)
+                    {
+                        toCut.gameObject.layer = LayerMask.NameToLayer("Default");
+                    }
                 };
                 moveToLog.Priority = 10;
                 moveToLog.UseTransform = true;
