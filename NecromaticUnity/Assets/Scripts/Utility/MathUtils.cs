@@ -12,7 +12,7 @@ namespace Necromatic.Utility
             return new Vector2(x, y);
         }
 
-        public static float Distance(Vector3 a, Vector3 b) => (a - b).sqrMagnitude;
+        public static float Distance(Vector3 a, Vector3 b) => (a - b).magnitude;
 
         public static Vector2 PlaneDirection(Transform from, Transform to)
         {

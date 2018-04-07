@@ -15,7 +15,7 @@ namespace Necromatic.Character.NPC.Strategies
             var enemyResult = parameters as EnemySpottedResult;
             var enemy = enemyResult.Enemy;
 
-            if(enemy.Death.Dead.Value || enemy == null)
+            if (enemy.Death.Dead.Value || enemy == null)
             {
                 return new NoneResult();
             }
@@ -26,7 +26,7 @@ namespace Necromatic.Character.NPC.Strategies
             }
             else
             {
-                return new MoveResult(enemy.transform, sender.Combat.AttackRange) { Priority = enemyResult.Priority + 1 };
+                return new MoveResult(enemy.transform, sender.Combat.AttackRange, enemyResult) { Priority = enemyResult.Priority + 1 };
             }
         }
     }

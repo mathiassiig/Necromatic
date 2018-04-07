@@ -15,7 +15,7 @@ namespace Necromatic.World
     {
         [SerializeField] private DayNightManager _dayNightManager;
 		private IDisposable _enemySpawner;
-		private float _spawnTime = 2;
+		private float _spawnTime = 8f;
 		private float _spawnRandomness = 0.1f; // in +- percentage
 		private bool _spawn = false;
 		private bool _spawnEnemyChunkNow = true;
@@ -52,9 +52,10 @@ namespace Necromatic.World
 
 		void SpawnEnemyChunk()
 		{
+			var type = UnityEngine.Random.Range(0, 2) == 0 ? CharacterType.Human : CharacterType.HumanRanged;
 			var randomDir = UnityEngine.Random.Range(0f, 2*Mathf.PI);
 			var randomLocation = MathUtils.CirclePoint(Vector2.zero, _spawnCircleRadius, randomDir);
-			var hooman = _motherPool.GetCharacterPrefab(CharacterType.Human);
+			var hooman = _motherPool.GetCharacterPrefab(type);
 			var hoomanInstance = Instantiate(hooman, new Vector3(randomLocation.x, 0, randomLocation.y), Quaternion.identity);
 			var ai = hoomanInstance.GetComponent<ArtificialIntelligence>();
 			var killPlayer = new EnemySpottedResult(_player);
