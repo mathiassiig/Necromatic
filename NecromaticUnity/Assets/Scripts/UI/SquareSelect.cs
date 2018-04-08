@@ -11,8 +11,6 @@ namespace Necromatic.UI
     public class SquareSelect
     {
         [SerializeField] private Image _selectionImage;
-        private LayerMask _groundLayer = 0;
-        private LayerMask _characterLayer = 8;
         private bool _selecting = false;
         private Vector2 _selectionStartPosition;
         private Vector2 _selectionEndPosition;
@@ -44,6 +42,7 @@ namespace Necromatic.UI
                 {
                     SelectUnits(_selectionEndPosition);
                 });
+
             }
             MoveImage(mouseInput);
             _selectionEndPosition = mouseInput;
@@ -54,19 +53,11 @@ namespace Necromatic.UI
         {
             Ray ray = Camera.main.ScreenPointToRay(mousePos);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Default")))
             {
                 return hit.point;
             }
             return Vector3.zero; // shouldn't happen
-        }
-
-        void Update()
-        {
-            if (_selecting)
-            {
-                SelectUnits(_selectionEndPosition);
-            }
         }
 
         private void SelectUnits(Vector2 mouseInput)
@@ -75,7 +66,7 @@ namespace Necromatic.UI
             _selectionBounds.min = _worldSelectionStart;
             _selectionBounds.max = _worldSelectionEnd + Vector3.up * 5f;
             RescaleBox();
-            var characters = Physics.OverlapBox(_selectionBounds.center, _selectionBounds.size / 2, Quaternion.identity, _characterLayer);
+            var characters = Physics.OverlapBox(_selectionBounds.center, _selectionBounds.size / 2, Quaternion.identity, LayerMask.GetMask("Character"));
             if (characters != null && characters.Length > 0)
             {
                 SelectedUnits.Value = characters
