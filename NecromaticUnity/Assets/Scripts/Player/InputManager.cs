@@ -7,12 +7,15 @@ using Necromatic.Character.Abilities;
 using System.Linq;
 using UniRx;
 using Necromatic.UI;
+using UnityEngine.UI;
 
 namespace Necromatic.Player
 {
     public class InputManager : MonoBehaviour
     {
         [SerializeField] private Necromancer _character;
+        [SerializeField] private Image _selectionImage;
+        private SquareSelect _squareSelect  = new SquareSelect();
         private GameManager _gameManager;
         private HotBar _hotBar;
         private Vector2 _moveDir;
@@ -30,6 +33,7 @@ namespace Necromatic.Player
                 }
             });
             _hotBar = FindObjectOfType<HotBar>();
+            _squareSelect.Init(_selectionImage);
         }
 
         void Update()
@@ -39,18 +43,24 @@ namespace Necromatic.Player
             SendCommands();
         }
 
-        void FixedUpdate()
-        {
-            
-        }
 
         void FetchCommands()
         {
+            if(Input.GetButton("Fire1"))
+            {
+                _squareSelect.Select(Input.mousePosition);
+            }
+            if(Input.GetButtonUp("Fire1"))
+            {
+                _squareSelect.SelectionDone();
+            }
             _doAttack = Input.GetButton("Attack");
             _moveDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            _doAbility = Input.GetButtonDown("Fire1");
+            _doAbility = Input.GetButtonDown("Fire2");
 
         }
+
+
 
         void SendCommands()
         {
