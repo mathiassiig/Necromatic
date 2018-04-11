@@ -73,7 +73,8 @@ namespace Necromatic.Player
             var movementTarget = GameObjectUtils.GetGroundPosition(Input.mousePosition);
             if(movementTarget != null)
             {
-                var sr = new MoveResult(movementTarget.Value, 0.1f);
+                var sr = new MoveResult(movementTarget.Value, 0.25f);
+                sr.Priority = 100;
                 foreach(var character in  _squareSelect.SelectedUnits.Value)
                 {
                     character.AI.AddTask(sr);
