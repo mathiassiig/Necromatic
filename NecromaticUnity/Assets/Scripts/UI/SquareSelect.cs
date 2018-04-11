@@ -10,7 +10,9 @@ namespace Necromatic.UI
 {
     public class SquareSelect
     {
-        [SerializeField] private Image _selectionImage;
+        private Image _selectionImage;
+        private Canvas _selectionCanvasPrefab;
+
         private bool _selecting = false;
         private Vector2 _selectionStartPosition;
         private Vector2 _selectionEndPosition;
@@ -21,10 +23,10 @@ namespace Necromatic.UI
         private Vector3 _worldSelectionStart;
         private Vector3 _worldSelectionEnd;
 
-        public ReactiveProperty<List<CharacterInstance>> SelectedUnits = new ReactiveProperty<List<CharacterInstance>>();
+        public ReactiveProperty<List<ISelectable>> SelectedUnits = new ReactiveProperty<List<ISelectable>>();
         private System.IDisposable _selectionProcess;
 
-        public void Init(Image selectionImage)
+        public void Init(Image selectionImage, Canvas selectionCanvasPrefab)
         {
             _selectionImage = selectionImage;
             _mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<RectTransform>();
@@ -44,10 +46,16 @@ namespace Necromatic.UI
                 });
 
             }
+            if (SelectedUnits.Value != null)
+            {
+                foreach (var s in SelectedUnits.Value)
+                {
+                    s.Deselect();
+                }
+            }
             MoveImage(mouseInput);
             _selectionEndPosition = mouseInput;
         }
-
 
         private Vector3 GetGroundPosition(Vector2 mousePos)
         {
@@ -70,9 +78,12 @@ namespace Necromatic.UI
             if (characters != null && characters.Length > 0)
             {
                 SelectedUnits.Value = characters
-                    .Select(x => x.GetComponent<CharacterInstance>())
-                    .Where(x => x.Faction == Faction.Undead)
+                    .Select(x => x.GetComponent<ISelectable>())
                     .ToList();
+                foreach (var s in SelectedUnits.Value)
+                {
+                    s.Select();
+                }
             }
         }
 

@@ -14,8 +14,11 @@ namespace Necromatic.Player
     public class InputManager : MonoBehaviour
     {
         [SerializeField] private Necromancer _character;
-        [SerializeField] private Image _selectionImage;
-        private SquareSelect _squareSelect  = new SquareSelect();
+        [Header("Selection")]
+        [SerializeField]
+        private Image _selectionImage;
+        [SerializeField] private Canvas _selectionCanvasPrefab;
+        private SquareSelect _squareSelect = new SquareSelect();
         private GameManager _gameManager;
         private HotBar _hotBar;
         private Vector2 _moveDir;
@@ -33,7 +36,7 @@ namespace Necromatic.Player
                 }
             });
             _hotBar = FindObjectOfType<HotBar>();
-            _squareSelect.Init(_selectionImage);
+            _squareSelect.Init(_selectionImage, _selectionCanvasPrefab);
         }
 
         void Update()
@@ -43,14 +46,13 @@ namespace Necromatic.Player
             SendCommands();
         }
 
-
         void FetchCommands()
         {
-            if(Input.GetButton("Fire1"))
+            if (Input.GetButton("Fire1"))
             {
                 _squareSelect.Select(Input.mousePosition);
             }
-            if(Input.GetButtonUp("Fire1"))
+            if (Input.GetButtonUp("Fire1"))
             {
                 _squareSelect.SelectionDone();
             }
@@ -60,20 +62,18 @@ namespace Necromatic.Player
 
         }
 
-
-
         void SendCommands()
         {
             if (_moveDir.magnitude != 0)
             {
                 _character.Movement.MoveDir(_moveDir);
             }
-            if(_doAttack)
+            if (_doAttack)
             {
                 _doAttack = false;
                 _character.AttackNearest();
             }
-            if(_doAbility)
+            if (_doAbility)
             {
                 _doAbility = false;
                 _character.DoAbility();

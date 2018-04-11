@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Character\Health.cs" />
      <Compile Include="Assets\Scripts\Character\IDamagable.cs" />
      <Compile Include="Assets\Scripts\Character\IRaisable.cs" />
+     <Compile Include="Assets\Scripts\Character\ISelectable.cs" />
      <Compile Include="Assets\Scripts\Character\Movement.cs" />
      <Compile Include="Assets\Scripts\Character\Necromancer.cs" />
      <Compile Include="Assets\Scripts\Character\NPC\ArtificialIntelligence.cs" />
