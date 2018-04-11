@@ -29,13 +29,19 @@ namespace Necromatic.UI
         public void Init(Image selectionImage, Canvas selectionCanvasPrefab)
         {
             _selectionImage = selectionImage;
+            SelectedUnits.Value = new List<ISelectable>();
             _mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<RectTransform>();
         }
 
         public void Select(Vector2 mouseInput)
         {
+            foreach (var s in SelectedUnits.Value)
+            {
+                s.Deselect();
+            }
             if (!_selecting)
             {
+                SelectedUnits.Value.Clear();
                 _selectionImage.gameObject.SetActive(true);
                 _selecting = true;
                 _selectionStartPosition = mouseInput;
@@ -45,13 +51,6 @@ namespace Necromatic.UI
                     SelectUnits(_selectionEndPosition);
                 });
 
-            }
-            if (SelectedUnits.Value != null)
-            {
-                foreach (var s in SelectedUnits.Value)
-                {
-                    s.Deselect();
-                }
             }
             MoveImage(mouseInput);
             _selectionEndPosition = mouseInput;
@@ -75,11 +74,10 @@ namespace Necromatic.UI
             _selectionBounds.max = _worldSelectionEnd + Vector3.up * 5f;
             RescaleBox();
             var characters = Physics.OverlapBox(_selectionBounds.center, _selectionBounds.size / 2, Quaternion.identity, LayerMask.GetMask("Character"));
-            if (characters != null && characters.Length > 0)
+            var selectables = characters.Where(x => x.GetComponent<ISelectable>() != null).Select(x => x.GetComponent<ISelectable>()).ToList();
+            if (selectables != null && selectables.Count > 0)
             {
-                SelectedUnits.Value = characters
-                    .Select(x => x.GetComponent<ISelectable>())
-                    .ToList();
+                SelectedUnits.Value = selectables;
                 foreach (var s in SelectedUnits.Value)
                 {
                     s.Select();

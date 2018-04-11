@@ -17,18 +17,29 @@ namespace Necromatic.Utility
         public static Transform Closest(List<Transform> targets, Transform sender)
         {
             var min = targets.Select(x => MathUtils.Distance(x.position, sender.position)).Min(); // todo: one-liner?
-            return targets.FirstOrDefault( x => MathUtils.Distance(x.position, sender.position) == min);
+            return targets.FirstOrDefault(x => MathUtils.Distance(x.position, sender.position) == min);
         }
 
         public static T Closest<T>(List<T> targets, MonoBehaviour sender)
         {
             var min = targets.Select(x => MathUtils.Distance((x as MonoBehaviour).transform.position, sender.transform.position)).Min(); // todo: one-liner?
-            return targets.FirstOrDefault(x => MathUtils.Distance((x as MonoBehaviour).transform.position, sender.transform.position) == min); 
+            return targets.FirstOrDefault(x => MathUtils.Distance((x as MonoBehaviour).transform.position, sender.transform.position) == min);
         }
 
         public static List<CharacterInstance> DetectEnemies(float range, Vector3 position, CharacterInstance sender)
         {
             return Detect<CharacterInstance>(range, position, LayerMask.GetMask("Character")).Where(x => x.Faction != sender.Faction).ToList();
+        }
+
+        public static Vector3? GetGroundPosition(Vector2 mousePos)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(mousePos);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Default")))
+            {
+                return hit.point;
+            }
+            return null; // shouldn't happen
         }
     }
 }

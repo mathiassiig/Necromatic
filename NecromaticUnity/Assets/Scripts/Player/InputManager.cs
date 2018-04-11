@@ -8,6 +8,7 @@ using System.Linq;
 using UniRx;
 using Necromatic.UI;
 using UnityEngine.UI;
+using Necromatic.Character.NPC.Strategies.Results;
 
 namespace Necromatic.Player
 {
@@ -56,9 +57,28 @@ namespace Necromatic.Player
             {
                 _squareSelect.SelectionDone();
             }
+            if(Input.GetButton("Fire2"))
+            {
+                RaycastCommands();
+            }
             _doAttack = Input.GetButton("Attack");
             _moveDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            _doAbility = Input.GetButtonDown("Fire2");
+            //_doAbility = Input.GetButtonDown("Fire2");
+        }
+
+        void RaycastCommands()
+        {
+            // todo: check if we hit something interactable
+            // check if we should move units
+            var movementTarget = GameObjectUtils.GetGroundPosition(Input.mousePosition);
+            if(movementTarget != null)
+            {
+                var sr = new MoveResult(movementTarget.Value, 0.1f);
+                foreach(var character in  _squareSelect.SelectedUnits.Value)
+                {
+                    character.AI.AddTask(sr);
+                }
+            }
 
         }
 
