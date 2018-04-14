@@ -11,6 +11,11 @@ namespace Necromatic.Character.NPC.Strategies
 {
     public class CutTree : Strategy
     {
+        public CutTree()
+        {
+
+        }
+
         private Transform _log;
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {

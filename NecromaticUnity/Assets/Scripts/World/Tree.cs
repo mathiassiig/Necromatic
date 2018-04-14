@@ -5,10 +5,12 @@ using UnityEngine;
 using UniRx;
 using Necromatic.Utility;
 using DG.Tweening;
+using Necromatic.Character.NPC.Strategies.Results;
+using Necromatic.Character.NPC.Strategies;
 
 namespace Necromatic.World
 {
-    public class Tree : MonoBehaviour, IDamagable
+    public class Tree : MonoBehaviour, IDamagable, IClickReceiver
     {
         public Stat Health { get; private set; } = new Stat();
 
@@ -84,6 +86,16 @@ namespace Necromatic.World
             rb.AddTorque(UnityEngine.Random.Range(-50f, 50f), UnityEngine.Random.Range(-50f, 50f), UnityEngine.Random.Range(-50f, 50f));
             rb.AddForce(Vector3.up * 150, ForceMode.Impulse);
 
+        }
+
+        public void Click(List<ISelectable> senders)
+        {
+            foreach(var sender in senders)
+            {
+                sender.AI.SetPrimaryStrategy(new SearchForTrees());
+                var cutThis = new TreeSpottedResult(this);
+                sender.AI.AddTask(cutThis);
+            }
         }
     }
 }

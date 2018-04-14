@@ -9,6 +9,8 @@ using UniRx;
 using Necromatic.UI;
 using UnityEngine.UI;
 using Necromatic.Character.NPC.Strategies.Results;
+using Necromatic.World;
+using Necromatic.Character.NPC.Strategies;
 
 namespace Necromatic.Player
 {
@@ -57,7 +59,7 @@ namespace Necromatic.Player
             {
                 _squareSelect.SelectionDone();
             }
-            if(Input.GetButton("Fire2"))
+            if (Input.GetButtonDown("Fire2"))
             {
                 RaycastCommands();
             }
@@ -68,16 +70,24 @@ namespace Necromatic.Player
 
         void RaycastCommands()
         {
-            // todo: check if we hit something interactable
-            // check if we should move units
-            var movementTarget = GameObjectUtils.GetGroundPosition(Input.mousePosition);
-            if(movementTarget != null)
+            var mask = LayerMask.GetMask(NecromaticLayers.TREE, NecromaticLayers.CHARACTER);
+            var clickable = GameObjectUtils.RayGetComponent<IClickReceiver>(Input.mousePosition, mask);
+            if (clickable != null)
             {
-                var sr = new MoveResult(movementTarget.Value, 0.25f);
-                sr.Priority = 100;
-                foreach(var character in  _squareSelect.SelectedUnits.Value)
+                clickable.Click(_squareSelect.SelectedUnits.Value);
+            }
+            else
+            {
+                var movementTarget = GameObjectUtils.GetGroundPosition(Input.mousePosition);
+                if (movementTarget != null)
                 {
-                    character.AI.AddTask(sr);
+                    var sr = new MoveResult(movementTarget.Value, 0.25f);
+                    sr.Priority = 100;
+                    foreach (var character in _squareSelect.SelectedUnits.Value)
+                    {
+                        character.AI.SetPrimaryStrategy(new SearchForEnemies());
+                        character.AI.AddTask(sr);
+                    }
                 }
             }
 

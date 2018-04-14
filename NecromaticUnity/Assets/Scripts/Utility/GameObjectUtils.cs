@@ -6,6 +6,12 @@ using Necromatic.Character;
 
 namespace Necromatic.Utility
 {
+    public static class NecromaticLayers
+    {
+        public static string DEFAULT = "Default";
+        public static string TREE = "Tree";
+        public static string CHARACTER = "Character";
+    }
     public static class GameObjectUtils
     {
         public static List<T> Detect<T>(float range, Vector3 position, LayerMask mask)
@@ -31,11 +37,26 @@ namespace Necromatic.Utility
             return Detect<CharacterInstance>(range, position, LayerMask.GetMask("Character")).Where(x => x.Faction != sender.Faction).ToList();
         }
 
+        public static T RayGetComponent<T>(Vector2 mousePos, LayerMask layer)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(mousePos);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer))
+            {
+                var component = hit.collider.gameObject.GetComponent<T>();
+                if (component != null)
+                {
+                    return component;
+                }
+            }
+            return default(T);
+        }
+
         public static Vector3? GetGroundPosition(Vector2 mousePos)
         {
             Ray ray = Camera.main.ScreenPointToRay(mousePos);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Default")))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask(NecromaticLayers.DEFAULT)))
             {
                 return hit.point;
             }

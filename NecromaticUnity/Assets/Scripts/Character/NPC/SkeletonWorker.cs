@@ -13,7 +13,7 @@ namespace Necromatic.Character.NPC
             _death = new Death();
             var player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterInstance>();
             var ai = GetComponent<ArtificialIntelligence>();
-            ai.AddPrimaryStrategy(new SearchForTrees());
+            ai.SetPrimaryStrategy(new SearchForTrees());
             ai.AddSecondatryStrategy(new CutTree());
             base.Init();
         }

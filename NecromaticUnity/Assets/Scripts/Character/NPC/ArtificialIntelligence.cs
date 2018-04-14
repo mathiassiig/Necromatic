@@ -7,6 +7,7 @@ using Necromatic.Character.NPC.Strategies;
 using Necromatic.Character.NPC.Strategies.Results;
 using UniRx;
 using AIDebugger;
+using System;
 
 namespace Necromatic.Character.NPC
 {
@@ -22,10 +23,7 @@ namespace Necromatic.Character.NPC
             new EngageEnemy(),
         };
 
-        private List<Strategy> _primaryStrategies = new List<Strategy>()
-        {
-            new SearchForEnemies()
-        };
+        private Strategy _primaryStrategy = new SearchForEnemies();
 
         private List<StrategyResult> _primaryResults = new List<StrategyResult>();
 
@@ -61,11 +59,17 @@ namespace Necromatic.Character.NPC
             {
                 SetStrategy(sr);
             }
+            else
+            {
+                var instance = Activator.CreateInstance(sr.NextDesiredStrategy);
+                _secondaryStrategies.Add(instance as Strategy);
+                SetStrategy(sr);
+            }
         }
 
-        public void AddPrimaryStrategy(Strategy s)
+        public void SetPrimaryStrategy(Strategy s)
         {
-            _primaryStrategies.Add(s);
+            _primaryStrategy = s;
         }
 
         public void AddSecondatryStrategy(Strategy s)
@@ -107,13 +111,10 @@ namespace Necromatic.Character.NPC
         void GetInputs()
         {
             _primaryResults.Clear();
-            foreach (var i in _primaryStrategies)
+            var result = _primaryStrategy.Act(_character, _currentTaskResult);
+            if (result.GetType() != typeof(NoneResult))
             {
-                var result = i.Act(_character, _currentTaskResult);
-                if (result.GetType() != typeof(NoneResult))
-                {
-                    _primaryResults.Add(result);
-                }
+                _primaryResults.Add(result);
             }
         }
 
@@ -122,16 +123,12 @@ namespace Necromatic.Character.NPC
             var type = r.NextDesiredStrategy;
             _currentTaskResult = r;
             _currentTask = _secondaryStrategies.FirstOrDefault(x => x.GetType() == type);
-            if (_debugLog)
-            {
-                print(_currentTaskResult.GetType());
-            }
         }
 
         public List<object> GetSerializableObjects()
         {
             var combined = new List<object>();
-            combined.AddRange(_primaryStrategies);
+            combined.Add(_primaryStrategy);
             combined.AddRange(_secondaryStrategies);
             return combined;
         }
