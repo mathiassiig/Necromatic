@@ -23,7 +23,6 @@ namespace Necromatic.Character
 
         public void Attack(CombatState state)
         {
-            Debug.Log(state);
             switch (state)
             {
                 case CombatState.Forward:
