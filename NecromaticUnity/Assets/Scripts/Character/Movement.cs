@@ -18,6 +18,9 @@ namespace Necromatic.Character
 
         private bool _initialized = false;
 
+        private float _currentSpeed = 0;
+        private Vector3? _lastPosition;
+
         public void Init(CharacterInstance c)
         {
             _agent.updateRotation = false;
@@ -82,6 +85,12 @@ namespace Necromatic.Character
                     _canMove = true;
                 }
             }
+            if(_lastPosition.HasValue)
+            {
+                _currentSpeed = (transform.position - _lastPosition.Value).magnitude / Time.deltaTime;
+                _representation.Move(_currentSpeed);
+            }
+            _lastPosition = transform.position;
         }
     }
 }

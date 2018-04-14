@@ -8,12 +8,39 @@ namespace Necromatic.Character
 {
     public class Representation : MonoBehaviour
     {
+        private Animator _animator;
         private Vector3 _deadScale = new Vector3(1.35f, 0.1f, 1.35f);
         private Vector3 _deadPosition = new Vector3(0, 0.05f, 0);
         private Vector3 _aliveScale = new Vector3(1, 1.8f, 0.35f);
         private Vector3 _alivePosition = new Vector3(0, 0.9f, 0);
         private float _animationTime = 0.3f;
         private float _rotateSpeed = 10;
+
+        public void SetAttackSpeed(float speed)
+        {
+            _animator.SetFloat("AttackSpeed", speed);
+        }
+
+        public void Attack(CombatState state)
+        {
+            Debug.Log(state);
+            switch (state)
+            {
+                case CombatState.Forward:
+                    _animator.SetTrigger("Attack");
+                    break;
+            }
+        }
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
+
+        public void Move(float speed)
+        {
+            _animator.SetFloat("MoveSpeed", speed);
+        }
 
         public void LookDirection(Vector3 direction)
         {

@@ -20,7 +20,6 @@ namespace Necromatic.Character
     {
         [SerializeField] protected Faction _faction;
         [SerializeField] protected Movement _movement;
-        [SerializeField] protected Transform _weapon;
         [SerializeField] protected Death _death;
         [SerializeField] protected Representation _representation;
         [SerializeField] protected Stat _health;
@@ -66,6 +65,8 @@ namespace Necromatic.Character
             Init();
         }
 
+
+
         protected virtual void Init()
         {
             InitCombat();
@@ -94,7 +95,9 @@ namespace Necromatic.Character
                 {
                     x.CurrentState.TakeUntilDestroy(this).Subscribe(state =>
                     {
-                        _animator.FireAnimation(state, _weapon, Combat);
+                        var attackSpeed = 1 / (x.ForwardTime + x.RetractTime);
+                        _representation.SetAttackSpeed(attackSpeed);
+                        _representation.Attack(state);
                     });
                 }
             });
