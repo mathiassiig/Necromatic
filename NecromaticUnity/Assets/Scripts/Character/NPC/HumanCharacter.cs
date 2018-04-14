@@ -30,7 +30,7 @@ namespace Necromatic.Character.NPC
 
         protected override void Init()
         {
-            var combat = new Combat(this, 10, 0.3f, 0.2f, 1);
+            var combat = new Combat(this, 10, 0.3f, 0.7f, 1.5f);
             Combat = combat;
             _death = new HumanDeath();
             _undeadToRaise = CharacterType.Skeleton;
