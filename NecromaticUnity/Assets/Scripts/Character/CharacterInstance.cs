@@ -6,6 +6,7 @@ using Necromatic.Utility;
 using System.Linq;
 using Necromatic.Character.Abilities;
 using Necromatic.Character.NPC;
+using Necromatic.Character.Inventory;
 
 namespace Necromatic.Character
 {
@@ -20,7 +21,8 @@ namespace Necromatic.Character
     {
         [SerializeField] protected Faction _faction;
         [SerializeField] protected Movement _movement;
-        [SerializeField] protected Death _death;
+        protected Death _death;
+        protected InventoryInstance _inventory;
         [SerializeField] protected Representation _representation;
         [SerializeField] protected Stat _health;
 
@@ -44,9 +46,10 @@ namespace Necromatic.Character
         public Combat Combat = null;
         public Faction Faction => _faction;
         public Movement Movement => _movement;
-        public Stat Health => _health;
         public Death Death => _death;
+        public InventoryInstance Inventory => _inventory;
         public Representation Representation => _representation;
+        public Stat Health => _health;
 
         private List<Buff> _buffs = new List<Buff>();
         public List<Buff> Buffs => _buffs;

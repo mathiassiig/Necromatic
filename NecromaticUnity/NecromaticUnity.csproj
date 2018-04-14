@@ -12,13 +12,16 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.4.0f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -288,8 +291,10 @@
     <Compile Include="Assets\Scripts\Character\Combat.cs" />
     <Compile Include="Assets\Scripts\Character\CombatRanged.cs" />
     <Compile Include="Assets\Scripts\Character\Death.cs" />
-    <Compile Include="Assets\Scripts\Character\Health.cs" />
+    <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\IDamagable.cs" />
+    <Compile Include="Assets\Scripts\Character\Inventory\InventoryInstance.cs" />
+    <Compile Include="Assets\Scripts\Character\Inventory\Item.cs" />
     <Compile Include="Assets\Scripts\Character\IRaisable.cs" />
     <Compile Include="Assets\Scripts\Character\ISelectable.cs" />
     <Compile Include="Assets\Scripts\Character\Movement.cs" />
@@ -297,11 +302,8 @@
     <Compile Include="Assets\Scripts\Character\NPC\ArtificialIntelligence.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\HumanCharacter.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\HumanDeath.cs" />
-    <Compile Include="Assets\Scripts\Character\NPC\HumanRanged.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\ProtectionManager.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\SkeletonCharacter.cs" />
-    <Compile Include="Assets\Scripts\Character\NPC\SkeletonRanged.cs" />
-    <Compile Include="Assets\Scripts\Character\NPC\SkeletonWorker.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\Strategies\CutTree.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\Strategies\EngageEnemy.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\Strategies\FollowStrategy.cs" />
