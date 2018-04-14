@@ -5,7 +5,8 @@ namespace Necromatic.Character.Inventory
 {
     public enum ItemType
     {
-        Weapon
+        Weapon,
+        Offhand
     }
     [CreateAssetMenu(fileName ="NewItem", menuName ="Item")]
     public class Item : ScriptableObject

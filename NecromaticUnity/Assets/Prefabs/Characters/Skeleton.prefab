@@ -1141,6 +1141,8 @@ MonoBehaviour:
   Inventory:
     Items:
     - {fileID: 11400000, guid: 66d3643d51d496d40b417ba6511d67f3, type: 2}
+    - {fileID: 11400000, guid: e85ce6f39a7fc7849a80f879a576579d, type: 2}
+    WeaponSlot: {fileID: 0}
   _representation: {fileID: 114127854788810354}
   _health:
     _initialRegen: 1

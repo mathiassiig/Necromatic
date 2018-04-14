@@ -22,15 +22,28 @@ namespace Necromatic.Character
             _animator.SetFloat("AttackSpeed", speed);
         }
 
-        public void SetWeapon(Item weapon)
+        public void SetItem(Item i)
         {
-            var weaponMesh = weapon.MeshPrefab;
-            var hand = transform.FindDeepChild("Bip001 R Hand");
-            var weaponInstance = Instantiate(weaponMesh);
+            switch (i.Type)
+            {
+                case ItemType.Weapon:
+                    SetItem(i, "Bip001 R Hand");
+                    break;
+                case ItemType.Offhand:
+                    SetItem(i, "Bip001 L Hand");
+                    break;
+            }
+        }
+
+        private void SetItem(Item item, string parent)
+        {
+            var itemMesh = item.MeshPrefab;
+            var hand = transform.FindDeepChild(parent);
+            var weaponInstance = Instantiate(itemMesh);
             weaponInstance.transform.SetParent(hand);
-            weaponInstance.transform.localScale = weapon.Scale;
-            weaponInstance.transform.localRotation = Quaternion.Euler(weapon.Rotation);
-            weaponInstance.transform.localPosition = weapon.Position;
+            weaponInstance.transform.localScale = item.Scale;
+            weaponInstance.transform.localRotation = Quaternion.Euler(item.Rotation);
+            weaponInstance.transform.localPosition = item.Position;
         }
 
         public void Attack(CombatState state)

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Necromatic.Character.Inventory;
 using Necromatic.Character.NPC.Strategies;
 using UnityEngine;
 namespace Necromatic.Character.NPC
@@ -7,6 +8,8 @@ namespace Necromatic.Character.NPC
     public class SkeletonCharacter : CharacterInstance, ISelectable
     {
         [SerializeField] private Canvas _selectionCanvas;
+
+        InventoryInstance ISelectable.Inventory => Inventory;
 
         public void Deselect()
         {

@@ -331,6 +331,8 @@
     <Compile Include="Assets\Scripts\Player\ResearchBank.cs" />
     <Compile Include="Assets\Scripts\UI\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\UI\HotBar.cs" />
+    <Compile Include="Assets\Scripts\UI\InventoryUI.cs" />
+    <Compile Include="Assets\Scripts\UI\ItemUI.cs" />
     <Compile Include="Assets\Scripts\UI\Research\AbilityUI.cs" />
     <Compile Include="Assets\Scripts\UI\Research\ResearchManager.cs" />
     <Compile Include="Assets\Scripts\UI\SquareSelect.cs" />

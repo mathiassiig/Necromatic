@@ -7,5 +7,7 @@ namespace Necromatic.Character.Inventory
     public class InventoryInstance
     {
         public List<Item> Items = new List<Item>();
+        public Item WeaponSlot;
+        public Item OffhandSlot;
     }
 }

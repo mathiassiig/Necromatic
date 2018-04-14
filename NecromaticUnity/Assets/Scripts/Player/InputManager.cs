@@ -17,9 +17,10 @@ namespace Necromatic.Player
     public class InputManager : MonoBehaviour
     {
         [SerializeField] private Necromancer _character;
+        [SerializeField] private InventoryUI _inventoryUI;
+
         [Header("Selection")]
-        [SerializeField]
-        private Image _selectionImage;
+        [SerializeField] private Image _selectionImage;
         [SerializeField] private Canvas _selectionCanvasPrefab;
         private SquareSelect _squareSelect = new SquareSelect();
         private GameManager _gameManager;
@@ -27,6 +28,7 @@ namespace Necromatic.Player
         private Vector2 _moveDir;
         private bool _doAbility = false;
         private bool _doAttack = false;
+        private bool _inventoryOpen => _inventoryUI.gameObject.activeInHierarchy;
 
         void Awake()
         {
@@ -51,21 +53,45 @@ namespace Necromatic.Player
 
         void FetchCommands()
         {
-            if (Input.GetButton("Fire1"))
+            if (!_inventoryOpen)
             {
-                _squareSelect.Select(Input.mousePosition);
+                if (Input.GetButton("Fire1"))
+                {
+                    _squareSelect.Select(Input.mousePosition);
+                }
+                if (Input.GetButtonUp("Fire1"))
+                {
+                    _squareSelect.SelectionDone();
+                }
+                if (Input.GetButtonDown("Fire2"))
+                {
+                    RaycastCommands();
+                }
             }
-            if (Input.GetButtonUp("Fire1"))
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                _squareSelect.SelectionDone();
-            }
-            if (Input.GetButtonDown("Fire2"))
-            {
-                RaycastCommands();
+                if (_inventoryOpen)
+                {
+                    _inventoryUI.gameObject.SetActive(false);
+                }
+                else
+                {
+                    _inventoryUI.gameObject.SetActive(true);
+                    var selectedCharacter = _squareSelect.SelectedUnits.Value.FirstOrDefault();
+                    if (selectedCharacter != null)
+                    {
+                        _inventoryUI.Populate(selectedCharacter.Inventory);
+                    }
+                }
             }
             _doAttack = Input.GetButton("Attack");
             _moveDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             //_doAbility = Input.GetButtonDown("Fire2");
+        }
+
+        void ToggleInventory()
+        {
+
         }
 
         void RaycastCommands()

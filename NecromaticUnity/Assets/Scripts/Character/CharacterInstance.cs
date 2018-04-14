@@ -31,7 +31,7 @@ namespace Necromatic.Character
         {
             get
             {
-                if(_ai == null)
+                if (_ai == null)
                 {
                     _ai = GetComponent<ArtificialIntelligence>();
                 }
@@ -83,15 +83,30 @@ namespace Necromatic.Character
                 }
             });
             FindObjectOfType<MotherPool>().AddBarToCharacter(this);
-            EquipAnyWeapon();
+            EquipAny(ref Inventory.WeaponSlot, ItemType.Weapon);
+            EquipAny(ref Inventory.OffhandSlot, ItemType.Offhand);
         }
 
-        protected void EquipAnyWeapon()
+        private void EquipAny(ref Item itemSlot, ItemType type)
         {
-            var weapon = Inventory.Items.FirstOrDefault(x => x.Type == ItemType.Weapon);
-            if(weapon != null)
+            if (itemSlot == null)
             {
-                _representation.SetWeapon(weapon);
+                var item = Inventory.Items.FirstOrDefault(x => x.Type == type);
+                Equip(ref itemSlot, item);
+            }
+        }
+
+        private void Equip(ref Item itemSlot, Item toEquip)
+        {
+            if (itemSlot != null) // move old back
+            {
+                Inventory.Items.Add(itemSlot);
+            }
+            itemSlot = toEquip;
+            if (itemSlot != null)
+            {
+                Inventory.Items.Remove(toEquip);
+                _representation.SetItem(itemSlot);
             }
         }
 
@@ -99,11 +114,11 @@ namespace Necromatic.Character
         {
             this.ObserveEveryValueChanged(x => x.Combat).TakeUntilDestroy(this).Subscribe(x =>
             {
-                if(_combatSwitchDisposable != null)
+                if (_combatSwitchDisposable != null)
                 {
                     _combatSwitchDisposable.Dispose();
                 }
-                if(x != null && x.CurrentState != null)
+                if (x != null && x.CurrentState != null)
                 {
                     x.CurrentState.TakeUntilDestroy(this).Subscribe(state =>
                     {
