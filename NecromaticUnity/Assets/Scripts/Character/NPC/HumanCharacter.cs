@@ -16,7 +16,7 @@ namespace Necromatic.Character.NPC
             }
             var motherpool = FindObjectOfType<MotherPool>();
             var undeadPrefab = motherpool.GetCharacterPrefab(_undeadToRaise);
-            var undead = Object.Instantiate(undeadPrefab, transform.position, transform.rotation);
+            var undead = Instantiate(undeadPrefab, transform.position, transform.rotation);
             var ai = undead.GetComponent<ArtificialIntelligence>();
             ai.SetBrainState(false);
             var player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterInstance>();

@@ -22,7 +22,7 @@ namespace Necromatic.Character
         [SerializeField] protected Faction _faction;
         [SerializeField] protected Movement _movement;
         protected Death _death;
-        protected InventoryInstance _inventory;
+        public InventoryInstance Inventory;
         [SerializeField] protected Representation _representation;
         [SerializeField] protected Stat _health;
 
@@ -43,11 +43,10 @@ namespace Necromatic.Character
 
         protected WeaponAnimator _animator = new WeaponAnimator();
         // accessors
-        public Combat Combat = null;
+        [HideInInspector] public Combat Combat = null;
         public Faction Faction => _faction;
         public Movement Movement => _movement;
         public Death Death => _death;
-        public InventoryInstance Inventory => _inventory;
         public Representation Representation => _representation;
         public Stat Health => _health;
 
@@ -84,6 +83,16 @@ namespace Necromatic.Character
                 }
             });
             FindObjectOfType<MotherPool>().AddBarToCharacter(this);
+            EquipAnyWeapon();
+        }
+
+        protected void EquipAnyWeapon()
+        {
+            var weapon = Inventory.Items.FirstOrDefault(x => x.Type == ItemType.Weapon);
+            if(weapon != null)
+            {
+                _representation.SetWeapon(weapon);
+            }
         }
 
         void InitCombat()

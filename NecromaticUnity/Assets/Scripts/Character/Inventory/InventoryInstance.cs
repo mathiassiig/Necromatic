@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Necromatic.Character.Inventory
 {
+    [System.Serializable]
     public class InventoryInstance
     {
         public List<Item> Items = new List<Item>();

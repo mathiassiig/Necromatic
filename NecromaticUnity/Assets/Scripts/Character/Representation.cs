@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+using Necromatic.Character.Inventory;
 
 namespace Necromatic.Character
 {
@@ -19,6 +20,17 @@ namespace Necromatic.Character
         public void SetAttackSpeed(float speed)
         {
             _animator.SetFloat("AttackSpeed", speed);
+        }
+
+        public void SetWeapon(Item weapon)
+        {
+            var weaponMesh = weapon.MeshPrefab;
+            var hand = transform.FindDeepChild("Bip001 R Hand");
+            var weaponInstance = Instantiate(weaponMesh);
+            weaponInstance.transform.SetParent(hand);
+            weaponInstance.transform.localScale = weapon.Scale;
+            weaponInstance.transform.localRotation = Quaternion.Euler(weapon.Rotation);
+            weaponInstance.transform.localPosition = weapon.Position;
         }
 
         public void Attack(CombatState state)

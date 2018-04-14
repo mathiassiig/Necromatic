@@ -12,16 +12,13 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.4.0f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -291,7 +288,6 @@
     <Compile Include="Assets\Scripts\Character\Combat.cs" />
     <Compile Include="Assets\Scripts\Character\CombatRanged.cs" />
     <Compile Include="Assets\Scripts\Character\Death.cs" />
-    <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\IDamagable.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\InventoryInstance.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\Item.cs" />
@@ -320,6 +316,7 @@
     <Compile Include="Assets\Scripts\Character\NPC\Strategies\SearchForEnemies.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\Strategies\SearchForTrees.cs" />
     <Compile Include="Assets\Scripts\Character\Representation.cs" />
+    <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\WeaponAnimator.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player\InputManager.cs" />
@@ -335,6 +332,7 @@
     <Compile Include="Assets\Scripts\Utility\MotherPool.cs" />
     <Compile Include="Assets\Scripts\Utility\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Utility\TransformExtensions.cs" />
     <Compile Include="Assets\Scripts\World\Buildings\TimberDropoff.cs" />
     <Compile Include="Assets\Scripts\World\ChunkMesh.cs" />
     <Compile Include="Assets\Scripts\World\DayNightManager.cs" />
