@@ -299,6 +299,7 @@
     <Compile Include="Assets\Scripts\Character\IDamagable.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\InventoryInstance.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\Item.cs" />
+    <Compile Include="Assets\Scripts\Character\IOffhand.cs" />
     <Compile Include="Assets\Scripts\Character\IRaisable.cs" />
     <Compile Include="Assets\Scripts\Character\ISelectable.cs" />
     <Compile Include="Assets\Scripts\Character\Movement.cs" />
@@ -326,6 +327,7 @@
     <Compile Include="Assets\Scripts\Character\Representation.cs" />
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\WeaponAnimator.cs" />
+    <Compile Include="Assets\Scripts\Character\Weapons\ChainOffhand.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player\InputManager.cs" />
     <Compile Include="Assets\Scripts\Player\ResearchBank.cs" />
@@ -347,7 +349,6 @@
     <Compile Include="Assets\Scripts\World\Buildings\TimberDropoff.cs" />
     <Compile Include="Assets\Scripts\World\ChunkMesh.cs" />
     <Compile Include="Assets\Scripts\World\DayNightManager.cs" />
-    <Compile Include="Assets\Scripts\World\Effects\ChainVisual.cs" />
     <Compile Include="Assets\Scripts\World\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\World\Grave.cs" />
     <Compile Include="Assets\Scripts\World\IClickReceiver.cs" />

@@ -14,7 +14,7 @@ namespace Necromatic.Character
         [SerializeField] private NavMeshAgent _agent;
 
         private CharacterInstance _character;
-        private bool _canMove = true;
+        public bool CanMove = true;
 
         private bool _initialized = false;
 
@@ -37,12 +37,20 @@ namespace Necromatic.Character
 
         public void MoveDir(Vector2 dir)
         {
+            if (!_agent.enabled)
+            {
+                return;
+            }
             _agent.destination = transform.position + new Vector3(dir.x, 0, dir.y).normalized;
             _representation.LookDirection(dir);
         }
 
         public void Move(Vector3 to)
         {
+            if(!_agent.enabled)
+            {
+                return;
+            }
             _agent.destination = to;
             try
             {
@@ -66,7 +74,7 @@ namespace Necromatic.Character
             {
                 if (_character.Combat.CurrentState.Value != CombatState.Idle)
                 {
-                    _canMove = false;
+                    CanMove = false;
                     if (_character.Combat.LastTarget != null)
                     {
                         try
@@ -82,7 +90,7 @@ namespace Necromatic.Character
                 }
                 else
                 {
-                    _canMove = true;
+                    CanMove = true;
                 }
             }
             if(_lastPosition.HasValue)
@@ -91,6 +99,7 @@ namespace Necromatic.Character
                 _representation.Move(_currentSpeed);
             }
             _lastPosition = transform.position;
+            _agent.enabled = CanMove;
         }
     }
 }

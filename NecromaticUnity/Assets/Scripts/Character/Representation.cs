@@ -46,13 +46,14 @@ namespace Necromatic.Character
             return "";
         }
 
-        public void SetItem(Item item, ItemSlotLocation location)
+        public GameObject SetItem(Item item, ItemSlotLocation location)
         {
             var parentTransform = transform.FindDeepChild(LocationToTransformName(location));
             if (parentTransform.childCount > 0)
             {
                 var oldItem = parentTransform.GetChild(0);
                 Destroy(oldItem.gameObject);
+                return null;
             }
             if (item != null)
             {
@@ -62,7 +63,14 @@ namespace Necromatic.Character
                 weaponInstance.transform.localScale = item.Scale;
                 weaponInstance.transform.localRotation = Quaternion.Euler(item.Rotation);
                 weaponInstance.transform.localPosition = item.Position;
+                return weaponInstance;
             }
+            return null;
+        }
+
+        public void Offhand()
+        {
+            _animator.SetTrigger("OffhandAttack");
         }
 
         public void Attack(CombatState state)

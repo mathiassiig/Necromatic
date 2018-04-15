@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 54872019753064252}
   - component: {fileID: 153070755190001988}
   - component: {fileID: 120301676632744164}
-  - component: {fileID: 114751817130865822}
+  - component: {fileID: 114196659206948116}
   m_Layer: 12
   m_Name: Chain
   m_TagString: Untagged
@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1753976827818576}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4218882520578382}
@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1641681576915258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.122, y: 0.743, z: -1.943}
+  m_LocalPosition: {x: -17.122, y: 2.869, z: -1.943}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4178665202512130}
@@ -191,7 +191,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114751817130865822
+--- !u!114 &114196659206948116
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -204,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chainRenderer: {fileID: 120301676632744164}
   _chainEnd: {fileID: 4178665202512130}
+  _joint: {fileID: 153070755190001988}
 --- !u!120 &120301676632744164
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -239,11 +240,11 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: -3, z: 0}
+  - {x: -17.122, y: 4.341, z: -1.943}
+  - {x: -17.122, y: 2.801, z: -1.943}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.09
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -288,7 +289,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 3
+    textureMode: 1
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
@@ -302,7 +303,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 2.5, z: 0}
+  m_ConnectedAnchor: {x: 0, y: 1, z: 0}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 1
@@ -312,10 +313,10 @@ ConfigurableJoint:
   m_AngularYMotion: 2
   m_AngularZMotion: 2
   m_LinearLimitSpring:
-    spring: 0
-    damper: 0
+    spring: 50
+    damper: 25
   m_LinearLimit:
-    limit: 0
+    limit: 0.025
     bounciness: 0
     contactDistance: 0
   m_AngularXLimitSpring:
@@ -378,7 +379,7 @@ ConfigurableJoint:
   m_ProjectionMode: 0
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
-  m_ConfiguredInWorldSpace: 0
+  m_ConfiguredInWorldSpace: 1
   m_SwapBodies: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity

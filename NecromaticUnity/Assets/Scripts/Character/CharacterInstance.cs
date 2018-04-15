@@ -88,6 +88,28 @@ namespace Necromatic.Character
             Inventory.EquipAny(ItemType.Offhand, ItemSlotLocation.Offhand);
         }
 
+        public void UseOffhand(GameObject target)
+        {
+            if (Inventory.OffhandSlot.Value != null && Inventory.OffhandSlot.Value.GameObjectInstance != null)
+            {
+                var offhandScript = Inventory.OffhandSlot.Value.GameObjectInstance.GetComponent<IOffhand>();
+                _representation.Offhand();
+                Observable.Timer(System.TimeSpan.FromSeconds(Combat.ForwardTime))
+                    .TakeUntilDestroy(this)
+                    .Subscribe(x =>
+                    {
+                        offhandScript.Use(target);
+                    });
+                Combat.CurrentState.Value = CombatState.Offhand;
+                Observable.Timer(System.TimeSpan.FromSeconds(Combat.ForwardTime + Combat.RetractTime))
+                    .TakeUntilDestroy(this)
+                    .Subscribe(x =>
+                    {
+                        Combat.CurrentState.Value = CombatState.Idle;
+                    });
+            }
+        }
+
         void InitCombat()
         {
             this.ObserveEveryValueChanged(x => x.Combat).TakeUntilDestroy(this).Subscribe(x =>

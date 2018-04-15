@@ -344,6 +344,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Editor\CurvesTransferer.cs" />
     <Compile Include="Assets\Scripts\Tests\Editor\NavTests.cs" />
     <Compile Include="Assets\Scripts\Tests\Editor\PathFinderTests.cs" />
     <Compile Include="Assets\Scripts\World\Editor\WallEditor.cs" />

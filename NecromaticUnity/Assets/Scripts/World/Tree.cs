@@ -20,6 +20,7 @@ namespace Necromatic.World
         private Death _death = new Death();
         public Death Death => _death;
         public bool Cut { get; private set; }
+        public bool Fallen { get; private set; }
 
         private Representation _representation;
         public Representation Representation => _representation;
@@ -71,6 +72,7 @@ namespace Necromatic.World
                     Destroy(_foilage.gameObject);
                     AddPhysics(_logLower.gameObject, collider, attackerDir);
                     AddPhysics(_logUpper.gameObject, collider, attackerDir);
+                    Fallen = true;
                 });
         }
 
@@ -90,7 +92,7 @@ namespace Necromatic.World
 
         public void Click(List<ISelectable> senders)
         {
-            foreach(var sender in senders)
+            foreach (var sender in senders)
             {
                 if (sender.Inventory.Has(Character.Inventory.SpecialType.Axe))
                 {

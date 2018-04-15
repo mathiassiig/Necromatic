@@ -25,7 +25,7 @@ namespace Necromatic.Character.Inventory
         public void Init(Representation representation)
         {
             _representation = representation;
-            WeaponSlot.Subscribe(x =>
+            /*WeaponSlot.Subscribe(x =>
             {
                 if (x == null)
                 {
@@ -35,7 +35,7 @@ namespace Necromatic.Character.Inventory
             OffhandSlot.Subscribe(x =>
             {
 
-            });
+            });*/
         }
 
         public List<ReactiveProperty<Item>> Equippables
@@ -99,7 +99,7 @@ namespace Necromatic.Character.Inventory
             if (itemSlot != null)
             {
                 Items.Remove(toEquip);
-                _representation.SetItem(itemSlot.Value, l);
+                itemSlot.Value.GameObjectInstance = _representation.SetItem(itemSlot.Value, l);
             }
             return itemSlot.Value;
         }

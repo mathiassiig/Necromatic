@@ -30,11 +30,11 @@ namespace Necromatic.Character.NPC.Strategies
             {
                 return new NoneResult();
             }
-            if (toCut.Cut)
+            if (toCut.Cut && toCut.Fallen)
             {
                 return HandleLog(sender, toCut);
             }
-            if ((toCut.transform.position - sender.transform.position).magnitude <= sender.Combat.AttackRange)
+            else if (!toCut.Cut && (toCut.transform.position - sender.transform.position).magnitude <= sender.Combat.AttackRange)
             {
                 sender.Combat.TryAttack(toCut);
                 return treeResult;
@@ -53,16 +53,17 @@ namespace Necromatic.Character.NPC.Strategies
                 var dropoff = GameObject.FindObjectOfType<TimberDropoff>();
                 var moveToTimber = new MoveResult(dropoff.transform, 0.5f);
                 moveToTimber.Priority = 11;
-                var moveToLog = new MoveResult(log, 0.5f, moveToTimber);
+                var moveToLog = new MoveResult(log, 3f, moveToTimber);
                 moveToLog.OnReached = () => 
                 {
-                    log.gameObject.SetActive(false);
+                    sender.UseOffhand(log.gameObject);
+                    //log.gameObject.SetActive(false);
                 };
                 moveToTimber.OnReached = () =>
                 {
                     toCut.Logs.Remove(log);
                     _log = null;
-                    log.gameObject.SetActive(true);
+                    //log.gameObject.SetActive(true);
                     dropoff.Dropoff(log);
                     if(toCut.Logs.Count == 0)
                     {

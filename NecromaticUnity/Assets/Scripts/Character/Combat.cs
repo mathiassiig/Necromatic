@@ -13,7 +13,8 @@ namespace Necromatic.Character
     {
         Forward,
         Retracting,
-        Idle
+        Idle,
+        Offhand
     }
     [System.Serializable]
     public class Combat
