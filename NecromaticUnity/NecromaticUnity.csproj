@@ -329,6 +329,7 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player\InputManager.cs" />
     <Compile Include="Assets\Scripts\Player\ResearchBank.cs" />
+    <Compile Include="Assets\Scripts\UI\CameraController.cs" />
     <Compile Include="Assets\Scripts\UI\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\UI\HotBar.cs" />
     <Compile Include="Assets\Scripts\UI\InventoryUI.cs" />
