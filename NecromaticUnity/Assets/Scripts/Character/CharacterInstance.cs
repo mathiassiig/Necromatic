@@ -83,31 +83,9 @@ namespace Necromatic.Character
                 }
             });
             FindObjectOfType<MotherPool>().AddBarToCharacter(this);
-            EquipAny(ref Inventory.WeaponSlot, ItemType.Weapon);
-            EquipAny(ref Inventory.OffhandSlot, ItemType.Offhand);
-        }
-
-        private void EquipAny(ref Item itemSlot, ItemType type)
-        {
-            if (itemSlot == null)
-            {
-                var item = Inventory.Items.Where(x => x != null).FirstOrDefault(x => x.Type == type);
-                Equip(ref itemSlot, item);
-            }
-        }
-
-        private void Equip(ref Item itemSlot, Item toEquip)
-        {
-            if (itemSlot != null) // move old back
-            {
-                Inventory.Items.Add(itemSlot);
-            }
-            itemSlot = toEquip;
-            if (itemSlot != null)
-            {
-                Inventory.Items.Remove(toEquip);
-                _representation.SetItem(itemSlot);
-            }
+            Inventory.Init(_representation);
+            Inventory.EquipAny(ItemType.Weapon, ItemSlotLocation.Weapon);
+            Inventory.EquipAny(ItemType.Offhand, ItemSlotLocation.Offhand);
         }
 
         void InitCombat()

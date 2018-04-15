@@ -94,6 +94,7 @@ namespace Necromatic.World
             {
                 if (sender.Inventory.Has(Character.Inventory.SpecialType.Axe))
                 {
+                    sender.Inventory.EquipSpecial(Character.Inventory.SpecialType.Axe, ItemSlotLocation.Weapon);
                     sender.AI.SetPrimaryStrategy(new SearchForTrees());
                     var cutThis = new TreeSpottedResult(this);
                     sender.AI.AddTask(cutThis);

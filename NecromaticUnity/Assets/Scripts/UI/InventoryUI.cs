@@ -29,16 +29,16 @@ namespace Necromatic.UI
                 }
                 _itemSlots[i].ShowItem(inventory.Items[i]);
             }
-            _shoulderSlot.ShowItem(inventory.ShoulderSlot);
-            _headSlot.ShowItem(inventory.HeadSlot);
-            _amuletSlot.ShowItem(inventory.AmuletSlot);
-            _handSlot.ShowItem(inventory.HandSlot);
-            _chestSlot.ShowItem(inventory.ChestSlot);
-            _backSlot.ShowItem(inventory.BackSlot);
-            _weaponSlot.ShowItem(inventory.WeaponSlot);
-            _bootSlot.ShowItem(inventory.BootSlot);
-            _offhandSlot.ShowItem(inventory.OffhandSlot);
-            _weaponSlot.ShowItem(inventory.WeaponSlot);
+            _shoulderSlot.ShowItem(inventory.ShoulderSlot.Value);
+            _headSlot.ShowItem(inventory.HeadSlot.Value);
+            _amuletSlot.ShowItem(inventory.AmuletSlot.Value);
+            _handSlot.ShowItem(inventory.HandSlot.Value);
+            _chestSlot.ShowItem(inventory.ChestSlot.Value);
+            _backSlot.ShowItem(inventory.BackSlot.Value);
+            _weaponSlot.ShowItem(inventory.WeaponSlot.Value);
+            _bootSlot.ShowItem(inventory.BootSlot.Value);
+            _offhandSlot.ShowItem(inventory.OffhandSlot.Value);
+            _weaponSlot.ShowItem(inventory.WeaponSlot.Value);
             _inventory = inventory;
         }
     }

@@ -4,11 +4,23 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
 using Necromatic.Character.Inventory;
+using UniRx;
+using System.Reflection;
+using System.Linq.Expressions;
+using System;
 
 namespace Necromatic.Character
 {
+    public enum ItemSlotLocation
+    {
+        Weapon,
+        Offhand
+    }
     public class Representation : MonoBehaviour
     {
+        public static string WEAPON_LOCATION = "Bip001 R Hand";
+        public static string OFFHAND_LOCATION = "Bip001 L Hand";
+
         private Animator _animator;
         private Vector3 _deadScale = new Vector3(1.35f, 0.1f, 1.35f);
         private Vector3 _deadPosition = new Vector3(0, 0.05f, 0);
@@ -22,28 +34,35 @@ namespace Necromatic.Character
             _animator.SetFloat("AttackSpeed", speed);
         }
 
-        public void SetItem(Item i)
+        private string LocationToTransformName(ItemSlotLocation l)
         {
-            switch (i.Type)
+            switch(l)
             {
-                case ItemType.Weapon:
-                    SetItem(i, "Bip001 R Hand");
-                    break;
-                case ItemType.Offhand:
-                    SetItem(i, "Bip001 L Hand");
-                    break;
+                case ItemSlotLocation.Weapon:
+                    return WEAPON_LOCATION;
+                case ItemSlotLocation.Offhand:
+                    return OFFHAND_LOCATION;
             }
+            return "";
         }
 
-        private void SetItem(Item item, string parent)
+        public void SetItem(Item item, ItemSlotLocation location)
         {
-            var itemMesh = item.MeshPrefab;
-            var hand = transform.FindDeepChild(parent);
-            var weaponInstance = Instantiate(itemMesh);
-            weaponInstance.transform.SetParent(hand);
-            weaponInstance.transform.localScale = item.Scale;
-            weaponInstance.transform.localRotation = Quaternion.Euler(item.Rotation);
-            weaponInstance.transform.localPosition = item.Position;
+            var parentTransform = transform.FindDeepChild(LocationToTransformName(location));
+            if (parentTransform.childCount > 0)
+            {
+                var oldItem = parentTransform.GetChild(0);
+                Destroy(oldItem.gameObject);
+            }
+            if (item != null)
+            {
+                var itemMesh = item.MeshPrefab;
+                var weaponInstance = Instantiate(itemMesh);
+                weaponInstance.transform.SetParent(parentTransform);
+                weaponInstance.transform.localScale = item.Scale;
+                weaponInstance.transform.localRotation = Quaternion.Euler(item.Rotation);
+                weaponInstance.transform.localPosition = item.Position;
+            }
         }
 
         public void Attack(CombatState state)

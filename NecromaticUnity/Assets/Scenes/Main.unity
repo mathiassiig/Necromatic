@@ -1149,36 +1149,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224514457579284520, guid: daf03fa6b56b49a4594789af662293e1,
     type: 2}
   m_PrefabInternal: {fileID: 145562979}
---- !u!1 &147331550
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1904185619087574, guid: 8894a2b52943c44068880bc498bf9c25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 147331551}
-  m_Layer: 0
-  m_Name: Bip001 R Hand_end
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &147331551
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4975434641356280, guid: 8894a2b52943c44068880bc498bf9c25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 147331550}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.08978916, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1378978839}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &157528157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,8 +1665,7 @@ Transform:
   m_LocalRotation: {x: 0.73201966, y: 0.071247175, z: 0.06427452, w: -0.67449236}
   m_LocalPosition: {x: -0.08978977, y: -0.00000019371507, z: -0.0000022100207}
   m_LocalScale: {x: 0.9999999, y: 0.9999998, z: 0.99999976}
-  m_Children:
-  - {fileID: 1472939076}
+  m_Children: []
   m_Father: {fileID: 423104548}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2195,15 +2164,6 @@ MonoBehaviour:
     Items:
     - {fileID: 11400000, guid: 66d3643d51d496d40b417ba6511d67f3, type: 2}
     - {fileID: 11400000, guid: 382eb23d702ac1349ac8d861a1a9a061, type: 2}
-    ShoulderSlot: {fileID: 0}
-    HeadSlot: {fileID: 0}
-    AmuletSlot: {fileID: 0}
-    HandSlot: {fileID: 0}
-    ChestSlot: {fileID: 0}
-    BackSlot: {fileID: 0}
-    WeaponSlot: {fileID: 0}
-    BootSlot: {fileID: 0}
-    OffhandSlot: {fileID: 0}
   _representation: {fileID: 981054957}
   _health:
     _initialRegen: 1
@@ -7660,8 +7620,7 @@ Transform:
   m_LocalRotation: {x: 0.76964647, y: -0.104890525, z: -0.18027315, w: 0.6034434}
   m_LocalPosition: {x: -0.08978974, y: -0.00000013783576, z: 0.00010186434}
   m_LocalScale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
-  m_Children:
-  - {fileID: 147331551}
+  m_Children: []
   m_Father: {fileID: 1210199528}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8187,36 +8146,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224514457579284520, guid: daf03fa6b56b49a4594789af662293e1,
     type: 2}
   m_PrefabInternal: {fileID: 1465597045}
---- !u!1 &1472939075
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1771885122843138, guid: 8894a2b52943c44068880bc498bf9c25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1472939076}
-  m_Layer: 0
-  m_Name: Bip001 L Hand_end
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1472939076
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4475582374405108, guid: 8894a2b52943c44068880bc498bf9c25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1472939075}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.08978916, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 241112649}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1474183277
 Prefab:
   m_ObjectHideFlags: 0
@@ -9361,15 +9290,6 @@ MonoBehaviour:
   _movement: {fileID: 23139852}
   Inventory:
     Items: []
-    ShoulderSlot: {fileID: 0}
-    HeadSlot: {fileID: 0}
-    AmuletSlot: {fileID: 0}
-    HandSlot: {fileID: 0}
-    ChestSlot: {fileID: 0}
-    BackSlot: {fileID: 0}
-    WeaponSlot: {fileID: 0}
-    BootSlot: {fileID: 0}
-    OffhandSlot: {fileID: 0}
   _representation: {fileID: 1914429279}
   _health:
     _initialRegen: 0
