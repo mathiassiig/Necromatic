@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Shield
   Description: Protects you from dying, again.
-  MeshPrefab: {fileID: 1228680725880668, guid: 51654d83e11fa304693bebae8793dfd4, type: 2}
+  MeshPrefab: {fileID: 1264994121073508, guid: 992ea865669fe8f44a4f30714630589b, type: 2}
   Icon: {fileID: 21300000, guid: cc93f8083eddfdd4d88c6bfc3b5e7d55, type: 3}
   Type: 1
   Position: {x: -0.05, y: -0.037, z: -0.08}
