@@ -70,8 +70,11 @@ ModelImporter:
     400060: Humanoid
     400062: //RootNode
     2100000: No Name
+    2300000: Humanoid
+    3300000: Humanoid
     4300000: Humanoid
     9500000: //RootNode
+    11100000: //RootNode
     13700000: Humanoid
   externalObjects: {}
   materials:
@@ -294,13 +297,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: humanoid(Clone)
+    - name: Humanoid(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0.00000061308145, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Bip001
-      parentName: humanoid(Clone)
+      parentName: Humanoid(Clone)
       position: {x: -0, y: 0.73484915, z: -0.049094923}
       rotation: {x: -0.50000036, y: 0.49999964, z: 0.4999996, w: 0.5000004}
       scale: {x: 2.5399997, y: 2.5399997, z: 2.54}
@@ -450,7 +453,7 @@ ModelImporter:
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Humanoid
-      parentName: humanoid(Clone)
+      parentName: Humanoid(Clone)
       position: {x: 1.483244e-14, y: 0.0000001213553, z: -0.000000012582114}
       rotation: {x: -0.70710737, y: -3.1844526e-15, z: 1.2118134e-13, w: 0.7071063}
       scale: {x: 100, y: 99.999985, z: 100}

@@ -346,6 +346,7 @@
     <Compile Include="Assets\Scripts\World\Buildings\TimberDropoff.cs" />
     <Compile Include="Assets\Scripts\World\ChunkMesh.cs" />
     <Compile Include="Assets\Scripts\World\DayNightManager.cs" />
+    <Compile Include="Assets\Scripts\World\Effects\ChainVisual.cs" />
     <Compile Include="Assets\Scripts\World\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\World\Grave.cs" />
     <Compile Include="Assets\Scripts\World\IClickReceiver.cs" />
@@ -355,7 +356,6 @@
     <Compile Include="Assets\Scripts\World\WorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Fonts\DeutschGothic\DEUTSCH.TXT" />
     <None Include="Assets\Materials\UI\GreyScale.shader" />
     <None Include="Assets\Plugins\Demigiant\DOTween\DOTween.XML" />
     <None Include="Assets\Plugins\Demigiant\DOTween\DOTween43.xml" />
