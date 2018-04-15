@@ -8,6 +8,13 @@ namespace Necromatic.Character.Inventory
         Weapon,
         Offhand
     }
+
+    public enum SpecialType
+    {
+        None,
+        Axe
+    }
+
     [CreateAssetMenu(fileName ="NewItem", menuName ="Item")]
     public class Item : ScriptableObject
     {
@@ -16,6 +23,7 @@ namespace Necromatic.Character.Inventory
         public GameObject MeshPrefab;
         public Sprite Icon;
         public ItemType Type;
+        public SpecialType Special;
         public Vector3 Position;
         public Vector3 Rotation;
         public Vector3 Scale;

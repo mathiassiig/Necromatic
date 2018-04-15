@@ -92,9 +92,16 @@ namespace Necromatic.World
         {
             foreach(var sender in senders)
             {
-                sender.AI.SetPrimaryStrategy(new SearchForTrees());
-                var cutThis = new TreeSpottedResult(this);
-                sender.AI.AddTask(cutThis);
+                if (sender.Inventory.Has(Character.Inventory.SpecialType.Axe))
+                {
+                    sender.AI.SetPrimaryStrategy(new SearchForTrees());
+                    var cutThis = new TreeSpottedResult(this);
+                    sender.AI.AddTask(cutThis);
+                }
+                else
+                {
+                    Debug.Log("You need an axe");
+                }
             }
         }
     }

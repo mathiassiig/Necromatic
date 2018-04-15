@@ -91,7 +91,7 @@ namespace Necromatic.Character
         {
             if (itemSlot == null)
             {
-                var item = Inventory.Items.FirstOrDefault(x => x.Type == type);
+                var item = Inventory.Items.Where(x => x != null).FirstOrDefault(x => x.Type == type);
                 Equip(ref itemSlot, item);
             }
         }

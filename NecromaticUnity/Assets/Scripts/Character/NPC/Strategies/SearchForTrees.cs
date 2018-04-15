@@ -15,8 +15,18 @@ namespace Necromatic.Character.NPC.Strategies
         private int _treeCount;
         private int _searchCount = 0;
 
+        public SearchForTrees()
+        {
+            RequiredItem = Inventory.SpecialType.Axe;
+        }
+
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
+            if (!sender.Inventory.Has(RequiredItem))
+            {
+                // todo: communicate to user that an axe is needed
+                return new NoneResult();
+            }
             _searchCount += 1;
             var trees = GameObjectUtils.Detect<Necromatic.World.Tree>(_searchRange, sender.transform.position, LayerMask.GetMask("Tree")).ToList();
             _treeCount = trees.Count;

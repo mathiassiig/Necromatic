@@ -13,12 +13,17 @@ namespace Necromatic.Character.NPC.Strategies
     {
         public CutTree()
         {
-
+            RequiredItem = Inventory.SpecialType.Axe;
         }
 
         private Transform _log;
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
+            if (!sender.Inventory.Has(RequiredItem))
+            {
+                // todo: communicate to user that an axe is needed
+                return new NoneResult();
+            }
             var treeResult = parameters as TreeSpottedResult;
             var toCut = treeResult.ToCut;
             if (toCut == null)
