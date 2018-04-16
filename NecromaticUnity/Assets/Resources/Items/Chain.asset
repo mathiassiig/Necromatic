@@ -16,6 +16,8 @@ MonoBehaviour:
   MeshPrefab: {fileID: 1641681576915258, guid: bf12b196d769a0745a8bc95459f2fb4e, type: 2}
   Icon: {fileID: 21300000, guid: c2085480be15db8469a7f7469d2637b7, type: 3}
   Type: 1
+  Special: 2
   Position: {x: -0.032, y: 0.017, z: 0.009}
   Rotation: {x: 76, y: -22, z: 150}
   Scale: {x: 0.1, y: 0.1, z: 0.1}
+  GameObjectInstance: {fileID: 0}

@@ -8,6 +8,11 @@ using System.Linq;
 
 namespace Necromatic.Character
 {
+    public class SpeedModifier
+    {
+        public float Modifier;
+    }
+
     public class Movement : MonoBehaviour
     {
         [SerializeField] private Representation _representation;
@@ -19,10 +24,30 @@ namespace Necromatic.Character
         private bool _initialized = false;
 
         private float _currentSpeed = 0;
+        private float _baseSpeed = 3.5f;
+        public List<SpeedModifier> SpeedBonuses = new List<SpeedModifier>();
         private Vector3? _lastPosition;
+
+        public void ModifySpeed(SpeedModifier modifier)
+        {
+            SpeedBonuses.Add(modifier);
+            CalculateNewSpeed();
+        }
+
+        public void RemoveModifier(SpeedModifier modifier)
+        {
+            SpeedBonuses.Remove(modifier);
+            CalculateNewSpeed();
+        }
+
+        private void CalculateNewSpeed()
+        {
+            _agent.speed = _baseSpeed + SpeedBonuses.Select(x => x.Modifier).Sum();
+        }
 
         public void Init(CharacterInstance c)
         {
+            _baseSpeed = _agent.speed;
             _agent.updateRotation = false;
             _character = c;
             _character.Death.Dead.Subscribe(dead =>

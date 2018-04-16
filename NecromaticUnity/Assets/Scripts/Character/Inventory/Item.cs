@@ -12,7 +12,8 @@ namespace Necromatic.Character.Inventory
     public enum SpecialType
     {
         None,
-        Axe
+        Axe,
+        Chain
     }
 
     [CreateAssetMenu(fileName ="NewItem", menuName ="Item")]

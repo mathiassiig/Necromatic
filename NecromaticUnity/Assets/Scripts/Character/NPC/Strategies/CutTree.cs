@@ -38,7 +38,7 @@ namespace Necromatic.Character.NPC.Strategies
             }
             if (toCut.Cut && toCut.Fallen)
             {
-                return HandleLog(sender, toCut);
+                return HandleLog(sender, toCut, treeResult);
             }
             else if (!toCut.Cut && (toCut.transform.position - sender.transform.position).magnitude <= sender.Combat.AttackRange)
             {
@@ -51,10 +51,20 @@ namespace Necromatic.Character.NPC.Strategies
             }
         }
 
-        private StrategyResult HandleLog(CharacterInstance sender, World.Tree toCut)
+        private StrategyResult HandleLog(CharacterInstance sender, World.Tree toCut, TreeSpottedResult treeResult)
         {
             if (_log == null)
             {
+                var hasChain = sender.Inventory.Has(Inventory.SpecialType.Chain);
+                var chainEquipped = sender.Inventory.IsEquipping(Inventory.SpecialType.Chain);
+                if (!hasChain)
+                {
+                    return treeResult;
+                }
+                else if(hasChain && !chainEquipped)
+                {
+                    sender.Inventory.EquipSpecial(Inventory.SpecialType.Chain, ItemSlotLocation.Offhand);
+                }
                 var log = toCut.Logs.FirstOrDefault();
                 var dropoff = GameObject.FindObjectOfType<TimberDropoff>();
                 var moveToTimber = new MoveResult(dropoff.transform, 0.5f);
@@ -63,14 +73,12 @@ namespace Necromatic.Character.NPC.Strategies
                 moveToLog.OnReached = () => 
                 {
                     sender.UseOffhand(log.gameObject);
-                    //log.gameObject.SetActive(false);
                 };
                 moveToTimber.OnReached = () =>
                 {
                     sender.UseOffhand(null);
                     toCut.Logs.Remove(log);
                     _log = null;
-                    //log.gameObject.SetActive(true);
                     dropoff.Dropoff(log);
                     if(toCut.Logs.Count == 0)
                     {

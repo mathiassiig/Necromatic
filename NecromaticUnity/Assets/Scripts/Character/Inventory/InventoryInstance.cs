@@ -68,7 +68,7 @@ namespace Necromatic.Character.Inventory
         public void EquipSpecial(SpecialType s, ItemSlotLocation l)
         {
             var slot = GetSlot(l);
-            if(slot.Value != null && slot.Value.Special == s)
+            if (slot.Value != null && slot.Value.Special == s)
             {
                 return;
             }
@@ -99,7 +99,10 @@ namespace Necromatic.Character.Inventory
             if (itemSlot != null)
             {
                 Items.Remove(toEquip);
-                itemSlot.Value.GameObjectInstance = _representation.SetItem(itemSlot.Value, l);
+                if (itemSlot.Value != null)
+                {
+                    itemSlot.Value.GameObjectInstance = _representation.SetItem(itemSlot.Value, l);
+                }
             }
             return itemSlot.Value;
         }
@@ -110,6 +113,11 @@ namespace Necromatic.Character.Inventory
             bool inInventory = Items.Where(x => x != null).FirstOrDefault(x => x.Special == t) != null;
             bool inEquippables = Equippables.Where(x => x.Value != null).FirstOrDefault(x => x.Value.Special == t) != null;
             return inInventory || inEquippables;
+        }
+
+        public bool IsEquipping(SpecialType t)
+        {
+            return Equippables.Where(x => x.Value != null).FirstOrDefault(x => x.Value.Special == t) != null;
         }
 
 

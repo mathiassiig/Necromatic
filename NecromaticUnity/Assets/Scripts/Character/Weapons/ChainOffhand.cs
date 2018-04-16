@@ -13,6 +13,8 @@ namespace Necromatic.Character.Weapons
         private Vector3 _passivePosition;
         private Vector3 _passiveRotation;
         private CharacterInstance _sender;
+        private SpeedModifier _speedModifier;
+        private const float _slownessFactor = 20;
 
         void Awake()
         {
@@ -47,6 +49,11 @@ namespace Necromatic.Character.Weapons
                 _joint.linearLimitSpring = new SoftJointLimitSpring() { spring = 500 };
                 _joint.connectedBody = _chainEndRb;
                 _chainEndRb.isKinematic = false;
+                if(_speedModifier != null)
+                {
+                    sender.Movement.RemoveModifier(_speedModifier);
+                    _speedModifier = null;
+                }
             }
             else
             {
@@ -55,6 +62,12 @@ namespace Necromatic.Character.Weapons
                 _chainEnd.LookAt(target.transform);
                 _chainEnd.localRotation = _chainEnd.localRotation * Quaternion.Euler(0, -90, 180);
                 var targetCollider = target.GetComponent<Collider>();
+                var targetRb = target.GetComponent<Rigidbody>();
+                if(targetRb != null)
+                {
+                    _speedModifier = new SpeedModifier() { Modifier = -targetRb.mass / _slownessFactor };
+                    sender.Movement.ModifySpeed(_speedModifier);
+                }
                 _chainEnd.DOMoveX(target.transform.position.x, 0.15f).SetEase(Ease.Linear);
                 _chainEnd.DOMoveY(target.transform.position.y, 0.15f).SetEase(Ease.InBack);
                 _chainEnd.DOMoveZ(target.transform.position.z, 0.15f).SetEase(Ease.Linear).OnUpdate(() =>

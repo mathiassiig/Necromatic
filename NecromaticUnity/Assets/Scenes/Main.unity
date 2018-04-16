@@ -1258,14 +1258,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4608722288967816, guid: e501687d566794b1c9a1e7566a067131, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.026
-      objectReference: {fileID: 0}
-    - target: {fileID: 4608722288967816, guid: e501687d566794b1c9a1e7566a067131, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.028
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e501687d566794b1c9a1e7566a067131, type: 2}
   m_IsPrefabParent: 0
@@ -2164,7 +2156,7 @@ MonoBehaviour:
   Inventory:
     Items:
     - {fileID: 11400000, guid: 66d3643d51d496d40b417ba6511d67f3, type: 2}
-    - {fileID: 11400000, guid: 382eb23d702ac1349ac8d861a1a9a061, type: 2}
+    - {fileID: 0}
   _representation: {fileID: 981054957}
   _health:
     _initialRegen: 1

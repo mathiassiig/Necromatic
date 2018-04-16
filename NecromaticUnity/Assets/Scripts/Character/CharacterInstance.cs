@@ -88,7 +88,7 @@ namespace Necromatic.Character
             Inventory.EquipAny(ItemType.Offhand, ItemSlotLocation.Offhand);
         }
 
-        public void UseOffhand(GameObject target)
+        public bool UseOffhand(GameObject target)
         {
             if (Inventory.OffhandSlot.Value != null && Inventory.OffhandSlot.Value.GameObjectInstance != null)
             {
@@ -107,7 +107,9 @@ namespace Necromatic.Character
                     {
                         Combat.CurrentState.Value = CombatState.Idle;
                     });
+                return true;
             }
+            return false;
         }
 
         void InitCombat()
