@@ -360,6 +360,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\UI\GreyScale.shader" />
+    <None Include="Assets\Materials\VertexColor.shader" />
     <None Include="Assets\Plugins\Demigiant\DOTween\DOTween.XML" />
     <None Include="Assets\Plugins\Demigiant\DOTween\DOTween43.xml" />
     <None Include="Assets\Plugins\Demigiant\DOTween\DOTween46.xml" />

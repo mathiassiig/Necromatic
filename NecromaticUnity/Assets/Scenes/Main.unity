@@ -2156,7 +2156,7 @@ MonoBehaviour:
   Inventory:
     Items:
     - {fileID: 11400000, guid: 66d3643d51d496d40b417ba6511d67f3, type: 2}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 382eb23d702ac1349ac8d861a1a9a061, type: 2}
   _representation: {fileID: 981054957}
   _health:
     _initialRegen: 1
