@@ -98,7 +98,7 @@ namespace Necromatic.Character
                     .TakeUntilDestroy(this)
                     .Subscribe(x =>
                     {
-                        offhandScript.Use(target);
+                        offhandScript.Use(target, this);
                     });
                 Combat.CurrentState.Value = CombatState.Offhand;
                 Observable.Timer(System.TimeSpan.FromSeconds(Combat.ForwardTime + Combat.RetractTime))

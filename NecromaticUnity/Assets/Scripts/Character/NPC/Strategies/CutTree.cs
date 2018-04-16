@@ -16,6 +16,12 @@ namespace Necromatic.Character.NPC.Strategies
             RequiredItem = Inventory.SpecialType.Axe;
         }
 
+        public override void Teardown(CharacterInstance sender)
+        {
+            _log = null;
+            sender.UseOffhand(null);
+        }
+
         private Transform _log;
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {

@@ -20,6 +20,11 @@ namespace Necromatic.Character.NPC.Strategies
             RequiredItem = Inventory.SpecialType.Axe;
         }
 
+        public override void Teardown(CharacterInstance sender)
+        {
+            sender.AI.ForceTearDown(typeof(CutTree));
+        }
+
         public override StrategyResult Act(CharacterInstance sender, StrategyResult parameters)
         {
             if (!sender.Inventory.Has(RequiredItem))

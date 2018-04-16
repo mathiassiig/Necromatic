@@ -352,6 +352,7 @@
     <Compile Include="Assets\Scripts\World\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\World\Grave.cs" />
     <Compile Include="Assets\Scripts\World\IClickReceiver.cs" />
+    <Compile Include="Assets\Scripts\World\Log.cs" />
     <Compile Include="Assets\Scripts\World\NavigationMesh.cs" />
     <Compile Include="Assets\Scripts\World\Tree.cs" />
     <Compile Include="Assets\Scripts\World\Wall.cs" />

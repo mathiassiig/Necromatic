@@ -17,5 +17,9 @@ namespace Necromatic.Character.NPC.Strategies
         public SpecialType RequiredItem = SpecialType.None; 
 		public int Priority = 1;
         public abstract StrategyResult Act(CharacterInstance sender, StrategyResult parameters);
+        public virtual void Teardown(CharacterInstance sender)
+        {
+
+        }
     }
 }

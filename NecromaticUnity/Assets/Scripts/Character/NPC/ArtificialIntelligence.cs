@@ -67,8 +67,22 @@ namespace Necromatic.Character.NPC
             }
         }
 
+        public void ForceTearDown(Type strategyType)
+        {
+            var strategy = _secondaryStrategies.FirstOrDefault(x => x.GetType() == strategyType);
+            if(strategy != null)
+            {
+                strategy.Teardown(_character);
+            }
+        }
+
         public void SetPrimaryStrategy(Strategy s)
         {
+            if (_currentTask != null)
+            {
+                _currentTask.Teardown(_character);
+            }
+            _primaryStrategy.Teardown(_character);
             _primaryStrategy = s;
         }
 
@@ -91,12 +105,6 @@ namespace Necromatic.Character.NPC
                 {
                     if (r.Priority >= _currentTaskResult.Priority)
                     {
-                        /*if (_debugLog)
-                        {
-                            print($"Setting strategy {r.NextDesiredStrategy.ToString().Split('.').Last()} " +
-                            $"because {r.GetType().ToString().Split('.').Last()}'s priority of {r.Priority} " +
-                            $"is higher than {_currentTaskResult.GetType().ToString().Split('.').Last()}'s priority of {_currentTaskResult.Priority}");
-                        }*/
                         SetStrategy(r);
                     }
                 }

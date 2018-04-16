@@ -12,15 +12,21 @@ namespace Necromatic.Character.Weapons
         private Rigidbody _chainEndRb;
         private Vector3 _passivePosition;
         private Vector3 _passiveRotation;
+        private CharacterInstance _sender;
 
         void Awake()
         {
             _chainEndRb = _chainEnd.GetComponent<Rigidbody>();
         }
 
+        public void Init(CharacterInstance sender)
+        {
+
+        }
+
         void OnDestroy()
         {
-            Use(null);
+            Use(null, null);
             Destroy(_chainEnd.gameObject);
         }
 
@@ -30,7 +36,7 @@ namespace Necromatic.Character.Weapons
             _chainRenderer.SetPosition(1, _chainEnd.position);
         }
 
-        public void Use(GameObject target)
+        public void Use(GameObject target, CharacterInstance sender)
         {
             if (target == null)
             {
@@ -46,7 +52,23 @@ namespace Necromatic.Character.Weapons
             {
                 _chainEnd.SetParent(null);
                 _chainEndRb.isKinematic = true;
-                _chainEnd.DOMove(target.transform.position, 0.15f).SetEase(Ease.Linear).OnComplete(() =>
+                _chainEnd.LookAt(target.transform);
+                _chainEnd.localRotation = _chainEnd.localRotation * Quaternion.Euler(0, -90, 180);
+                var targetCollider = target.GetComponent<Collider>();
+                _chainEnd.DOMoveX(target.transform.position.x, 0.15f).SetEase(Ease.Linear);
+                _chainEnd.DOMoveY(target.transform.position.y, 0.15f).SetEase(Ease.InBack);
+                _chainEnd.DOMoveZ(target.transform.position.z, 0.15f).SetEase(Ease.Linear).OnUpdate(() =>
+                {
+                    if(targetCollider != null)
+                    {
+                        if(targetCollider.bounds.Contains(_chainEnd.position))
+                        {   
+                            
+                            _chainEnd.DOComplete();
+                        }
+                    }
+                })
+                .OnComplete(() =>                
                 {
                     _joint.linearLimit = new SoftJointLimit() { limit = 5 };
                     _joint.linearLimitSpring = new SoftJointLimitSpring() { spring = 500 };

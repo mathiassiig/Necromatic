@@ -103,7 +103,7 @@ namespace Necromatic.World
                 }
                 else
                 {
-                    Debug.Log("You need an axe");
+                    Debug.Log("You need an axe"); // todo
                 }
             }
         }
