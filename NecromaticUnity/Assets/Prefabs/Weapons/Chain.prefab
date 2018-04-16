@@ -313,10 +313,10 @@ ConfigurableJoint:
   m_AngularYMotion: 2
   m_AngularZMotion: 2
   m_LinearLimitSpring:
-    spring: 50
+    spring: 500
     damper: 25
   m_LinearLimit:
-    limit: 0.025
+    limit: 0.33
     bounciness: 0
     contactDistance: 0
   m_AngularXLimitSpring:

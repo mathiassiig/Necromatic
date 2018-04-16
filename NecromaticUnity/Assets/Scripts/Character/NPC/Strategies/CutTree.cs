@@ -61,6 +61,7 @@ namespace Necromatic.Character.NPC.Strategies
                 };
                 moveToTimber.OnReached = () =>
                 {
+                    sender.UseOffhand(null);
                     toCut.Logs.Remove(log);
                     _log = null;
                     //log.gameObject.SetActive(true);
