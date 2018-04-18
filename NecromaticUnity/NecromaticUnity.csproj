@@ -298,6 +298,7 @@
     <Compile Include="Assets\Scripts\Character\IDamagable.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\InventoryInstance.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\Item.cs" />
+    <Compile Include="Assets\Scripts\Character\Inventory\RangedWeapon.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\Weapon.cs" />
     <Compile Include="Assets\Scripts\Character\IRaisable.cs" />
     <Compile Include="Assets\Scripts\Character\ISelectable.cs" />
@@ -329,6 +330,7 @@
     <Compile Include="Assets\Scripts\Character\Weapons\IOffhand.cs" />
     <Compile Include="Assets\Scripts\Character\Weapons\IWeaponInstance.cs" />
     <Compile Include="Assets\Scripts\Character\Weapons\MeleeInstance.cs" />
+    <Compile Include="Assets\Scripts\Character\Weapons\RangedInstance.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player\InputManager.cs" />
     <Compile Include="Assets\Scripts\Player\ResearchBank.cs" />

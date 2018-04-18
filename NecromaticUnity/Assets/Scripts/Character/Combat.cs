@@ -18,15 +18,23 @@ namespace Necromatic.Character
     }
     public class Combat
     {
-        [SerializeField] protected float _attackRange = 1f;
-
         public float ForwardTime => 0.3f * TotalTime;
         public float RetractTime => 0.7f * TotalTime;
         public float TotalTime => 1;
 
         public ReactiveProperty<CombatState> CurrentState = new ReactiveProperty<CombatState>();
 
-        public float AttackRange => _attackRange;
+        public float AttackRange
+        {
+            get
+            {
+                if (_currentWeapon != null)
+                {
+                    return _currentWeapon.AttackRange;
+                }
+                return 1;
+            }
+        }
 
         protected IDamagable _lastTarget;
         public IDamagable LastTarget => _lastTarget; // who are we attacking
@@ -46,7 +54,13 @@ namespace Necromatic.Character
             set
             {
                 _currentWeapon = value;
-                _currentWeaponInstance = _currentWeapon == null ? null : _currentWeapon.GameObjectInstance.GetComponent<IWeaponInstance>();
+                if (_currentWeapon != null)
+                {
+                    Observable.NextFrame().TakeUntilDestroy(_ownerAttacker).Subscribe(x =>
+                    {
+                        _currentWeaponInstance = _currentWeapon.GameObjectInstance.GetComponent<IWeaponInstance>();
+                    });
+                }
             }
         }
         private IWeaponInstance _currentWeaponInstance;
@@ -64,7 +78,7 @@ namespace Necromatic.Character
 
         public void TryAttackNearest(CharacterInstance sender)
         {
-            var enemies = GameObjectUtils.DetectEnemies(_attackRange, sender.transform.position, sender);
+            var enemies = GameObjectUtils.DetectEnemies(_currentWeapon.AttackRange, sender.transform.position, sender);
             if (enemies != null && enemies.Count != 0)
             {
                 var nearest = enemies.FirstOrDefault(e => e.transform == GameObjectUtils.Closest(enemies.Select(x => x.transform).ToList(), sender.transform));
@@ -79,7 +93,7 @@ namespace Necromatic.Character
 
         public void TryAttack(IDamagable c)
         {
-            if (CurrentState.Value != CombatState.Idle)
+            if (CurrentState.Value != CombatState.Idle || _currentWeaponInstance == null)
             {
                 return;
             }

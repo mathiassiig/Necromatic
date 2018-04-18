@@ -68,6 +68,12 @@ namespace Necromatic.Character
             return null;
         }
 
+        public void PutInPosition(Transform t, ItemSlotLocation location)
+        {
+            var parentTransform = transform.FindDeepChild(LocationToTransformName(location));
+            t.SetParent(parentTransform);
+        }
+
         public void Offhand()
         {
             _animator.SetTrigger("OffhandAttack");

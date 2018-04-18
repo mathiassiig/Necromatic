@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed01ae99cc0d13499bd6c0a931aeffa, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: 
+  Name: Bow
+  Description: Pew pew!
+  MeshPrefab: {fileID: 1161784018207508, guid: 8198a6e27d5ccac4d93a7c3f5b8d00c8, type: 2}
+  Icon: {fileID: 21300020, guid: 5b32c2d36abe44540bed74c1f787033b, type: 3}
+  Type: 0
+  Special: 0
+  Position: {x: 0.023, y: 0.042, z: 0.023}
+  Rotation: {x: -153.2, y: -90, z: -93}
+  Scale: {x: 0.075, y: 0.075, z: 0.075}
+  UseAnimation: 2
+  GameObjectInstance: {fileID: 0}
+  Speed: 1
+  BaseDamage: 1
+  AttackRange: 15
+  ForwardRetractRatio: 0
+  ProjectilePrefab: {fileID: 1573807508736394, guid: 2485d88841c89654da76b76d6a1db1bb,
+    type: 2}
+  FiringRotation: {x: 0, y: 0, z: 0}
+  FiringPosition: {x: 0, y: 0, z: 0}

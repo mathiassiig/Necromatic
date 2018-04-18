@@ -83,7 +83,7 @@ namespace Necromatic.Character
             });
             FindObjectOfType<MotherPool>().AddBarToCharacter(this);
 
-            Inventory.WeaponSlot.DelayFrame(1).TakeUntilDestroy(this).Subscribe(weapon =>
+            Inventory.WeaponSlot.TakeUntilDestroy(this).Subscribe(weapon =>
             {
                 Combat.CurrentWeapon = weapon as Weapon;
             });

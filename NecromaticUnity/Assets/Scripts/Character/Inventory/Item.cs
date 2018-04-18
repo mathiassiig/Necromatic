@@ -35,6 +35,7 @@ namespace Necromatic.Character.Inventory
     public enum CharacterAnimation
     {
         None,
-        Slash
+        Slash,
+        UseBow
     }
 }
