@@ -41,7 +41,6 @@ namespace Necromatic.Character
 
         public Ability CurrentAbility;
 
-        protected WeaponAnimator _animator = new WeaponAnimator();
         // accessors
         [HideInInspector] public Combat Combat = null;
         public Faction Faction => _faction;
@@ -71,7 +70,7 @@ namespace Necromatic.Character
 
         protected virtual void Init()
         {
-            InitCombat();
+            //InitCombat();
             Movement.Init(this);
             _health._initialRegen = 0.5f;
             _health.Init(this);
@@ -83,9 +82,17 @@ namespace Necromatic.Character
                 }
             });
             FindObjectOfType<MotherPool>().AddBarToCharacter(this);
+
+            Inventory.WeaponSlot.DelayFrame(1).TakeUntilDestroy(this).Subscribe(weapon =>
+            {
+                Combat.CurrentWeapon = weapon as Weapon;
+            });
+
             Inventory.Init(_representation);
             Inventory.EquipAny(ItemType.Weapon, ItemSlotLocation.Weapon);
             Inventory.EquipAny(ItemType.Offhand, ItemSlotLocation.Offhand);
+
+
         }
 
         public bool UseOffhand(GameObject target)
@@ -100,7 +107,7 @@ namespace Necromatic.Character
                     {
                         offhandScript.Use(target, this);
                     });
-                Combat.CurrentState.Value = CombatState.Offhand;
+                Combat.CurrentState.Value = CombatState.Attacking;
                 Observable.Timer(System.TimeSpan.FromSeconds(Combat.ForwardTime + Combat.RetractTime))
                     .TakeUntilDestroy(this)
                     .Subscribe(x =>
@@ -126,7 +133,6 @@ namespace Necromatic.Character
                     {
                         var attackSpeed = 1 / (x.ForwardTime + x.RetractTime);
                         _representation.SetAttackSpeed(attackSpeed);
-                        _representation.Attack(state);
                     });
                 }
             });

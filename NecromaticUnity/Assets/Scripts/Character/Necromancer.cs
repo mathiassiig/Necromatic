@@ -8,9 +8,8 @@ namespace Necromatic.Character
     {
         protected override void Init()
         {
-            var ranged = new CombatRanged(this, 25, 0.4f, 0.2f, 15);
-            Combat = ranged;
-            ranged.SetProjectile(Resources.Load<GameObject>("Prefabs/Projectiles/Projectile_Arcane"));
+            var combat = new Combat(this);
+            Combat = combat;
             _death = new Death();
             FindObjectOfType<MotherPool>().AddBarToCharacter(this);
             base.Init();

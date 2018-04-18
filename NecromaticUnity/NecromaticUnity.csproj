@@ -294,12 +294,11 @@
     <Compile Include="Assets\Scripts\Character\CharacterInstance.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterType.cs" />
     <Compile Include="Assets\Scripts\Character\Combat.cs" />
-    <Compile Include="Assets\Scripts\Character\CombatRanged.cs" />
     <Compile Include="Assets\Scripts\Character\Death.cs" />
     <Compile Include="Assets\Scripts\Character\IDamagable.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\InventoryInstance.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\Item.cs" />
-    <Compile Include="Assets\Scripts\Character\IOffhand.cs" />
+    <Compile Include="Assets\Scripts\Character\Inventory\Weapon.cs" />
     <Compile Include="Assets\Scripts\Character\IRaisable.cs" />
     <Compile Include="Assets\Scripts\Character\ISelectable.cs" />
     <Compile Include="Assets\Scripts\Character\Movement.cs" />
@@ -326,8 +325,10 @@
     <Compile Include="Assets\Scripts\Character\NPC\Strategies\SearchForTrees.cs" />
     <Compile Include="Assets\Scripts\Character\Representation.cs" />
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
-    <Compile Include="Assets\Scripts\Character\WeaponAnimator.cs" />
     <Compile Include="Assets\Scripts\Character\Weapons\ChainOffhand.cs" />
+    <Compile Include="Assets\Scripts\Character\Weapons\IOffhand.cs" />
+    <Compile Include="Assets\Scripts\Character\Weapons\IWeaponInstance.cs" />
+    <Compile Include="Assets\Scripts\Character\Weapons\MeleeInstance.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player\InputManager.cs" />
     <Compile Include="Assets\Scripts\Player\ResearchBank.cs" />

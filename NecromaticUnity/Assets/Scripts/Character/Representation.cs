@@ -73,14 +73,10 @@ namespace Necromatic.Character
             _animator.SetTrigger("OffhandAttack");
         }
 
-        public void Attack(CombatState state)
+        public void Animate(CharacterAnimation anim)
         {
-            switch (state)
-            {
-                case CombatState.Forward:
-                    _animator.SetTrigger("Attack");
-                    break;
-            }
+            string trigger = anim.ToString();
+            _animator.SetTrigger(trigger);
         }
 
         private void Awake()

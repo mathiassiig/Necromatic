@@ -6,28 +6,27 @@ using System;
 using UniRx.Operators;
 using Necromatic.Utility;
 using System.Linq;
+using Necromatic.Character.Inventory;
+using Necromatic.Character.Weapons;
 
 namespace Necromatic.Character
 {
     public enum CombatState
     {
-        Forward,
-        Retracting,
         Idle,
-        Offhand
+        Attacking
     }
-    [System.Serializable]
     public class Combat
     {
-        [SerializeField] protected float _damage = 50f;
         [SerializeField] protected float _attackRange = 1f;
-        protected float _forwardTime = 0.2f;
-        protected float _retractTime = 0.3f;
 
-        public float ForwardTime => _forwardTime;
-        public float RetractTime => _retractTime;
+        public float ForwardTime => 0.3f * TotalTime;
+        public float RetractTime => 0.7f * TotalTime;
+        public float TotalTime => 1;
+
+        public ReactiveProperty<CombatState> CurrentState = new ReactiveProperty<CombatState>();
+
         public float AttackRange => _attackRange;
-        public ReactiveProperty<CombatState> CurrentState;
 
         protected IDamagable _lastTarget;
         public IDamagable LastTarget => _lastTarget; // who are we attacking
@@ -37,25 +36,30 @@ namespace Necromatic.Character
         protected IDisposable _attackingDisposable;
         protected IDisposable _checkDeadDisposable;
 
+        private Weapon _currentWeapon;
+        public Weapon CurrentWeapon
+        {
+            get
+            {
+                return _currentWeapon;
+            }
+            set
+            {
+                _currentWeapon = value;
+                _currentWeaponInstance = _currentWeapon == null ? null : _currentWeapon.GameObjectInstance.GetComponent<IWeaponInstance>();
+            }
+        }
+        private IWeaponInstance _currentWeaponInstance;
 
         public Combat(IDamagable owner)
         {
             _owner = owner;
-            CurrentState = new ReactiveProperty<CombatState>(CombatState.Idle);
             LastAttacker = new ReactiveProperty<CharacterInstance>();
         }
 
         public Combat(CharacterInstance owner) : this(owner as IDamagable)
         {
             _ownerAttacker = owner;
-        }
-
-        public Combat(CharacterInstance owner, float damage, float forwardTime, float retractTime, float attackRange) : this(owner)
-        {
-            _damage = damage;
-            _attackRange = attackRange;
-            _forwardTime = forwardTime;
-            _retractTime = retractTime;
         }
 
         public void TryAttackNearest(CharacterInstance sender)
@@ -91,21 +95,9 @@ namespace Necromatic.Character
         protected virtual void DoAttack(IDamagable c)
         {
             _lastTarget = c;
-            CurrentState.Value = CombatState.Forward;
-            _attackingDisposable = Observable.Timer(TimeSpan.FromSeconds(_forwardTime)).Subscribe(x =>
-            {
-                c.Combat.ReceiveAttack(_damage, _ownerAttacker);
-                CurrentState.Value = CombatState.Retracting;
-                _attackingDisposable = Observable.Timer(TimeSpan.FromSeconds(_retractTime)).Subscribe(y =>
-                {
-                    CurrentState.Value = CombatState.Idle;
-                });
-            });
-
-            if (_checkDeadDisposable != null)
-            {
-                _checkDeadDisposable.Dispose();
-            }
+            CurrentState.Value = CombatState.Attacking;
+            _currentWeaponInstance.Attack(_currentWeapon, c, _ownerAttacker, () => CurrentState.Value = CombatState.Idle);
+            _checkDeadDisposable?.Dispose();
             _checkDeadDisposable = c.Death.Dead.TakeUntilDestroy(c.gameObject).Subscribe(dead =>
             {
                 if (dead)

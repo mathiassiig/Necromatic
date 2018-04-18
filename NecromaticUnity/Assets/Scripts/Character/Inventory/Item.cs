@@ -16,7 +16,7 @@ namespace Necromatic.Character.Inventory
         Chain
     }
 
-    [CreateAssetMenu(fileName ="NewItem", menuName ="Item")]
+    [CreateAssetMenu(fileName ="NewItem", menuName ="Items/Item")]
     public class Item : ScriptableObject
     {
         public string Name;
@@ -28,6 +28,13 @@ namespace Necromatic.Character.Inventory
         public Vector3 Position;
         public Vector3 Rotation;
         public Vector3 Scale;
+        public CharacterAnimation UseAnimation;
         [HideInInspector] public GameObject GameObjectInstance;
+    }
+
+    public enum CharacterAnimation
+    {
+        None,
+        Slash
     }
 }
