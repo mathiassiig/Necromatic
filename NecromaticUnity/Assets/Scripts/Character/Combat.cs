@@ -110,7 +110,7 @@ namespace Necromatic.Character
         {
             _lastTarget = c;
             CurrentState.Value = CombatState.Attacking;
-            _currentWeaponInstance.Attack(_currentWeapon, c, _ownerAttacker, () => CurrentState.Value = CombatState.Idle);
+            _attackingDisposable = _currentWeaponInstance.Attack(_currentWeapon, c, _ownerAttacker, () => CurrentState.Value = CombatState.Idle);
             _checkDeadDisposable?.Dispose();
             _checkDeadDisposable = c.Death.Dead.TakeUntilDestroy(c.gameObject).Subscribe(dead =>
             {

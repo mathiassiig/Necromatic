@@ -25,4 +25,4 @@ MonoBehaviour:
   Speed: 1
   BaseDamage: 10
   AttackRange: 1.5
-  ForwardRetractRatio: 0.3
+  ForwardRetractRatio: 0.5

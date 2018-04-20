@@ -11,8 +11,8 @@ namespace Necromatic.Character.Weapons
     {
         public IDisposable Attack(Weapon weaponData, IDamagable target, CharacterInstance attacker, Action onFinished = null, Action onHit = null)
         {
-            var forward = (1 - weaponData.ForwardRetractRatio) / weaponData.Speed;
-            var retract = weaponData.ForwardRetractRatio / weaponData.Speed;
+            var forward = weaponData.ForwardRetractRatio / weaponData.Speed;
+            var retract = (1 - weaponData.ForwardRetractRatio) / weaponData.Speed;
             IDisposable attackingDisposabe;
             attacker.Representation.Animate(weaponData.UseAnimation);
             attacker.Representation.SetAttackSpeed(weaponData.Speed);
