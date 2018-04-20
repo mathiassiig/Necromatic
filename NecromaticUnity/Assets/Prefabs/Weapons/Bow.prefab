@@ -66,6 +66,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4010681356782902}
   - component: {fileID: 95658854681831114}
+  - component: {fileID: 114489315636632946}
   m_Layer: 0
   m_Name: Bow
   m_TagString: Untagged
@@ -494,6 +495,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114489315636632946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1161784018207508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4500182e69a47c64baf7acce99b65d47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!137 &137754407435667120
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -556,7 +568,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100002, guid: fbb3f42ab508e294eb2949a9deae3ffd, type: 3}
+  - {fileID: 2100000, guid: 7be333301d8f2490fbd54cf4d07aa3de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

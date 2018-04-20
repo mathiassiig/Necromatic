@@ -17,16 +17,21 @@ MonoBehaviour:
   Icon: {fileID: 21300020, guid: 5b32c2d36abe44540bed74c1f787033b, type: 3}
   Type: 0
   Special: 0
-  Position: {x: 0.023, y: 0.042, z: 0.023}
+  Position: {x: -0.01, y: -0.01, z: 0.023}
   Rotation: {x: -153.2, y: -90, z: -93}
-  Scale: {x: 0.075, y: 0.075, z: 0.075}
+  Scale: {x: 0.06, y: 0.06, z: 0.06}
   UseAnimation: 2
   GameObjectInstance: {fileID: 0}
   Speed: 1
   BaseDamage: 1
   AttackRange: 15
   ForwardRetractRatio: 0
-  ProjectilePrefab: {fileID: 1573807508736394, guid: 2485d88841c89654da76b76d6a1db1bb,
+  FiringPosition: {x: -0.01, y: -0.01, z: 0.023}
+  FiringRotation: {x: 90, y: -90, z: -93}
+  ProjectilePrefab: {fileID: 114194415387592042, guid: 2485d88841c89654da76b76d6a1db1bb,
     type: 2}
-  FiringRotation: {x: 0, y: 0, z: 0}
-  FiringPosition: {x: 0, y: 0, z: 0}
+  ProjectilePosition: {x: 0, y: 0.22, z: 0}
+  ProjectileRotation: {x: 90, y: 90, z: 0}
+  ProjectileScale: {x: 0.25, y: 0.25, z: 0.25}
+  SpawnProjectileTime: 0.33
+  ProjectileForce: 900

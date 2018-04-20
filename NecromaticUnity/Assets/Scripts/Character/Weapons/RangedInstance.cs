@@ -22,10 +22,10 @@ public class RangedInstance : MonoBehaviour, IWeaponInstance
         weaponData.GameObjectInstance.transform.DOLocalRotate(ranged.FiringRotation, forward / 2f);
         weaponData.GameObjectInstance.transform.DOLocalMove(ranged.FiringPosition, forward / 2f);
         var projectile = Instantiate(ranged.ProjectilePrefab);
-        projectile.SetActive(false);
+        projectile.gameObject.SetActive(false);
         Observable.Timer(TimeSpan.FromSeconds(ranged.SpawnProjectileTime / ranged.Speed)).TakeUntilDestroy(attacker).Subscribe(x =>
         {
-              projectile.SetActive(true);
+              projectile.gameObject.SetActive(true);
         });
         attacker.Representation.PutInPosition(projectile.transform, ItemSlotLocation.Offhand);
         projectile.transform.localPosition = ranged.ProjectilePosition;
@@ -34,11 +34,10 @@ public class RangedInstance : MonoBehaviour, IWeaponInstance
         attackingDisposabe = Observable.Timer(TimeSpan.FromSeconds(forward)).Subscribe(x =>
         {
             onHit?.Invoke();
-            Destroy(projectile);
             weaponData.GameObjectInstance.transform.DOKill();
             weaponData.GameObjectInstance.transform.DOLocalMove(ranged.Position, retract / 2f);
             weaponData.GameObjectInstance.transform.DOLocalRotate(ranged.Rotation, retract / 2f);
-            //target.Combat.ReceiveAttack(weaponData.BaseDamage, attacker);
+            projectile.Fire(attacker.Representation.transform.forward, ranged, attacker);
             attackingDisposabe = Observable.Timer(TimeSpan.FromSeconds(retract)).Subscribe(y =>
             {
                 onFinished?.Invoke();
@@ -46,4 +45,5 @@ public class RangedInstance : MonoBehaviour, IWeaponInstance
         });
         return attackingDisposabe;
     }
+
 }
