@@ -317,7 +317,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1833849733444812}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: -0.71675336}
+  m_LocalPosition: {x: 0, y: 0, z: -0.71675336}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 4709197535775016}
@@ -359,7 +359,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1894230798907128}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.019109953, z: 0}
+  m_LocalPosition: {x: 0, y: -0.019109953, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4406365590795238}
@@ -403,7 +403,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1260783905093238}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 1.194242}
+  m_LocalPosition: {x: 0, y: 0, z: 1.194242}
   m_LocalScale: {x: 100, y: 100, z: 95.93175}
   m_Children: []
   m_Father: {fileID: 4010681356782902}
@@ -470,14 +470,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1349837365548946}
-  m_LocalRotation: {x: 0.6398738, y: -0.000000091609984, z: -0.00000007627891, w: 0.76848}
+  m_LocalRotation: {x: 0.6360782, y: 0, z: 0, w: 0.7716246}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4772591587417560}
   m_Father: {fileID: 4709197535775016}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 79, y: 0, z: 0}
 --- !u!95 &95658854681831114
 Animator:
   serializedVersion: 3
@@ -487,10 +487,10 @@ Animator:
   m_GameObject: {fileID: 1161784018207508}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fbb3f42ab508e294eb2949a9deae3ffd, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6a93170b45d0a3a4e86cc0a29f10d828, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -506,6 +506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4500182e69a47c64baf7acce99b65d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 95658854681831114}
 --- !u!137 &137754407435667120
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -11,8 +11,11 @@ using Necromatic.Utility;
 
 public class RangedInstance : MonoBehaviour, IWeaponInstance
 {
+    [SerializeField] private Animator _animator;
     public IDisposable Attack(Weapon weaponData, IDamagable target, CharacterInstance attacker, Action onFinished = null, Action onHit = null)
     {
+        _animator.SetTrigger("Fire");
+        _animator.SetFloat("AttackSpeed", weaponData.Speed);
         var ranged = weaponData as RangedWeapon;
         var forward = (1 - weaponData.ForwardRetractRatio) / weaponData.Speed;
         var retract = weaponData.ForwardRetractRatio / weaponData.Speed;
@@ -32,6 +35,7 @@ public class RangedInstance : MonoBehaviour, IWeaponInstance
         projectile.transform.localPosition = ranged.ProjectilePosition;
         projectile.transform.localRotation = Quaternion.Euler(ranged.ProjectileRotation);
         projectile.transform.localScale = ranged.ProjectileScale;
+
         attackingDisposabe = Observable.Timer(TimeSpan.FromSeconds(forward)).Subscribe(x =>
         {
             onHit?.Invoke();

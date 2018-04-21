@@ -46,8 +46,11 @@ namespace Necromatic.Character.Weapons
             var bodyPart = collider.gameObject.GetComponent<BodyPart>();
             if(bodyPart != null)
             {
-                bodyPart.Owner.Combat.ReceiveAttack(_weaponData.BaseDamage, _sender);
-                if(bodyPart.Owner.Death.Dead.Value == true)
+                if(bodyPart.Owner.Death.Dead.Value == false)
+                {
+                    bodyPart.Owner.Combat.ReceiveAttack(_weaponData.BaseDamage, _sender);
+                }
+                if (bodyPart.Owner.Death.Dead.Value == true)
                 {
                     bodyPart.Owner.GetComponent<Ragdollifier>()?.Ragdollify(bodyPart.transform, _rb);
                 }
