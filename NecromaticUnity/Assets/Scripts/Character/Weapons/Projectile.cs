@@ -10,6 +10,7 @@ namespace Necromatic.Character.Weapons
         [SerializeField] private LayerMask _collisionMask;
         [SerializeField] private Rigidbody _rb;
         private bool _fired;
+        private bool _hit;
         private CharacterInstance _sender;
         private RangedWeapon _weaponData;
 
@@ -29,22 +30,29 @@ namespace Necromatic.Character.Weapons
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void Update()
         {
-            var closestpos = collision.collider.ClosestPointOnBounds(transform.position);
-            var normal = collision.contacts[0].normal;
-            var randomness = 4f;
-            gameObject.transform.rotation = Quaternion.Euler(normal) * 
-                Quaternion.Euler(Random.Range(-randomness, randomness), Random.Range(-randomness, randomness), Random.Range(-randomness, randomness));
+            if(_fired && !_hit)
+            {
+                transform.rotation = Quaternion.LookRotation(-1*_rb.velocity);
+            }
+        }
+
+        private void OnTriggerEnter(Collider collider)
+        {
+            _hit = true;
             Destroy(gameObject.GetComponent<Collider>());
-            gameObject.transform.position = gameObject.transform.position - gameObject.transform.forward * 0.15f;
-            gameObject.transform.SetParent(collision.gameObject.transform);
-            _rb.isKinematic = true;
-            var bodyPart = collision.collider.gameObject.GetComponent<BodyPart>();
+            gameObject.transform.SetParent(collider.gameObject.transform, true);
+            var bodyPart = collider.gameObject.GetComponent<BodyPart>();
             if(bodyPart != null)
             {
                 bodyPart.Owner.Combat.ReceiveAttack(_weaponData.BaseDamage, _sender);
+                if(bodyPart.Owner.Death.Dead.Value == true)
+                {
+                    bodyPart.Owner.GetComponent<Ragdollifier>()?.Ragdollify(bodyPart.transform, _rb);
+                }
             }
+            _rb.isKinematic = true;
         }
     }
 }

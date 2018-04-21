@@ -107,7 +107,7 @@ namespace Necromatic.Character
                         offhandScript.Use(target, this);
                     });
                 Combat.CurrentState.Value = CombatState.Attacking;
-                Observable.Timer(System.TimeSpan.FromSeconds(Combat.ForwardTime + Combat.RetractTime))
+                Observable.Timer(System.TimeSpan.FromSeconds(Combat.TotalTime))
                     .TakeUntilDestroy(this)
                     .Subscribe(x =>
                     {
@@ -130,7 +130,7 @@ namespace Necromatic.Character
                 {
                     x.CurrentState.TakeUntilDestroy(this).Subscribe(state =>
                     {
-                        var attackSpeed = 1 / (x.ForwardTime + x.RetractTime);
+                        var attackSpeed = x.CurrentWeapon.Speed;
                         _representation.SetAttackSpeed(attackSpeed);
                     });
                 }

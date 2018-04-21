@@ -18,9 +18,9 @@ namespace Necromatic.Character
     }
     public class Combat
     {
-        public float ForwardTime => 0.3f * TotalTime;
-        public float RetractTime => 0.7f * TotalTime;
-        public float TotalTime => 1;
+        public float ForwardTime => _currentWeapon.ForwardRetractRatio * TotalTime;
+        public float RetractTime => (1- _currentWeapon.ForwardRetractRatio) * TotalTime;
+        public float TotalTime => 1f/_currentWeapon.Speed;
 
         public ReactiveProperty<CombatState> CurrentState = new ReactiveProperty<CombatState>();
 

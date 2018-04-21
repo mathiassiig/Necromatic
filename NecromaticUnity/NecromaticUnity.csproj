@@ -325,6 +325,7 @@
     <Compile Include="Assets\Scripts\Character\NPC\Strategies\Results\TreeSpottedResult.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\Strategies\SearchForEnemies.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\Strategies\SearchForTrees.cs" />
+    <Compile Include="Assets\Scripts\Character\Ragdollifier.cs" />
     <Compile Include="Assets\Scripts\Character\Representation.cs" />
     <Compile Include="Assets\Scripts\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Character\Weapons\ChainOffhand.cs" />
