@@ -1,4 +1,5 @@
 ﻿using Necromatic.Character.Inventory;
+using Necromatic.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,28 +11,17 @@ namespace Necromatic.Character.Weapons
         [SerializeField] private Rigidbody _rb;
         private bool _fired;
 
-        public void Fire(Vector3 direction, RangedWeapon weaponData, CharacterInstance sender)
+        public void Fire(Transform target, Vector3 offset, RangedWeapon weaponData, CharacterInstance sender)
         {
             if (_rb != null)
             {
                 _fired = true;
                 transform.SetParent(null);
                 _rb.isKinematic = false;
-                _rb.AddForce(direction * weaponData.ProjectileForce);
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            if (_fired)
-            {
-                /*RaycastHit hit;
-                Debug.DrawLine(transform.position, _rb.velocity.normalized, Color.red, Time.fixedDeltaTime);
-                if (Physics.Raycast(transform.position, _rb.velocity.normalized, out hit, 1f, _collisionMask))
-                {
-                    Debug.Log(hit.collider.gameObject.name);
-                    Destroy(gameObject);
-                }*/
+                var dis = MathUtils.Distance(transform.position, target.position + offset);
+                var time = 0.075f + dis / 36f;
+                var velocity = MathUtils.CalculateBestThrowSpeed(transform.position, target.position + offset, time);
+                _rb.velocity = velocity;
             }
         }
 
