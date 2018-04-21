@@ -10,9 +10,13 @@ namespace Necromatic.Character.Weapons
         [SerializeField] private LayerMask _collisionMask;
         [SerializeField] private Rigidbody _rb;
         private bool _fired;
+        private CharacterInstance _sender;
+        private RangedWeapon _weaponData;
 
         public void Fire(Transform target, Vector3 offset, RangedWeapon weaponData, CharacterInstance sender)
         {
+            _weaponData = weaponData;
+            _sender = sender;
             if (_rb != null)
             {
                 _fired = true;
@@ -36,6 +40,11 @@ namespace Necromatic.Character.Weapons
             gameObject.transform.position = gameObject.transform.position - gameObject.transform.forward * 0.15f;
             gameObject.transform.SetParent(collision.gameObject.transform);
             _rb.isKinematic = true;
+            var bodyPart = collision.collider.gameObject.GetComponent<BodyPart>();
+            if(bodyPart != null)
+            {
+                bodyPart.Owner.Combat.ReceiveAttack(_weaponData.BaseDamage, _sender);
+            }
         }
     }
 }

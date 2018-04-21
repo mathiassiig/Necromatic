@@ -290,6 +290,7 @@
     <Compile Include="Assets\Scripts\Character\Abilities\ClickAbility.cs" />
     <Compile Include="Assets\Scripts\Character\Abilities\RaiseCorpse.cs" />
     <Compile Include="Assets\Scripts\Character\Abilities\Sacrifice.cs" />
+    <Compile Include="Assets\Scripts\Character\BodyPart.cs" />
     <Compile Include="Assets\Scripts\Character\Buffs\Buff.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterInstance.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterType.cs" />
