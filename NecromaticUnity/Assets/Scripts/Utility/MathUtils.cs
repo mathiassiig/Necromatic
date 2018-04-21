@@ -20,5 +20,8 @@ namespace Necromatic.Utility
             var toV = new Vector2(to.position.x, to.position.z);
             return (toV - fromV).normalized;
         }
+
+        public static Vector3 Direction(Transform from, Transform to) => (to.position - from.position).normalized;
+        public static Vector3 Direction(Vector3 from, Vector3 to) => (to - from).normalized;
     }
 }

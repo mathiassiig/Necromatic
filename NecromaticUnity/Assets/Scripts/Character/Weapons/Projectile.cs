@@ -37,6 +37,13 @@ namespace Necromatic.Character.Weapons
 
         private void OnCollisionEnter(Collision collision)
         {
+            var closestpos = collision.collider.ClosestPointOnBounds(transform.position);
+            var normal = collision.contacts[0].normal;
+            var randomness = 4f;
+            gameObject.transform.rotation = Quaternion.Euler(normal) * 
+                Quaternion.Euler(Random.Range(-randomness, randomness), Random.Range(-randomness, randomness), Random.Range(-randomness, randomness));
+            Destroy(gameObject.GetComponent<Collider>());
+            gameObject.transform.position = gameObject.transform.position - gameObject.transform.forward * 0.15f;
             gameObject.transform.SetParent(collision.gameObject.transform);
             _rb.isKinematic = true;
         }

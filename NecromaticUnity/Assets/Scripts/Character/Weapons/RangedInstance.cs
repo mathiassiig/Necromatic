@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using DG.Tweening;
+using Necromatic.Utility;
 
 public class RangedInstance : MonoBehaviour, IWeaponInstance
 {
@@ -37,7 +38,10 @@ public class RangedInstance : MonoBehaviour, IWeaponInstance
             weaponData.GameObjectInstance.transform.DOKill();
             weaponData.GameObjectInstance.transform.DOLocalMove(ranged.Position, retract / 2f);
             weaponData.GameObjectInstance.transform.DOLocalRotate(ranged.Rotation, retract / 2f);
-            projectile.Fire(attacker.Representation.transform.forward, ranged, attacker);
+            var heart = target.gameObject.transform.position;
+            heart.y = heart.y + 1f;
+            var direction = MathUtils.Direction(projectile.transform.position, heart);
+            projectile.Fire(direction, ranged, attacker);
             attackingDisposabe = Observable.Timer(TimeSpan.FromSeconds(retract)).Subscribe(y =>
             {
                 onFinished?.Invoke();
