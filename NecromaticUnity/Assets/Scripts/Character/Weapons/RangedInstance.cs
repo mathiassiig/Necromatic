@@ -14,6 +14,7 @@ public class RangedInstance : MonoBehaviour, IWeaponInstance
     [SerializeField] private Animator _animator;
     public IDisposable Attack(Weapon weaponData, IDamagable target, CharacterInstance attacker, Action onFinished = null, Action onHit = null)
     {
+        attacker.Combat.CurrentState.Value = CombatState.Aiming;
         _animator.SetTrigger("Fire");
         _animator.SetFloat("AttackSpeed", weaponData.Speed);
         var ranged = weaponData as RangedWeapon;
@@ -36,8 +37,9 @@ public class RangedInstance : MonoBehaviour, IWeaponInstance
         projectile.transform.localRotation = Quaternion.Euler(ranged.ProjectileRotation);
         projectile.transform.localScale = ranged.ProjectileScale;
 
-        attackingDisposabe = Observable.Timer(TimeSpan.FromSeconds(forward)).Subscribe(x =>
+        attackingDisposabe = Observable.Timer(TimeSpan.FromSeconds(forward)).TakeUntilDestroy(weaponData.GameObjectInstance).Subscribe(x =>
         {
+            attacker.Combat.CurrentState.Value = CombatState.Attacking;
             onHit?.Invoke();
             weaponData.GameObjectInstance.transform.DOKill();
             weaponData.GameObjectInstance.transform.DOLocalRotate(ranged.Rotation, retract / 2f, RotateMode.Fast);

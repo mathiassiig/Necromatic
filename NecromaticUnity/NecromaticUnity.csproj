@@ -297,6 +297,7 @@
     <Compile Include="Assets\Scripts\Character\Combat.cs" />
     <Compile Include="Assets\Scripts\Character\Death.cs" />
     <Compile Include="Assets\Scripts\Character\IDamagable.cs" />
+    <Compile Include="Assets\Scripts\Character\Inventory\IItemInstance.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\InventoryInstance.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\Item.cs" />
     <Compile Include="Assets\Scripts\Character\Inventory\RangedWeapon.cs" />

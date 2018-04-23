@@ -22,7 +22,7 @@ MonoBehaviour:
   Scale: {x: 0.06, y: 0.06, z: 0.06}
   UseAnimation: 2
   GameObjectInstance: {fileID: 0}
-  Speed: 0.33
+  Speed: 0.5
   BaseDamage: 15
   AttackRange: 15
   ForwardRetractRatio: 0.33

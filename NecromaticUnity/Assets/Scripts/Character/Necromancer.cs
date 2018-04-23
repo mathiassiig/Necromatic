@@ -8,9 +8,9 @@ namespace Necromatic.Character
     {
         protected override void Init()
         {
+            _death = new Death();
             var combat = new Combat(this);
             Combat = combat;
-            _death = new Death();
             FindObjectOfType<MotherPool>().AddBarToCharacter(this);
             base.Init();
         }

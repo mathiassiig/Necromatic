@@ -23,9 +23,9 @@ namespace Necromatic.Character.NPC
 
         protected override void Init()
         {
+            _death = new Death();
             var combat = new Combat(this);
             Combat = combat;
-            _death = new Death();
             base.Init();
         }
     }

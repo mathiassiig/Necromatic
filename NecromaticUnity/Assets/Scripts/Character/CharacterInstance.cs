@@ -67,10 +67,9 @@ namespace Necromatic.Character
             Init();
         }
 
-
-
         protected virtual void Init()
         {
+            _representation.Init(this);
             //InitCombat();
             Movement.Init(this);
             _health.Init(this);

@@ -14,17 +14,23 @@ namespace Necromatic.Character.Weapons
             var forward = weaponData.ForwardRetractRatio / weaponData.Speed;
             var retract = (1 - weaponData.ForwardRetractRatio) / weaponData.Speed;
             IDisposable attackingDisposabe;
+            attacker.Combat.CurrentState.Value = CombatState.Attacking;
             attacker.Representation.Animate(weaponData.UseAnimation);
             attacker.Representation.SetAttackSpeed(weaponData.Speed);
-            attackingDisposabe = Observable.Timer(TimeSpan.FromSeconds(forward)).Subscribe(x =>
-            {
-                onHit?.Invoke();
-                target.Combat.ReceiveAttack(weaponData.BaseDamage, attacker);
-                attackingDisposabe = Observable.Timer(TimeSpan.FromSeconds(retract)).Subscribe(y =>
+            attackingDisposabe = Observable
+                .Timer(TimeSpan.FromSeconds(forward))
+                .TakeWhile((x) => attacker.Combat.CurrentState.Value == CombatState.Attacking)
+                .Subscribe(x =>
                 {
-                    onFinished?.Invoke();
+                    onHit?.Invoke();
+                    target.Combat.ReceiveAttack(weaponData.BaseDamage, attacker);
+                    attackingDisposabe = Observable
+                        .Timer(TimeSpan.FromSeconds(retract))
+                        .Subscribe(y =>
+                    {
+                        onFinished?.Invoke();
+                    });
                 });
-            });
             return attackingDisposabe;
 
         }

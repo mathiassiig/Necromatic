@@ -14,13 +14,15 @@ namespace Necromatic.Character
     public enum CombatState
     {
         Idle,
-        Attacking
+        Attacking,
+        Blocking,
+        Aiming
     }
     public class Combat
     {
         public float ForwardTime => _currentWeapon.ForwardRetractRatio * TotalTime;
-        public float RetractTime => (1- _currentWeapon.ForwardRetractRatio) * TotalTime;
-        public float TotalTime => 1f/_currentWeapon.Speed;
+        public float RetractTime => (1 - _currentWeapon.ForwardRetractRatio) * TotalTime;
+        public float TotalTime => 1f / _currentWeapon.Speed;
 
         public ReactiveProperty<CombatState> CurrentState = new ReactiveProperty<CombatState>();
 
@@ -43,6 +45,27 @@ namespace Necromatic.Character
         protected IDamagable _owner;
         protected IDisposable _attackingDisposable;
         protected IDisposable _checkDeadDisposable;
+
+
+        public ReactiveProperty<List<CharacterInstance>> Attackers = new ReactiveProperty<List<CharacterInstance>>(new List<CharacterInstance>());
+
+        public void Disengage()
+        {
+            if (_lastTarget != null)
+            {
+                _lastTarget.Combat.Disengage(_ownerAttacker);
+            }
+        }
+
+        public void Disengage(CharacterInstance attacker)
+        {
+            Attackers.Value.Remove(attacker);
+        }
+
+        public void Engage(CharacterInstance attacker)
+        {
+            Attackers.Value.Add(attacker);
+        }
 
         private Weapon _currentWeapon;
         public Weapon CurrentWeapon
@@ -74,6 +97,13 @@ namespace Necromatic.Character
         public Combat(CharacterInstance owner) : this(owner as IDamagable)
         {
             _ownerAttacker = owner;
+            _ownerAttacker.Death.Dead.Subscribe(x =>
+            {
+                if (x)
+                {
+                    Disengage();
+                }
+            });
         }
 
         public void TryAttackNearest(CharacterInstance sender)
@@ -84,11 +114,6 @@ namespace Necromatic.Character
                 var nearest = enemies.FirstOrDefault(e => e.transform == GameObjectUtils.Closest(enemies.Select(x => x.transform).ToList(), sender.transform));
                 TryAttack(nearest);
             }
-        }
-
-        public void SetTarget(IDamagable c)
-        {
-            _lastTarget = c;
         }
 
         public void TryAttack(IDamagable c)
@@ -106,19 +131,28 @@ namespace Necromatic.Character
             _owner.Health.Add(-damage);
         }
 
+        public void CancelAttack()
+        {
+            _lastTarget = null;
+            _attackingDisposable?.Dispose();
+            CurrentState.Value = CombatState.Idle;
+        }
+
         protected virtual void DoAttack(IDamagable c)
         {
+            if (c != _lastTarget)
+            {
+                Disengage();
+            }
             _lastTarget = c;
-            CurrentState.Value = CombatState.Attacking;
+            c.Combat.Engage(_ownerAttacker);
             _attackingDisposable = _currentWeaponInstance.Attack(_currentWeapon, c, _ownerAttacker, () => CurrentState.Value = CombatState.Idle);
             _checkDeadDisposable?.Dispose();
             _checkDeadDisposable = c.Death.Dead.TakeUntilDestroy(c.gameObject).Subscribe(dead =>
             {
                 if (dead)
                 {
-                    _lastTarget = null;
-                    _attackingDisposable.Dispose();
-                    CurrentState.Value = CombatState.Idle;
+                    CancelAttack();
                 }
             });
 

@@ -26,9 +26,12 @@ namespace Necromatic.Character
         private Vector3 _deadScale = new Vector3(1.35f, 0.1f, 1.35f);
         private Vector3 _deadPosition = new Vector3(0, 0.05f, 0);
         private Vector3 _aliveScale = new Vector3(1, 1.8f, 0.35f);
+        private CharacterInstance _owner;
         private Vector3 _alivePosition = new Vector3(0, 0.9f, 0);
         private float _animationTime = 0.3f;
         private float _rotateSpeed = 10;
+
+        public void Init(CharacterInstance owner) => _owner = owner;
 
         public void SetAttackSpeed(float speed)
         {
@@ -59,12 +62,13 @@ namespace Necromatic.Character
             if (item != null)
             {
                 var itemMesh = item.MeshPrefab;
-                var weaponInstance = Instantiate(itemMesh);
-                weaponInstance.transform.SetParent(parentTransform);
-                weaponInstance.transform.localScale = item.Scale;
-                weaponInstance.transform.localRotation = Quaternion.Euler(item.Rotation);
-                weaponInstance.transform.localPosition = item.Position;
-                return weaponInstance;
+                var itemInstance = Instantiate(itemMesh);
+                itemInstance.GetComponent<IItemInstance>()?.Init(_owner);
+                itemInstance.transform.SetParent(parentTransform);
+                itemInstance.transform.localScale = item.Scale;
+                itemInstance.transform.localRotation = Quaternion.Euler(item.Rotation);
+                itemInstance.transform.localPosition = item.Position;
+                return itemInstance;
             }
             return null;
         }

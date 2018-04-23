@@ -18,6 +18,11 @@ namespace Necromatic.Character.Weapons
         {
             _weaponData = weaponData;
             _sender = sender;
+            var collider = GetComponent<Collider>();
+            if(collider != null)
+            {
+                collider.enabled = true;
+            }
             if (_rb != null)
             {
                 _fired = true;

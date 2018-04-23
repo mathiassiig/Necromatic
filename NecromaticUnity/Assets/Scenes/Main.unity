@@ -3731,6 +3731,16 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 0.09382668
       objectReference: {fileID: 0}
+    - target: {fileID: 114316009324131304, guid: 8894a2b52943c44068880bc498bf9c25,
+        type: 2}
+      propertyPath: _health._initialRegen
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114316009324131304, guid: 8894a2b52943c44068880bc498bf9c25,
+        type: 2}
+      propertyPath: _health._initial
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8894a2b52943c44068880bc498bf9c25, type: 2}
   m_IsPrefabParent: 0
@@ -3951,11 +3961,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114302287987851850, guid: 1e714c97dea4bd84dbd8eee9143ce3d0,
-        type: 2}
-      propertyPath: Inventory.Items.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4175062751194626, guid: 1e714c97dea4bd84dbd8eee9143ce3d0, type: 2}
       propertyPath: m_LocalPosition.x
       value: -12.6
@@ -3988,27 +3993,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 65420034793470328, guid: 1e714c97dea4bd84dbd8eee9143ce3d0,
+    - target: {fileID: 195906653990559840, guid: 1e714c97dea4bd84dbd8eee9143ce3d0,
         type: 2}
-      propertyPath: m_Enabled
+      propertyPath: m_Speed
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114302287987851850, guid: 1e714c97dea4bd84dbd8eee9143ce3d0,
-        type: 2}
-      propertyPath: _health._initial
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302287987851850, guid: 1e714c97dea4bd84dbd8eee9143ce3d0,
-        type: 2}
-      propertyPath: _health._initialRegen
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302287987851850, guid: 1e714c97dea4bd84dbd8eee9143ce3d0,
-        type: 2}
-      propertyPath: Inventory.Items.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: e85ce6f39a7fc7849a80f879a576579d,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e714c97dea4bd84dbd8eee9143ce3d0, type: 2}
   m_IsPrefabParent: 0

@@ -26,6 +26,7 @@ namespace Necromatic.Character.NPC.Strategies
             {
                 return new EnemySpottedResult(GameObjectUtils.Closest<CharacterInstance>(enemies, sender));
             }
+            sender.Combat.Disengage();
             return new NoneResult();
         }
     }

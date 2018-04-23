@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Necromatic.Character.Inventory;
 using UnityEngine;
 namespace Necromatic.Character.Weapons
 {
-    public class ChainOffhand : MonoBehaviour, IOffhand
+    public class ChainOffhand : MonoBehaviour, IOffhand, IItemInstance
     {
         [SerializeField] private LineRenderer _chainRenderer;
         [SerializeField] private Transform _chainEnd;
