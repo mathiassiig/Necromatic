@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public interface IOffhand 
+namespace Necromatic.Character.Weapons
 {
-    void Use(GameObject target, CharacterInstance sender);
+    public interface IOffhand
+    {
+        void Use(GameObject target, CharacterInstance sender);
+    }
 }

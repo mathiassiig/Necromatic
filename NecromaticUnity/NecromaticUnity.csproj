@@ -334,6 +334,7 @@
     <Compile Include="Assets\Scripts\Character\Weapons\MeleeInstance.cs" />
     <Compile Include="Assets\Scripts\Character\Weapons\Projectile.cs" />
     <Compile Include="Assets\Scripts\Character\Weapons\RangedInstance.cs" />
+    <Compile Include="Assets\Scripts\Character\Weapons\ShieldOffhand.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player\InputManager.cs" />
     <Compile Include="Assets\Scripts\Player\ResearchBank.cs" />

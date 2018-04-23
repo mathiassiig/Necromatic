@@ -7,6 +7,7 @@ using System.Linq;
 using Necromatic.Character.Abilities;
 using Necromatic.Character.NPC;
 using Necromatic.Character.Inventory;
+using Necromatic.Character.Weapons;
 
 namespace Necromatic.Character
 {

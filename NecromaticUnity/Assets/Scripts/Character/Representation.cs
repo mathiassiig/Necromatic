@@ -8,6 +8,7 @@ using UniRx;
 using System.Reflection;
 using System.Linq.Expressions;
 using System;
+using Necromatic.Utility;
 
 namespace Necromatic.Character
 {
@@ -85,6 +86,12 @@ namespace Necromatic.Character
             _animator.SetTrigger(trigger);
         }
 
+        public void AnimateBool(CharacterAnimation anim, bool value)
+        {
+            string boolean = anim.ToString();
+            _animator.SetBool(boolean, value);
+        }
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -104,6 +111,12 @@ namespace Necromatic.Character
         {
             var yRot = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
             transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0, yRot, 0), _rotateSpeed * Time.deltaTime);
+        }
+
+        public void LookAt(Transform t)
+        {
+            var direction = MathUtils.Direction(transform, t);
+            LookDirection(direction);
         }
 
         public void LookDirectionAnim(Vector2 direction, float time)

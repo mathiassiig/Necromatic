@@ -36,6 +36,8 @@ namespace Necromatic.Character.Inventory
     {
         None,
         Slash,
-        UseBow
+        UseBow,
+        Block,
+        BlockImpact
     }
 }

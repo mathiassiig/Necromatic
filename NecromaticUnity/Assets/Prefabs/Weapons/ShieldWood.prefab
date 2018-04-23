@@ -19,7 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4074865548274978}
-  m_Layer: 0
+  - component: {fileID: 65206301453730022}
+  - component: {fileID: 114847025091588218}
+  m_Layer: 14
   m_Name: ShieldWood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1264994121073508}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -11.643049, y: 1.531, z: 3.428412}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 4899045064208478}
@@ -112,3 +114,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1278932646217856}
   m_Mesh: {fileID: 4300000, guid: 1828303cf9e754075974776370aee2de, type: 3}
+--- !u!65 &65206301453730022
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264994121073508}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.45, y: 2.8, z: 0.41}
+  m_Center: {x: 0, y: -0.58, z: 0}
+--- !u!114 &114847025091588218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264994121073508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dfe5242b7cf7e445923f4140e6fb7e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlockingPosition: {x: 0.056, y: -0.028, z: 0.081}
+  BlockingRotation: {x: 27.394, y: 84.104, z: 81.232}
