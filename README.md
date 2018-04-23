@@ -5,7 +5,7 @@ A game built in Unity. The intends to be topdown RTS/RPG-style, inspired by Dwar
 ## Gameplay
 You will play as a necromancer whose ultimate goal is to conquer the world.
 
-![alt text](https://github.com/mathiassiig/Necromatic/blob/master/History/images/2018-03-13.gif "")
+![alt text](https://files.facepunch.com/forum/upload/132317/2a13c844-9bc3-4682-a658-33fbe0aae09f/2018-04-21_11-13-34.gif "")
 
 ## Features
 
