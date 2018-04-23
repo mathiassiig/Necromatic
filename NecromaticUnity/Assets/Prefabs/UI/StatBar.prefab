@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224474843587631990}
   - component: {fileID: 222124700328065662}
   - component: {fileID: 114880711799085094}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 224326328797358764}
   - component: {fileID: 223606454663398876}
   - component: {fileID: 114610760165302722}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: StatBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
