@@ -23,7 +23,7 @@ public class RangedInstance : MonoBehaviour, IWeaponInstance
         attacker.Representation.Animate(weaponData.UseAnimation);
         attacker.Representation.SetAttackSpeed(weaponData.Speed);
         weaponData.GameObjectInstance.transform.DOKill();
-        weaponData.GameObjectInstance.transform.DOLocalRotate(ranged.FiringRotation, forward / 2f);
+        weaponData.GameObjectInstance.transform.DOLocalRotate(ranged.FiringRotation, forward / 2f, RotateMode.Fast);
         weaponData.GameObjectInstance.transform.DOLocalMove(ranged.FiringPosition, forward / 2f);
         var projectile = Instantiate(ranged.ProjectilePrefab);
         projectile.gameObject.SetActive(false);
@@ -40,8 +40,8 @@ public class RangedInstance : MonoBehaviour, IWeaponInstance
         {
             onHit?.Invoke();
             weaponData.GameObjectInstance.transform.DOKill();
+            weaponData.GameObjectInstance.transform.DOLocalRotate(ranged.Rotation, retract / 2f, RotateMode.Fast);
             weaponData.GameObjectInstance.transform.DOLocalMove(ranged.Position, retract / 2f);
-            weaponData.GameObjectInstance.transform.DOLocalRotate(ranged.Rotation, retract / 2f);
             projectile.Fire(target.gameObject.transform, new Vector3(0, 1f, 0), ranged, attacker);
             attackingDisposabe = Observable.Timer(TimeSpan.FromSeconds(retract)).Subscribe(y =>
             {

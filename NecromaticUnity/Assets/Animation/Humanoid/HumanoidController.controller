@@ -348,7 +348,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: UseBow
-  m_Speed: 1
+  m_Speed: 4.76
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101966443185171084}
@@ -361,7 +361,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 626e47d558519bd45bf12d112f38bef5, type: 2}
+  m_Motion: {fileID: 7400000, guid: da0fa02603862e1439e9d000e4257e15, type: 2}
   m_Tag: 
   m_SpeedParameter: AttackSpeed
   m_MirrorParameter: 
