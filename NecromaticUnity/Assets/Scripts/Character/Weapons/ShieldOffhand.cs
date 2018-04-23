@@ -21,12 +21,13 @@ namespace Necromatic.Character.Weapons
             _startPosition = transform.localPosition;
             _startRotation = transform.localRotation.eulerAngles;
 
-            /*var enemy = FindObjectsOfType<CharacterInstance>().FirstOrDefault(x => x.Faction == Faction.Undead);
+            var enemy = FindObjectsOfType<CharacterInstance>().FirstOrDefault(x => x.Faction == Faction.Undead);
             var me = FindObjectsOfType<CharacterInstance>().FirstOrDefault(x => x.Faction == Faction.Human);
             Observable.Timer(System.TimeSpan.FromSeconds(1), System.TimeSpan.FromSeconds(1)).Subscribe(x =>
             {
-                Use(_blocking ? null : enemy.gameObject, me);
-            });*/
+                Use(_blocking ? enemy.gameObject : enemy.gameObject, me);
+            });
+
         }
 
         public void Use(GameObject target, CharacterInstance sender)

@@ -14,7 +14,7 @@ namespace Necromatic.Character.Weapons
         private CharacterInstance _sender;
         private RangedWeapon _weaponData;
 
-        public void Fire(Transform target, Vector3 offset, RangedWeapon weaponData, CharacterInstance sender)
+        public void Fire(Transform target, Vector3 offset, RangedWeapon weaponData, CharacterInstance sender, float drift = 0)
         {
             _weaponData = weaponData;
             _sender = sender;
@@ -26,6 +26,9 @@ namespace Necromatic.Character.Weapons
                 var dis = MathUtils.Distance(transform.position, target.position + offset);
                 var time = 0.075f + dis / 36f;
                 var velocity = MathUtils.CalculateBestThrowSpeed(transform.position, target.position + offset, time);
+                velocity = Quaternion.AngleAxis(Random.Range(-drift, drift), Vector3.forward) *
+                    Quaternion.AngleAxis(Random.Range(-drift, drift), Vector3.left) *
+                    Quaternion.AngleAxis(Random.Range(-drift, drift), Vector3.up) * velocity;
                 _rb.velocity = velocity;
             }
         }

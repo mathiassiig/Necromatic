@@ -42,7 +42,7 @@ public class RangedInstance : MonoBehaviour, IWeaponInstance
             weaponData.GameObjectInstance.transform.DOKill();
             weaponData.GameObjectInstance.transform.DOLocalRotate(ranged.Rotation, retract / 2f, RotateMode.Fast);
             weaponData.GameObjectInstance.transform.DOLocalMove(ranged.Position, retract / 2f);
-            projectile.Fire(target.gameObject.transform, new Vector3(0, 1f, 0), ranged, attacker);
+            projectile.Fire(target.gameObject.transform, new Vector3(0, 1f, 0), ranged, attacker, 1);
             attackingDisposabe = Observable.Timer(TimeSpan.FromSeconds(retract)).Subscribe(y =>
             {
                 onFinished?.Invoke();
