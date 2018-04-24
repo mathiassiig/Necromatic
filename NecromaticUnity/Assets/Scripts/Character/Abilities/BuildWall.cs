@@ -11,7 +11,7 @@ namespace Necromatic.Character.Abilities
     {
         private Vector3? _firstPoint;
         private Vector3? _secondPoint;
-        private Wall _wallScript;
+        private WallOld _wallScript;
 
         protected override void HandleHitObject(RaycastHit objectHit)
         {
@@ -26,7 +26,7 @@ namespace Necromatic.Character.Abilities
                 _firstPoint = nearestGridPosWorldPos;
 
                 var wall = new GameObject();
-                _wallScript = wall.AddComponent<Wall>();
+                _wallScript = wall.AddComponent<WallOld>();
                 var filter = wall.AddComponent<MeshFilter>();
                 _wallScript.Filter = filter;
                 var meshRenderer = wall.AddComponent<MeshRenderer>();

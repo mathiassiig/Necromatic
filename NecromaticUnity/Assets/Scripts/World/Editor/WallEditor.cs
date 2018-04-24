@@ -7,7 +7,7 @@ namespace Necromatic.World
 {
 
 
-    [CustomEditor(typeof(Wall))]
+    [CustomEditor(typeof(WallOld))]
     public class WallEditor : Editor
     {
         void OnSceneGUI()

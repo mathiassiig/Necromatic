@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Necromatic.World
 {
-    public class Wall : MonoBehaviour
+    public class WallOld : MonoBehaviour
     {
         private Vector3 _upperLeft;
         private Vector3 _lowerRight;
