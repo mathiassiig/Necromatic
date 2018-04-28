@@ -9,22 +9,28 @@ using UnityEngine.Events;
 
 namespace Necromatic.UI
 {
+    [ExecuteInEditMode]
     public class HotKeyButton : MonoBehaviour
     {
         [SerializeField] private string _title;
         [SerializeField] private KeyCode _key;
         [SerializeField] private TextMeshProUGUI _text;
-        [SerializeField] FontStyles _hotKeyStyle;
+        [SerializeField] Color _hotKeyStyle;
         [SerializeField] private Button _button;
 
-        private void Awake()
+        private void OnEnable()
+        {
+            SetTitle();
+        }
+
+        private void OnValidate()
         {
             SetTitle();
         }
 
         private void Update()
         {
-            if(Input.GetKeyDown(_key))
+            if(Application.isPlaying && Input.GetKeyDown(_key) && _button.interactable)
             {
                 _button.onClick.Invoke();
             }
@@ -40,35 +46,31 @@ namespace Necromatic.UI
         {
             var keyChar = _key.ToString();
             bool isAlphaBet = Regex.IsMatch(keyChar, "[a-z]", RegexOptions.IgnoreCase);
-            string hotkeyrt = HotKeyStyleRichText();
-            if (isAlphaBet && hotkeyrt != null)
+            var titleStyled = _title;
+            if (isAlphaBet)
             {
                 var lowerCase = keyChar.ToLower();
                 if (_title.Contains(keyChar) || _title.Contains(lowerCase))
                 {
                     var characters = new char[] { lowerCase[0], keyChar[0] };
                     var first = _title.IndexOfAny(characters);
-                    var before = $"<{hotkeyrt}>";
-                    _title = _title.Insert(first, before);
-                    var after = $"</{hotkeyrt}>";
-                    _title = _title.Insert(first + 1 + before.Length, after);
+                    var before = $"<{HotKeyRichTextBegin()}>";
+                    titleStyled = titleStyled.Insert(first, before);
+                    var after = $"</{HotKeyRichTextEnd()}>";
+                    titleStyled = titleStyled.Insert(first + 1 + before.Length, after);
                 }
             }
-            _text.text = _title;
+            _text.text = titleStyled;
         }
 
-        string HotKeyStyleRichText()
+        string HotKeyRichTextBegin()
         {
-            switch(_hotKeyStyle)
-            {
-                case FontStyles.Bold:
-                    return "b";
-                case FontStyles.Underline:
-                    return "u";
-                case FontStyles.Italic:
-                    return "i";
-            }
-            return null;
+            return "color=#"+ColorUtility.ToHtmlStringRGBA(_hotKeyStyle);
+        }
+
+        string HotKeyRichTextEnd()
+        {
+            return "color";
         }
 
     }
