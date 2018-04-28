@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Necromatic.Character.Inventory
 {
 
-    [CreateAssetMenu(fileName = "NewItem", menuName = "Items/RangedWeapon")]
+    [CreateAssetMenu(fileName = "NewItem", menuName = "Necromatic/Items/RangedWeapon")]
     public class RangedWeapon : Weapon
     {
         public Vector3 FiringPosition;

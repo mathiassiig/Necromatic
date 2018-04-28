@@ -21,9 +21,10 @@ namespace Necromatic.World.Buildings
         private bool _ghosting = false;
         private bool _snapped = false;
 
-        void Start()
+        public void StopBuilding()
         {
-            Ghost();
+            Destroy(_clone);
+            Destroy(gameObject);
         }
 
         public void Ghost()

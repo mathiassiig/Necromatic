@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Necromatic.Character.Inventory
 {
-    [CreateAssetMenu(fileName = "NewItem", menuName = "Items/Weapon")]
+    [CreateAssetMenu(fileName = "NewItem", menuName = "Necromatic/Items/Weapon")]
     public class Weapon : Item
     {
         public float Speed = 1;

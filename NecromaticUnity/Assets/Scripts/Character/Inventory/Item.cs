@@ -16,7 +16,7 @@ namespace Necromatic.Character.Inventory
         Chain
     }
 
-    [CreateAssetMenu(fileName ="NewItem", menuName ="Items/Item")]
+    [CreateAssetMenu(fileName ="NewItem", menuName ="Necromatic/Items/Item")]
     public class Item : ScriptableObject
     {
         public string Name;

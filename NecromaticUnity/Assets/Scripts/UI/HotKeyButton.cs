@@ -18,6 +18,12 @@ namespace Necromatic.UI
         [SerializeField] Color _hotKeyStyle;
         [SerializeField] private Button _button;
 
+        public void Init(BuildHotKey h)
+        {
+            _title = h.Name;
+            _key = h.HotKey;
+        }
+
         private void OnEnable()
         {
             SetTitle();
