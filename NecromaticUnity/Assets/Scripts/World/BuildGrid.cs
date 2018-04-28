@@ -8,13 +8,14 @@ namespace Necromatic.World
     {
         private Grid _grid;
         public Grid Grid => _grid;
+        public static Vector3 SIZE = new Vector3(1, 1, 1);
 
         private Dictionary<Vector3Int, IBuilding> _takenCells = new Dictionary<Vector3Int, IBuilding>();
 
         private void Awake()
         {
             _grid = gameObject.AddComponent<Grid>();
-            _grid.cellSwizzle = GridLayout.CellSwizzle.XZY;
+            _grid.cellSize = SIZE;
         }
 
         public void Free(Vector3Int position)

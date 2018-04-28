@@ -6,8 +6,8 @@ namespace Necromatic.World.Buildings
     public interface IBuilding
     {
         void Ghost();
-        void TakeSpot(Vector3Int cellPosition);
-        Vector3Int ReleaseSpot();
+        bool Snap();
+        ICollection<Vector3Int> ReleaseSpot();
 
     }
 }
