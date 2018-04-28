@@ -348,6 +348,10 @@ Prefab:
       propertyPath: m_Color.a
       value: 0.5019608
       objectReference: {fileID: 0}
+    - target: {fileID: 1607988058780308, guid: 9d962d659b9ca1d47a4e731982756dbe, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114952740212614436, guid: 9d962d659b9ca1d47a4e731982756dbe, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 9d962d659b9ca1d47a4e731982756dbe, type: 2}
@@ -499,7 +503,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: -64, y: -64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1032268762
 MonoBehaviour:
@@ -520,7 +524,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: <u>P</u>alisade
+  m_text: <color=#FFFF00FF>p</color>alisade
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
@@ -547,14 +551,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 38
+  m_fontSize: 35.25
   m_fontSizeBase: 38
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 17
-  m_textAlignment: 514
+  m_textAlignment: 4098
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 4
   m_wordSpacing: 0
@@ -600,7 +604,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 0
+  m_inputSource: 3
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -768,7 +772,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -782,7 +786,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1057843529}
+  m_TargetGraphic: {fileID: 1574446767}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -832,10 +836,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a240dc7a934b9df45a2963d5dd5e20da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _title: Palisade
+  _title: palisade
   _key: 112
   _text: {fileID: 1032268762}
-  _hotKeyStyle: 4
+  _hotKeyStyle: {r: 1, g: 1, b: 0, a: 1}
   _button: {fileID: 1057843528}
 --- !u!1 &1160439238
 GameObject:
