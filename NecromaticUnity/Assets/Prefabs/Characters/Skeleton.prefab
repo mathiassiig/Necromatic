@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 114316009324131304}
   - component: {fileID: 195498682046913398}
   - component: {fileID: 114100606645869588}
+  - component: {fileID: 114993920447464506}
   m_Layer: 8
   m_Name: Skeleton
   m_TagString: Untagged
@@ -825,7 +826,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404385009788348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.64, y: 0, z: 5.87}
+  m_LocalPosition: {x: -7.64, y: 0, z: 1.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4172208353990876}
@@ -1129,8 +1130,7 @@ MonoBehaviour:
   _faction: 0
   _movement: {fileID: 114359856708535636}
   Inventory:
-    Items:
-    - {fileID: 0}
+    Items: []
   _representation: {fileID: 114651624499081384}
   _health:
     _initialRegen: 0.1
@@ -1177,6 +1177,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7f9de1e23724062892f6e67bc68075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114993920447464506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404385009788348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1897ad9040a062244a301695ae20c8d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 95157754505628882}
+  _ragdollParts:
+  - {fileID: 4260089768101338}
+  - {fileID: 4987595685296152}
+  - {fileID: 4185857613596500}
+  - {fileID: 4060054839877590}
+  - {fileID: 4422712281586994}
+  - {fileID: 4858533729391278}
+  - {fileID: 4905560905263558}
+  - {fileID: 4148013838962494}
+  - {fileID: 4490582771116244}
+  - {fileID: 4430522908781574}
+  - {fileID: 4805366356839270}
 --- !u!137 &137294182700006062
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
