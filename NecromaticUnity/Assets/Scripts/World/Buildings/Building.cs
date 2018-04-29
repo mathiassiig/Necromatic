@@ -21,6 +21,7 @@ namespace Necromatic.World.Buildings
         public int SizeZ;
         private Vector3 _offset;
         public Vector3 Offset => _offset;
+        private NavMeshObstacle _obstacle;
         private List<MeshRenderer> _renderers;
         private GameObject _clone;
         private List<MeshRenderer> _cloneRenderers;
@@ -141,6 +142,9 @@ namespace Necromatic.World.Buildings
                 {
                     Gizmos.DrawCube(b + _clone.transform.position + new Vector3(0.5f, 0, 0.5f), new Vector3(1, 0.1f, 1));
                 }
+                Gizmos.color = new Color(0, 1, 1, 0.5f);
+                Gizmos.DrawCube(_clone.transform.position - _offset + new Vector3(0, _obstacle.size.y/2f, 0), 
+                    new Vector3(Mathf.Abs(_offset.x)*2, _obstacle.size.y, Mathf.Abs(_offset.z)*2));
             }
         }
 
@@ -148,6 +152,11 @@ namespace Necromatic.World.Buildings
         {
             _ghostMaterial = Resources.Load<Material>("Materials/World/Ghost");
             _ghosting = true;
+            _obstacle = GetComponent<NavMeshObstacle>();
+            if(_obstacle != null)
+            {
+                _obstacle.enabled = false;
+            }
 
             _clone = Instantiate(gameObject);
             var buildingScript = _clone.GetComponent<IBuilding>();
@@ -183,10 +192,10 @@ namespace Necromatic.World.Buildings
                 gameObject.transform.position = _clone.transform.position;
                 gameObject.transform.rotation = _clone.transform.rotation;
                 TakeSpot();
-                var obstacle = GetComponent<NavMeshObstacle>();
-                if (obstacle != null)
+                if (_obstacle != null)
                 {
-                    obstacle.carving = true;
+                    _obstacle.enabled = true;
+                    _obstacle.carving = true;
                 }
                 return true;
             }
@@ -218,6 +227,15 @@ namespace Necromatic.World.Buildings
         bool CanTake()
         {
             var pos = _clone.transform.position;
+            if(_obstacle != null)
+            {
+                var colliders = Physics.OverlapBox(_clone.transform.position - _offset + new Vector3(0, _obstacle.size.y / 2f + 0.1f, 0),
+                    new Vector3(Mathf.Abs(_offset.x), _obstacle.size.y/2f, Mathf.Abs(_offset.z)));
+                if(colliders.Length > 0)
+                {
+                    return false;
+                }
+            }
             foreach (var p in _cellPositionsLocal)
             {
                 var nearestWorld = p + _clone.transform.position;

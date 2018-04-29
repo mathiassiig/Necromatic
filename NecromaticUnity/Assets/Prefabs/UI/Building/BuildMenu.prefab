@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 224201998058269144}
   - component: {fileID: 222995615376075892}
   - component: {fileID: 114860001776071556}
+  - component: {fileID: 114308196540902400}
   m_Layer: 5
   m_Name: BuildMenu
   m_TagString: Untagged
@@ -43,6 +44,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114308196540902400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1607988058780308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb64b18cd07e5e4cad49ee546be29d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114860001776071556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -55,9 +67,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuItems: {fileID: 224697581497787434}
-  _hotKeys: []
+  _hotKeys:
+  - {fileID: 11400000, guid: bf9982eb315cbbf42a3b601aca31da0c, type: 2}
   _hotkeyPrefab: {fileID: 114762033443268876, guid: 2ae43fd8b8187f34a9f337f36b4cb657,
     type: 2}
+  _buildInterface: {fileID: 114308196540902400}
 --- !u!222 &222995615376075892
 CanvasRenderer:
   m_ObjectHideFlags: 1
