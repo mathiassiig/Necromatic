@@ -11,9 +11,33 @@ namespace Necromatic.Character
         public void Ragdollify()
         {
             _animator.enabled = false;
-            foreach(var v in _ragdollParts)
+            DropHands();
+            foreach (var v in _ragdollParts)
             {
                 v.isKinematic = false;
+            }
+        }
+
+        private void DropHands()
+        {
+            var charr = GetComponent<CharacterInstance>();
+            if(charr != null)
+            {
+                Drop(charr.Inventory.WeaponSlot.Value.GameObjectInstance);
+                Drop(charr.Inventory.OffhandSlot.Value.GameObjectInstance);
+
+            }
+        }
+
+        private void Drop(GameObject g)
+        {
+            if (g != null)
+            {
+                var rb = g.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.isKinematic = false;
+                }
             }
         }
 

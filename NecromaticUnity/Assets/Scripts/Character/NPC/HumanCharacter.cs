@@ -35,12 +35,13 @@ namespace Necromatic.Character.NPC
             var motherpool = FindObjectOfType<MotherPool>();
             var undeadPrefab = motherpool.GetCharacterPrefab(_undeadToRaise);
             var undead = Instantiate(undeadPrefab, _pelvis.position, Quaternion.identity);
-            var ai = undead.GetComponent<ArtificialIntelligence>();
-            ai.SetBrainState(false);
+            Inventory.UnequipAll();
+            undead.Inventory = Inventory;
+            undead.AI.SetBrainState(false);
             //var player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterInstance>();
             undead.Representation.ReviveAnimation(() =>
             {
-                ai.SetBrainState(true);
+                undead.AI.SetBrainState(true);
                 //undead.Representation.LookDirectionAnim(MathUtils.PlaneDirection(undead.transform, player.transform), 0.3f);
             });
             Destroy(gameObject);

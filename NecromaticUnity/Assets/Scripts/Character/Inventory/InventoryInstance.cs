@@ -25,17 +25,12 @@ namespace Necromatic.Character.Inventory
         public void Init(Representation representation)
         {
             _representation = representation;
-            /*WeaponSlot.Subscribe(x =>
-            {
-                if (x == null)
-                {
-                    _representation.SetItem(null, ItemSlotLocation.Weapon);
-                }
-            });
-            OffhandSlot.Subscribe(x =>
-            {
+        }
 
-            });*/
+        public void UnequipAll()
+        {
+            Equip(null, ItemSlotLocation.Weapon);
+            Equip(null, ItemSlotLocation.Offhand);
         }
 
         public List<ReactiveProperty<Item>> Equippables

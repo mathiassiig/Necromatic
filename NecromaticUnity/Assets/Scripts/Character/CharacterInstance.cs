@@ -62,7 +62,7 @@ namespace Necromatic.Character
             _buffs.Add(buff);
         }
 
-        void Awake()
+        void Start()
         {
             Init();
         }
