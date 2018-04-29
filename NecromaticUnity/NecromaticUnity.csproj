@@ -286,7 +286,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Character\Abilities\Ability.cs" />
-    <Compile Include="Assets\Scripts\Character\Abilities\BuildWall.cs" />
     <Compile Include="Assets\Scripts\Character\Abilities\ClickAbility.cs" />
     <Compile Include="Assets\Scripts\Character\Abilities\RaiseCorpse.cs" />
     <Compile Include="Assets\Scripts\Character\Abilities\Sacrifice.cs" />
@@ -368,9 +367,7 @@
     <Compile Include="Assets\Scripts\World\Grave.cs" />
     <Compile Include="Assets\Scripts\World\IClickReceiver.cs" />
     <Compile Include="Assets\Scripts\World\Log.cs" />
-    <Compile Include="Assets\Scripts\World\NavigationMesh.cs" />
     <Compile Include="Assets\Scripts\World\Tree.cs" />
-    <Compile Include="Assets\Scripts\World\WallOld.cs" />
     <Compile Include="Assets\Scripts\World\WorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
