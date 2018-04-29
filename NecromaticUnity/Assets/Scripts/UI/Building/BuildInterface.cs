@@ -27,14 +27,16 @@ namespace Necromatic.UI
                 return;
             }
             var pos = GameObjectUtils.GetGroundPosition(Input.mousePosition);
-            _currentBuilding.transform.position = pos.Value;
+            if(pos.HasValue)
+            {
+                _currentBuilding.transform.position = pos.Value + _currentBuilding.Offset;
+            }
         }
 
         private void Update()
         {
             if(_currentBuilding != null)
             {
-                SetPosition();
                 if (Input.GetButtonDown("Fire1"))
                 {
                     bool built = _currentBuilding.Snap();
@@ -43,10 +45,15 @@ namespace Necromatic.UI
                         _currentBuilding = null;
                     }
                 }
+                else if(Input.GetKeyDown(KeyCode.R))
+                {
+                    _currentBuilding.Rotate();
+                }
                 else if(Input.GetKeyDown(KeyCode.Escape))
                 {
                     _currentBuilding.StopBuilding();
                 }
+                SetPosition();
             }
         }
     }

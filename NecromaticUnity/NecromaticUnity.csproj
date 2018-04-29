@@ -339,9 +339,13 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player\InputManager.cs" />
     <Compile Include="Assets\Scripts\Player\ResearchBank.cs" />
+    <Compile Include="Assets\Scripts\UI\Building\BuildHotKey.cs" />
+    <Compile Include="Assets\Scripts\UI\Building\BuildInterface.cs" />
+    <Compile Include="Assets\Scripts\UI\Building\BuildMenu.cs" />
     <Compile Include="Assets\Scripts\UI\CameraController.cs" />
     <Compile Include="Assets\Scripts\UI\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\UI\HotBar.cs" />
+    <Compile Include="Assets\Scripts\UI\HotKeyButton.cs" />
     <Compile Include="Assets\Scripts\UI\InventoryUI.cs" />
     <Compile Include="Assets\Scripts\UI\ItemUI.cs" />
     <Compile Include="Assets\Scripts\UI\Research\AbilityUI.cs" />
@@ -355,9 +359,9 @@
     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utility\TransformExtensions.cs" />
     <Compile Include="Assets\Scripts\World\BuildGrid.cs" />
+    <Compile Include="Assets\Scripts\World\Buildings\Building.cs" />
     <Compile Include="Assets\Scripts\World\Buildings\IBuilding.cs" />
     <Compile Include="Assets\Scripts\World\Buildings\TimberDropoff.cs" />
-    <Compile Include="Assets\Scripts\World\Buildings\Wall.cs" />
     <Compile Include="Assets\Scripts\World\ChunkMesh.cs" />
     <Compile Include="Assets\Scripts\World\DayNightManager.cs" />
     <Compile Include="Assets\Scripts\World\EnemyManager.cs" />
