@@ -24,6 +24,10 @@ namespace Necromatic.Character.Weapons
                 {
                     onHit?.Invoke();
                     target.Combat.ReceiveAttack(weaponData.BaseDamage, attacker);
+                    if (target.Death.Dead.Value)
+                    {
+                        target.gameObject.GetComponent<Ragdollifier>().Ragdollify();
+                    }
                     attackingDisposabe = Observable
                         .Timer(TimeSpan.FromSeconds(retract))
                         .Subscribe(y =>

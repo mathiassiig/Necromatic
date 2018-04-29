@@ -86,7 +86,6 @@ namespace Necromatic.Player
             }
             _doAttack = Input.GetButton("Attack");
             _moveDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            //_doAbility = Input.GetButtonDown("Fire2");
         }
 
         void ToggleInventory()
@@ -96,7 +95,7 @@ namespace Necromatic.Player
 
         void RaycastCommands()
         {
-            var mask = LayerMask.GetMask(NecromaticLayers.TREE, NecromaticLayers.CHARACTER);
+            var mask = LayerMask.GetMask(NecromaticLayers.TREE, NecromaticLayers.CHARACTER, NecromaticLayers.CORPSE);
             var clickable = GameObjectUtils.RayGetComponent<IClickReceiver>(Input.mousePosition, mask);
             if (clickable != null)
             {
@@ -109,10 +108,13 @@ namespace Necromatic.Player
                 {
                     var sr = new MoveResult(movementTarget.Value, 0.25f);
                     sr.Priority = 100;
-                    foreach (var character in _squareSelect.SelectedUnits.Value)
+                    if(_squareSelect.SelectedUnits.Value != null && _squareSelect.SelectedUnits.Value.Count > 0)
                     {
-                        character.AI.SetPrimaryStrategy(new SearchForEnemies());
-                        character.AI.AddTask(sr);
+                        foreach (var character in _squareSelect.SelectedUnits.Value)
+                        {
+                            character.AI.SetPrimaryStrategy(new SearchForEnemies());
+                            character.AI.AddTask(sr);
+                        }
                     }
                 }
             }

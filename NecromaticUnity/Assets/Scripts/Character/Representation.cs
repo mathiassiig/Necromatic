@@ -131,31 +131,12 @@ namespace Necromatic.Character
 
         public void DeathAnimation()
         {
-            foreach (Transform c in transform)
-            {
-                c.gameObject.SetActive(false);
-            }
-            transform.DOScale(_deadScale, _animationTime).SetEase(Ease.OutExpo);
-            transform.DOLocalMove(_deadPosition, _animationTime).SetEase(Ease.OutExpo);
+
         }
 
         public void ReviveAnimation(UnityAction onAnimComplete)
         {
-            foreach (Transform c in transform)
-            {
-                c.gameObject.SetActive(false);
-            }
-            transform.localScale = _deadScale;
-            transform.localPosition = _deadPosition;
-            transform.DOScale(_aliveScale, _animationTime).SetEase(Ease.InExpo).OnComplete(() =>
-            {
-                foreach (Transform c in transform)
-                {
-                    c.gameObject.SetActive(true);
-                }
-                onAnimComplete();
-            });
-            transform.DOLocalMove(_alivePosition, _animationTime).SetEase(Ease.InExpo);
+            onAnimComplete();
         }
     }
 }

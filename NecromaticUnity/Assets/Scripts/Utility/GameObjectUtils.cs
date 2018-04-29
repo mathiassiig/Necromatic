@@ -11,6 +11,7 @@ namespace Necromatic.Utility
         public static string DEFAULT = "Default";
         public static string TREE = "Tree";
         public static string CHARACTER = "Character";
+        public static string CORPSE = "Corpse";
     }
     public static class GameObjectUtils
     {
