@@ -70,7 +70,6 @@ namespace Necromatic.Character
         protected virtual void Init()
         {
             _representation.Init(this);
-            //InitCombat();
             Movement.Init(this);
             _health.Init(this);
             _health.Current.Subscribe(value =>
@@ -135,11 +134,6 @@ namespace Necromatic.Character
                     });
                 }
             });
-        }
-
-        public void AttackNearest()
-        {
-            Combat.TryAttackNearest(this);
         }
 
     }

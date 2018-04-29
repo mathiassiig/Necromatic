@@ -130,7 +130,7 @@ namespace Necromatic.Player
             if (_doAttack)
             {
                 _doAttack = false;
-                _character.AttackNearest();
+                _character.Combat.TryAttackNearest(_character);
             }
             if (_doAbility)
             {
