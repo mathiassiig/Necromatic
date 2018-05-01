@@ -17,6 +17,7 @@ namespace Necromatic.World.Buildings
     }
     public class Building : MonoBehaviour, IBuilding
     {
+        [SerializeField] private bool _renderBuildingGrid;
         public int SizeX;
         public int SizeZ;
         private Vector3 _offset;
@@ -135,6 +136,16 @@ namespace Necromatic.World.Buildings
 
         void OnDrawGizmos()
         {
+            if(_renderBuildingGrid)
+            {
+                for (int x = 0; x < SizeX; x++)
+                {
+                    for (int z = 0; z < SizeZ; z++)
+                    {
+                        Gizmos.DrawWireCube(transform.position + new Vector3(x + 0.5f, 0, z + 0.5f), new Vector3(1, 0.1f, 1));
+                    }
+                }
+            }
             if (_cellPositionsLocal != null && _clone != null)
             {
                 Gizmos.color = new Color(1, 1, 0, 0.88f);

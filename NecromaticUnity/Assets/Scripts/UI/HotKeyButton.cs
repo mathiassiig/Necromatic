@@ -17,11 +17,14 @@ namespace Necromatic.UI
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] Color _hotKeyStyle;
         [SerializeField] private Button _button;
+        [SerializeField] private Image _icon;
 
         public void Init(BuildHotKey h)
         {
             _title = h.Name;
             _key = h.HotKey;
+            _icon.sprite = h.Icon;
+            SetTitle();
         }
 
         private void OnEnable()
