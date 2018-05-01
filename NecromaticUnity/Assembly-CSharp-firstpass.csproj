@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2017_4_0;UNITY_2017_4;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2017_4_0;UNITY_2017_4;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;UNITY_POST_PROCESSING_STACK_V2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -335,31 +335,166 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\YieldInstructionCache.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityWinRTBridge\Thread.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityWinRTBridge\ThreadPoolScheduler_UnityWinRT.cs" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_Dt.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\FinalPass.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Debug\Waveform.compute" />
      <None Include="Assets\Plugins\Demigiant\DOTween\readme.txt" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\Uber.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\Texture3DLerp.compute" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D_ST.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D_S_ST.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N_ST.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\CopyStd.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\Bloom.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Mobile\SFS_M_NS.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N_S_D.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_TeA_Nt.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N_D.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N_S_ST.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N__S.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D_S.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\xRLib.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_Dt_S.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D_S_DS.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_Te_Dt.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N_S_S.shader" />
      <None Include="Assets\Plugins\Demigiant\DOTween\DOTween50.xml" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\MultiScaleVOUpsample.compute" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D_S_DS.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_Nt.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\API\PSSL.hlsl" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_TeA_St.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Debug\Vectorscope.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\GaussianDownsample.compute" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D_T.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D_ST.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_Te_S.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\ScreenSpaceReflections.hlsl" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N__S.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\DepthOfField.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\DiscardAlpha.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\Lut3DBaker.compute" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D__S.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\Dithering.hlsl" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Colors.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_Nt_S.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N_T.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N_S.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\API\Vulkan.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N_S_DS.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D_S_D.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\GrainBaker.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\ExposureHistogram.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N_ST.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Debug\LightMeter.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Mobile\SFS_M_DS.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\API\D3D12.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_TeA_D.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\API\OpenGL.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Mobile\SFS_M_D.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\DiskKernels.hlsl" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\MultiScaleVODownsample2.compute" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\ScalableAO.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N_DS.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\ACES.hlsl" />
      <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald Bold - OFL.txt" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Mobile\SFS_M_N.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\MultiScaleVODownsample1.compute" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\StdLib.hlsl" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\MultiScaleVO.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\DepthOfField.hlsl" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_TeA_S.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\NotoSans - License.txt" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D_S.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\FastApproximateAntialiasing.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N_S_S.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\Fog.hlsl" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\MultiScaleVORender.compute" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D_S_ST.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_Te_N.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N_S_T.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\ScalableAO.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N_S_T.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\SubpixelMorphologicalAntialiasing.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_Te_Nt.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\MotionBlur.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\SubpixelMorphologicalAntialiasing.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\Texture2DLerp.shader" />
      <None Include="Assets\Plugins\Demigiant\DOTween\DOTween43.xml" />
      <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\DeferredFog.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N_DS.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Mobile\SFS_M_DI.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D_D.shader" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D_S_T.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N_D.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Mobile\SFS_M_DSI.shader" />
      <None Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D_S_D.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D__S.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N_S.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\API\D3D9.hlsl" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\Lut2DBaker.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N_S_DS.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\AutoExposure.compute" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Mobile\SFS_M_NSI.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Debug\Overlays.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N_T.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\API\Metal.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_TeA_Dt.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\Distortion.hlsl" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Debug\Vectorscope.compute" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\TemporalAntialiasing.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\SubpixelMorphologicalAntialiasingBridge.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_TeA_N.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\ScreenSpaceReflections.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Mobile\SFS_M_NI.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D_S_T.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_Nt_S.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\Copy.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_Te_D.shader" />
      <None Include="Assets\Plugins\Demigiant\DOTween\DOTween46.xml" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D_DS.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D_S_S.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\API\D3D11.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Debug\Waveform.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_Dt.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\API\XboxOne.hlsl" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Sampling.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\Terrain\SFS_Te_St.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_Nt.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D_S_S.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_N_S_D.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_Dt_S.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_N_S_ST.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\API\PSP2.hlsl" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_St_D_D.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Debug\Histogram.compute" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Debug\Histogram.shader" />
+     <None Include="Assets\Plugins\PostProcessing\Shaders\Builtins\ExposureHistogram.compute" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D_DS.shader" />
+     <None Include="Assets\Plugins\Bit2Good\SFS\Shaders\SFS_Pr_D_T.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity_2017_4_0f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -417,6 +552,12 @@
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="com.unity.postprocessing.Editor.csproj">
+      <Project>{CD058141-F3D2-B90F-A6FC-0C055E982D64}</Project>      <Name>com.unity.postprocessing.Editor</Name>    </ProjectReference>
+    <ProjectReference Include="com.unity.postprocessing.Runtime.csproj">
+      <Project>{3A279A50-ABBB-BECD-C8FC-7AC4DDE10640}</Project>      <Name>com.unity.postprocessing.Runtime</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -39,11 +39,15 @@ namespace Necromatic.Character.NPC
             undead.Inventory = Inventory;
             undead.AI.SetBrainState(false);
             undead.Representation.transform.rotation = Representation.transform.rotation;
-            var ragdollifier = GetComponent<Ragdollifier>();
-            var positions = ragdollifier.GetRagdollPosition();
-            var undeadRagdoll = undead.GetComponent<Ragdollifier>();
-            undeadRagdoll.ApplyRagdollPosition(positions);
-            undeadRagdoll.PelvisPosition = ragdollifier.PelvisPosition;
+            //var ragdollifier = GetComponent<Ragdollifier>();
+            //var positions = ragdollifier.GetRagdollPosition();
+            //var undeadRagdoll = undead.GetComponent<Ragdollifier>();
+            //undeadRagdoll.ApplyRagdollPosition(positions);
+            //undeadRagdoll.PelvisPosition = ragdollifier.PelvisPosition;
+            //Observable.NextFrame().Subscribe(x =>
+            //{
+            //    undeadRagdoll.WakeToLife();
+            //});
             //var player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterInstance>();
             undead.Representation.ReviveAnimation(() =>
             {
