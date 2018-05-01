@@ -6,7 +6,7 @@ namespace Necromatic.World.Buildings
 {
     public class TimberDropoff : MonoBehaviour
     {
-        private InventoryInstance _inventory;
+        private InventoryInstance _inventory = new InventoryInstance();
         private List<Transform> _logs = new List<Transform>();
         private float _xBase = -0.1f;
         private float _yBase = 5f;
@@ -16,7 +16,7 @@ namespace Necromatic.World.Buildings
 
         private void Awake()
         {
-
+            _inventory.Capacity = 1;
         }
 
         private Vector3 _rotation = new Vector3(0, 90, 0);
@@ -25,9 +25,9 @@ namespace Necromatic.World.Buildings
             var item = log.GetComponent<ItemInstance>();
             if(item != null)
             {
-
+                _inventory.Add(item.ItemData);
             }
-            Destroy(log.gameObject);
+            Destroy(log.gameObject, 1);
             /*var rb = log.GetComponent<Rigidbody>();
             rb.isKinematic = true;
 

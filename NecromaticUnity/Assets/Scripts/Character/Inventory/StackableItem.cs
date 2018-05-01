@@ -8,5 +8,6 @@ namespace Necromatic.Character.Inventory
     {
         public int MaxStack;
         public int Count;
+        public string UniqueIdentifier;
     }
 }

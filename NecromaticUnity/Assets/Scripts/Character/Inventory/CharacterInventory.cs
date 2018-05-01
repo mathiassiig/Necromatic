@@ -6,6 +6,7 @@ using UniRx;
 
 namespace Necromatic.Character.Inventory
 {
+    [System.Serializable]
     public class CharacterInventory : InventoryInstance
     {
         public ReactiveProperty<Item> ShoulderSlot = new ReactiveProperty<Item>();

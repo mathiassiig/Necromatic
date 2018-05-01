@@ -24,3 +24,4 @@ MonoBehaviour:
   GameObjectInstance: {fileID: 0}
   MaxStack: 64
   Count: 1
+  UniqueIdentifier: Resource.Log

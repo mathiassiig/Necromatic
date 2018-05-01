@@ -2590,40 +2590,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e501687d566794b1c9a1e7566a067131, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &433558810 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1474963405653564, guid: e501687d566794b1c9a1e7566a067131,
-    type: 2}
-  m_PrefabInternal: {fileID: 433558809}
---- !u!1 &433558811 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1834277670654710, guid: e501687d566794b1c9a1e7566a067131,
-    type: 2}
-  m_PrefabInternal: {fileID: 433558809}
---- !u!114 &433558812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 433558810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7125677280ca61d4087452fb066180c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemData: {fileID: 0}
---- !u!114 &433558813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 433558811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7125677280ca61d4087452fb066180c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemData: {fileID: 0}
 --- !u!1 &442193996
 GameObject:
   m_ObjectHideFlags: 0
@@ -7998,6 +7964,7 @@ MonoBehaviour:
   _movement: {fileID: 23139852}
   Inventory:
     Items: []
+    Capacity: 32
   _representation: {fileID: 1914429279}
   _health:
     _initialRegen: 0
