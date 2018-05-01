@@ -23,7 +23,7 @@ namespace Necromatic.Character
         [SerializeField] protected Faction _faction;
         [SerializeField] protected Movement _movement;
         protected Death _death;
-        public InventoryInstance Inventory;
+        public CharacterInventory Inventory;
         [SerializeField] protected Representation _representation;
         [SerializeField] protected Stat _health;
 

@@ -11,6 +11,6 @@ namespace Necromatic.Character
         void Select();
         void Deselect();
         ArtificialIntelligence AI { get; }
-        InventoryInstance Inventory { get; }
+        CharacterInventory Inventory { get; }
     }
 }

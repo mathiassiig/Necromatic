@@ -6,7 +6,8 @@ namespace Necromatic.Character.Inventory
     public enum ItemType
     {
         Weapon,
-        Offhand
+        Offhand,
+        Resource
     }
 
     public enum SpecialType

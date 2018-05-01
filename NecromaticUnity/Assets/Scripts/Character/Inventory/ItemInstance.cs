@@ -1,15 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using UniRx;
-
 namespace Necromatic.Character.Inventory
 {
-    public class InventoryInstance
+    public class ItemInstance : MonoBehaviour
     {
-        public List<Item> Items = new List<Item>();
-
-
+        [SerializeField] private Item _itemData;
+        public Item ItemData => _itemData;
     }
 }

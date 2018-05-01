@@ -20,4 +20,5 @@ MonoBehaviour:
   Position: {x: -0.032, y: 0.017, z: 0.009}
   Rotation: {x: 76, y: -22, z: 150}
   Scale: {x: 0.1, y: 0.1, z: 0.1}
+  UseAnimation: 0
   GameObjectInstance: {fileID: 0}

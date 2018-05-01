@@ -9,7 +9,7 @@ namespace Necromatic.Character.NPC
     {
         [SerializeField] private Canvas _selectionCanvas;
 
-        InventoryInstance ISelectable.Inventory => Inventory;
+        CharacterInventory ISelectable.Inventory => Inventory;
 
         public void Deselect()
         {

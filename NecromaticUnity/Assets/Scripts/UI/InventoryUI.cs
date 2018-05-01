@@ -25,20 +25,24 @@ namespace Necromatic.UI
             {
                 if (i > _itemSlots.Count - 1)
                 {
-                    break; // todo: figure something here in inventory, shouldn't have that many items
+                    break; // todo: figure something here in inventory
                 }
                 _itemSlots[i].ShowItem(inventory.Items[i]);
             }
-            _shoulderSlot.ShowItem(inventory.ShoulderSlot.Value);
-            _headSlot.ShowItem(inventory.HeadSlot.Value);
-            _amuletSlot.ShowItem(inventory.AmuletSlot.Value);
-            _handSlot.ShowItem(inventory.HandSlot.Value);
-            _chestSlot.ShowItem(inventory.ChestSlot.Value);
-            _backSlot.ShowItem(inventory.BackSlot.Value);
-            _weaponSlot.ShowItem(inventory.WeaponSlot.Value);
-            _bootSlot.ShowItem(inventory.BootSlot.Value);
-            _offhandSlot.ShowItem(inventory.OffhandSlot.Value);
-            _weaponSlot.ShowItem(inventory.WeaponSlot.Value);
+            var asCharacter = inventory as CharacterInventory; // todo: handle this another way
+            if (asCharacter != null)
+            {
+                _shoulderSlot.ShowItem(asCharacter.ShoulderSlot.Value);
+                _headSlot.ShowItem(asCharacter.HeadSlot.Value);
+                _amuletSlot.ShowItem(asCharacter.AmuletSlot.Value);
+                _handSlot.ShowItem(asCharacter.HandSlot.Value);
+                _chestSlot.ShowItem(asCharacter.ChestSlot.Value);
+                _backSlot.ShowItem(asCharacter.BackSlot.Value);
+                _weaponSlot.ShowItem(asCharacter.WeaponSlot.Value);
+                _bootSlot.ShowItem(asCharacter.BootSlot.Value);
+                _offhandSlot.ShowItem(asCharacter.OffhandSlot.Value);
+                _weaponSlot.ShowItem(asCharacter.WeaponSlot.Value);
+            }
             _inventory = inventory;
         }
     }
