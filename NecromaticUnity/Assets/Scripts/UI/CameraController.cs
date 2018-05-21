@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private const int PAN_BUTTON = 2;
+    private const string PAN_BUTTON = "Fire3";
     private Vector3 _delta;
     private const float _panSpeed = 0.025f;
     private float _beginHeightT = 0.5f;
@@ -20,17 +20,17 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(PAN_BUTTON))
+        if (Input.GetButtonDown(PAN_BUTTON))
         {
             _delta = Vector3.zero;
             Cursor.lockState = CursorLockMode.Locked;
         }
-        if (Input.GetMouseButton(PAN_BUTTON))
+        if (Input.GetButton(PAN_BUTTON))
         {
             _delta += new Vector3(Input.GetAxis("Mouse X"), 0, Input.GetAxis("Mouse Y"));
             transform.position += _delta * _panSpeed;
         }
-        if (Input.GetMouseButtonUp(PAN_BUTTON))
+        if (Input.GetButtonUp(PAN_BUTTON))
         {
             Cursor.lockState = CursorLockMode.None;
         }

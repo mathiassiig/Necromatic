@@ -46,6 +46,7 @@ namespace Necromatic.UI
                 b.Init(h);
                 var rect = b.GetComponent<RectTransform>();
                 rect.anchoredPosition = Vector2.zero;
+                rect.localScale = Vector3.one;
                 b.SetButton(() =>
                 {
                     _buildInterface.BeginBuild(h.BuildingPrefab);
