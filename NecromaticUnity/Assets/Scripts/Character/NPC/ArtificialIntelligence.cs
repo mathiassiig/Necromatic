@@ -42,7 +42,7 @@ namespace Necromatic.Character.NPC
                 }
                 if (_character.Combat != null && _character.Combat.LastAttacker != null)
                 {
-                    _agroDisposable = _character.Combat.LastAttacker.Subscribe(attacker =>
+                    _agroDisposable = _character.Combat.LastAttacker.TakeUntilDestroy(this).Subscribe(attacker =>
                     {
                         if (attacker != null)
                         {
